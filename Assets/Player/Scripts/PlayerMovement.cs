@@ -32,35 +32,35 @@ public class PlayerMovement : NetworkBehaviour
     private bool _isGrounded = false;
     private bool _isRunning = false;
 
-    //public override void OnNetworkSpawn()
-    //{
-    //    base.OnNetworkSpawn();
-
-    //    _characterController = GetComponent<CharacterController>();
-
-    //    Cursor.lockState = CursorLockMode.Locked;
-    //    Cursor.visible = false;
-
-    //    if (!IsOwner)
-    //    {
-    //        PlayerCamera.enabled = false;
-    //    }
-    //}
-
-    private void Start()
+    public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
+
         _characterController = GetComponent<CharacterController>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (!IsOwner)
+        {
+            PlayerCamera.enabled = false;
+        }
     }
+
+    //private void Start()
+    //{
+    //    _characterController = GetComponent<CharacterController>();
+
+    //    Cursor.lockState = CursorLockMode.Locked;
+    //    Cursor.visible = false;
+    //}
 
     private void Update()
     {
-        //if (!IsOwner)
-        //{
-        //    return;
-        //}
+        if (!IsOwner)
+        {
+            return;
+        }
 
         GetMouseImput();
 
