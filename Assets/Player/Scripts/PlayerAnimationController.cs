@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            animator.SetTrigger("Dance");
+        }
+
         if (playerMovement.isMoving)
         {
             animator.SetBool("isWalking", playerMovement.isMoving);
