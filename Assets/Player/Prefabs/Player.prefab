@@ -515,8 +515,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   ShowTopMostFoldoutHeaderGroup: 1
   PlayerCamera: {fileID: 2944028535577751238}
-  MovementSpeed: 10
-  RunningSpeed: 20
+  MovementSpeed: 5
+  RunningSpeed: 10
   Sensitivity: 0.2
   JumpHeigh: 10
   isMoving: 0

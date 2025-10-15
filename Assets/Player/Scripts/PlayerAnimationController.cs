@@ -21,18 +21,72 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        if (playerMovement.isMoving)
+        PlayWalkingAnimation();
+
+        AimPartOfBodyToTarget();
+    }
+
+    private void PlayWalkingAnimation()
+    {
+        if (playerMovement.isMovingForward)
         {
-            animator.SetBool("isWalking", playerMovement.isMoving);
+            animator.SetBool("isWalking", playerMovement.isMovingForward);
+
+            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
+        }
+        else if (playerMovement.isMovingBack)
+        {
+            animator.SetBool("isWalkingBack", playerMovement.isMovingBack);
+
+            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
+        }
+        else if (playerMovement.isMovingLeft)
+        {
+            animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
+
+            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
+        }
+        else if (playerMovement.isMovingRight)
+        {
+            animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
+
+            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
+        }
+        //Forward or Back and Left
+        else if (playerMovement.isMovingForward && playerMovement.isMovingLeft)
+        {
+            animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
+
+            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
+        }
+        else if (playerMovement.isMovingBack && playerMovement.isMovingLeft)
+        {
+            animator.SetBool("isWalkingLeft", playerMovement.isMovingRight);
+
+            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
+        }
+        //Forward or Back and Right
+        else if (playerMovement.isMovingForward && playerMovement.isMovingRight)
+        {
+            animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
+
+            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
+        }
+        else if (playerMovement.isMovingBack && playerMovement.isMovingRight)
+        {
+            animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
+
             animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
         }
         else
         {
-            animator.SetBool("isWalking", playerMovement.isMoving);
+            animator.SetBool("isWalking", playerMovement.isMovingForward);
+            animator.SetBool("isWalkingBack", playerMovement.isMovingBack);
+            animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
+            animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
+
             animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 0);
         }
-
-        AimPartOfBodyToTarget();
     }
 
     private void AimPartOfBodyToTarget()

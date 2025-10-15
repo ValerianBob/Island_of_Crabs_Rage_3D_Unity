@@ -14,7 +14,10 @@ public class PlayerMovement : NetworkBehaviour
 
     public float JumpHeigh;
 
-    public bool isMoving = false;
+    public bool isMovingForward = false;
+    public bool isMovingRight = false;
+    public bool isMovingLeft = false;
+    public bool isMovingBack = false;
 
     private Vector3 _moveDiraction;
     private Vector3 _velocity;
@@ -32,35 +35,35 @@ public class PlayerMovement : NetworkBehaviour
     private bool _isGrounded = false;
     private bool _isRunning = false;
 
-    public override void OnNetworkSpawn()
-    {
-        base.OnNetworkSpawn();
-
-        _characterController = GetComponent<CharacterController>();
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        if (!IsOwner)
-        {
-            PlayerCamera.enabled = false;
-        }
-    }
-
-    //private void Start()
+    //public override void OnNetworkSpawn()
     //{
+    //    base.OnNetworkSpawn();
+
     //    _characterController = GetComponent<CharacterController>();
 
     //    Cursor.lockState = CursorLockMode.Locked;
     //    Cursor.visible = false;
+
+    //    if (!IsOwner)
+    //    {
+    //        PlayerCamera.enabled = false;
+    //    }
     //}
+
+    private void Start()
+    {
+        _characterController = GetComponent<CharacterController>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     private void Update()
     {
-        if (!IsOwner)
-        {
-            return;
-        }
+        //if (!IsOwner)
+        //{
+        //    return;
+        //}
 
         GetMouseImput();
 
@@ -129,7 +132,11 @@ public class PlayerMovement : NetworkBehaviour
             _horizontalMove = 1f;
         }
 
-        isMoving = (_horizontalMove != 0 || _verticalMove != 0) && _characterController.isGrounded;
+        isMovingForward = (_verticalMove > 0) && _characterController.isGrounded;
+        isMovingBack = (_verticalMove < 0) && _characterController.isGrounded;
+
+        isMovingRight = (_horizontalMove > 0) && _characterController.isGrounded;
+        isMovingLeft = (_horizontalMove < 0) && _characterController.isGrounded;
 
         _moveDiraction = transform.right * _horizontalMove + transform.forward * _verticalMove;
 
