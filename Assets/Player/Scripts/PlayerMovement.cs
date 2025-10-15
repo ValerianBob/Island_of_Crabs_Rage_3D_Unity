@@ -25,14 +25,14 @@ public class PlayerMovement : NetworkBehaviour
     private float _horizontalMove;
     private float _verticalMove;
 
-    private float _rotationClamp = 30f;
+    private float _rotationClamp = 35f;
 
     private float _gravity = -9.81f;
 
     private Vector2 _mouseDelta;
     private Vector2 _mouseRotation;
 
-    private bool _isGrounded = false;
+    public bool _isGrounded = false;
     private bool _isRunning = false;
 
     //public override void OnNetworkSpawn()

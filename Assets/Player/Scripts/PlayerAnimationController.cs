@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -21,71 +22,45 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        PlayWalkingAnimation();
+        if (playerMovement._isGrounded)
+        {
+            animator.SetTrigger("MeleeIdle");
+        }
 
+        PlayJumpAnimation();
+        PlayWalkingAnimation();
+        PlayeMeleeAttack();
         AimPartOfBodyToTarget();
+    }
+
+    private void PlayeMeleeAttack()
+    {
+        if (Mouse.current.leftButton.wasPressedThisFrame && playerMovement._isGrounded)
+        {
+            animator.SetTrigger("MeleeAttack");
+        }
     }
 
     private void PlayWalkingAnimation()
     {
-        if (playerMovement.isMovingForward)
-        {
-            animator.SetBool("isWalking", playerMovement.isMovingForward);
+        bool isWalking = playerMovement.isMovingForward ||
+                     playerMovement.isMovingBack ||
+                     playerMovement.isMovingLeft ||
+                     playerMovement.isMovingRight;
 
-            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
-        }
-        else if (playerMovement.isMovingBack)
-        {
-            animator.SetBool("isWalkingBack", playerMovement.isMovingBack);
+        animator.SetBool("isWalking", playerMovement.isMovingForward);
+        animator.SetBool("isWalkingBack", playerMovement.isMovingBack);
+        animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
+        animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
 
-            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
-        }
-        else if (playerMovement.isMovingLeft)
-        {
-            animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
+        animator.SetLayerWeight(animator.GetLayerIndex("Legs"), isWalking ? 1f : 0f);
+    }
 
-            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
-        }
-        else if (playerMovement.isMovingRight)
+    private void PlayJumpAnimation()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && playerMovement._isGrounded)
         {
-            animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
-
-            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
-        }
-        //Forward or Back and Left
-        else if (playerMovement.isMovingForward && playerMovement.isMovingLeft)
-        {
-            animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
-
-            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
-        }
-        else if (playerMovement.isMovingBack && playerMovement.isMovingLeft)
-        {
-            animator.SetBool("isWalkingLeft", playerMovement.isMovingRight);
-
-            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
-        }
-        //Forward or Back and Right
-        else if (playerMovement.isMovingForward && playerMovement.isMovingRight)
-        {
-            animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
-
-            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
-        }
-        else if (playerMovement.isMovingBack && playerMovement.isMovingRight)
-        {
-            animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
-
-            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 1f);
-        }
-        else
-        {
-            animator.SetBool("isWalking", playerMovement.isMovingForward);
-            animator.SetBool("isWalkingBack", playerMovement.isMovingBack);
-            animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
-            animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
-
-            animator.SetLayerWeight(animator.GetLayerIndex("Legs"), 0);
+            animator.SetTrigger("Jump");
         }
     }
 
