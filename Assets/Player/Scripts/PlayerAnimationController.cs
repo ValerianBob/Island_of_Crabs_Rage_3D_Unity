@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
 public class PlayerAnimationController : MonoBehaviour
@@ -16,11 +17,26 @@ public class PlayerAnimationController : MonoBehaviour
     public Animator animator;
     public GameObject targetForAnimation;
 
+    public GameObject RightHandRig;
+    public GameObject LeftHandRig;
+
+    public GameObject[] guns;
+
     public bool isWalking = false;
+
+    public enum WeaponType
+    {
+        Melee = 0,
+        Rifle = 1
+    }
+
+    private WeaponType currentWeaponType = WeaponType.Melee;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+
+        SetWeaponType(0);
     }
 
     private void Update()
@@ -29,6 +45,8 @@ public class PlayerAnimationController : MonoBehaviour
 
         animator.SetBool("MeleeIdle", !isWalking);
 
+        ChangePlayerPoseByWeapon();
+
         PlayJumpAnimation();
         PlayeMeleeAttack();
         AimPartOfBodyToTarget();
@@ -36,10 +54,9 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void PlayeMeleeAttack()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && playerMovement._isGrounded)
+        if (Mouse.current.leftButton.wasPressedThisFrame && playerMovement._isGrounded && animator.GetInteger("WeaponType") == 0)
         {
             animator.SetTrigger("MeleeAttack");
-            animator.SetLayerWeight(animator.GetLayerIndex("BodyLayer"), 1f);
         }
     }
 
@@ -54,6 +71,8 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool("isWalkingBack", playerMovement.isMovingBack);
         animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
         animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("LegsLayer"), 1f);
     }
 
     private void PlayJumpAnimation()
@@ -61,6 +80,33 @@ public class PlayerAnimationController : MonoBehaviour
         if (Keyboard.current.spaceKey.wasPressedThisFrame && playerMovement._isGrounded)
         {
             animator.SetTrigger("Jump");
+        }
+    }
+
+    public void SetWeaponType(WeaponType type)
+    {
+        currentWeaponType = type;
+        animator.SetInteger("WeaponType", (int)type);
+    }
+
+    private void ChangePlayerPoseByWeapon()
+    {
+
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        {
+            SetWeaponType(WeaponType.Melee);
+            RightHandRig.GetComponent<MultiAimConstraint>().weight = 0f;
+            LeftHandRig.GetComponent<TwoBoneIKConstraint>().weight = 0f;
+            guns[0].SetActive(true);
+            guns[1].SetActive(false);
+        }
+        if (Keyboard.current.digit2Key.wasPressedThisFrame)
+        {
+            SetWeaponType(WeaponType.Rifle);
+            RightHandRig.GetComponent<MultiAimConstraint>().weight = 1f;
+            LeftHandRig.GetComponent<TwoBoneIKConstraint>().weight = 1f;
+            guns[0].SetActive(false);
+            guns[1].SetActive(true);
         }
     }
 

@@ -14,6 +14,7 @@ public class PlayerMovement : NetworkBehaviour
 
     public float JumpHeigh;
 
+    public bool isWalking = false;
     public bool isMovingForward = false;
     public bool isMovingRight = false;
     public bool isMovingLeft = false;
@@ -131,6 +132,9 @@ public class PlayerMovement : NetworkBehaviour
         {
             _horizontalMove = 1f;
         }
+
+        isWalking = (_verticalMove < 0 || _verticalMove > 0) || (_horizontalMove < 0 || _horizontalMove > 0) 
+            && _characterController.isGrounded;
 
         isMovingForward = (_verticalMove > 0) && _characterController.isGrounded;
         isMovingBack = (_verticalMove < 0) && _characterController.isGrounded;
