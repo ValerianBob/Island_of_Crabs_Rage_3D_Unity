@@ -600,6 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
   animator: {fileID: 5823895293346983031}
   targetForAnimation: {fileID: 2559644495225200765}
+  isWalking: 0
 --- !u!114 &8221077183040963661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,9 +729,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cce4b399565f6a443b750152bec5b1de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6260012549846132756}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cce4b399565f6a443b750152bec5b1de, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6614818577717809324}
   m_SourcePrefab: {fileID: 100100000, guid: cce4b399565f6a443b750152bec5b1de, type: 3}
 --- !u!4 &214271325891981998 stripped
 Transform:
@@ -866,56 +864,6 @@ MonoBehaviour:
   - {fileID: 705100499021871002}
   - {fileID: 3008837754943932238}
   - {fileID: 7934318170722527212}
---- !u!114 &6614818577717809324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 970910074824928439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13fc4e7c7a331ed45994a9bec2d9bcf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ClientNetworkAnimator
-  ShowTopMostFoldoutHeaderGroup: 1
-  TransitionStateInfoList:
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 1232132947
-    DestinationState: -1785867215
-    TransitionDuration: 0
-    TriggerNameHash: 1273568435
-    TransitionIndex: 0
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 1232132947
-    DestinationState: 125937960
-    TransitionDuration: 0
-    TriggerNameHash: 125937960
-    TransitionIndex: 1
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: -1785867215
-    DestinationState: 1232132947
-    TransitionDuration: 0
-    TriggerNameHash: 1232132947
-    TransitionIndex: 0
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: -1785867215
-    DestinationState: 125937960
-    TransitionDuration: 0
-    TriggerNameHash: 125937960
-    TransitionIndex: 1
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 125937960
-    DestinationState: 1232132947
-    TransitionDuration: 0
-    TriggerNameHash: 1232132947
-    TransitionIndex: 0
-  m_Animator: {fileID: 5823895293346983031}
 --- !u!4 &1000139964986930552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8333627713332763490, guid: cce4b399565f6a443b750152bec5b1de, type: 3}

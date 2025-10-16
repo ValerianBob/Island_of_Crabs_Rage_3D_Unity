@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +16,8 @@ public class PlayerAnimationController : MonoBehaviour
     public Animator animator;
     public GameObject targetForAnimation;
 
+    public bool isWalking = false;
+
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -22,13 +25,11 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        if (playerMovement._isGrounded)
-        {
-            animator.SetTrigger("MeleeIdle");
-        }
+        PlayWalkingAnimation();
+
+        animator.SetBool("MeleeIdle", !isWalking);
 
         PlayJumpAnimation();
-        PlayWalkingAnimation();
         PlayeMeleeAttack();
         AimPartOfBodyToTarget();
     }
@@ -38,22 +39,21 @@ public class PlayerAnimationController : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame && playerMovement._isGrounded)
         {
             animator.SetTrigger("MeleeAttack");
+            animator.SetLayerWeight(animator.GetLayerIndex("BodyLayer"), 1f);
         }
     }
 
     private void PlayWalkingAnimation()
     {
-        bool isWalking = playerMovement.isMovingForward ||
+        isWalking = playerMovement.isMovingForward ||
                      playerMovement.isMovingBack ||
                      playerMovement.isMovingLeft ||
                      playerMovement.isMovingRight;
 
-        animator.SetBool("isWalking", playerMovement.isMovingForward);
+        animator.SetBool("isWalkingForward", playerMovement.isMovingForward);
         animator.SetBool("isWalkingBack", playerMovement.isMovingBack);
         animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
         animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
-
-        animator.SetLayerWeight(animator.GetLayerIndex("Legs"), isWalking ? 1f : 0f);
     }
 
     private void PlayJumpAnimation()
