@@ -20,8 +20,6 @@ public class PlayerAnimationController : MonoBehaviour
     public GameObject RightHandRig;
     public GameObject LeftHandRig;
 
-    public GameObject[] guns;
-
     public bool isWalking = false;
 
     public enum WeaponType
@@ -97,16 +95,12 @@ public class PlayerAnimationController : MonoBehaviour
             SetWeaponType(WeaponType.Melee);
             RightHandRig.GetComponent<MultiAimConstraint>().weight = 0f;
             LeftHandRig.GetComponent<TwoBoneIKConstraint>().weight = 0f;
-            guns[0].SetActive(true);
-            guns[1].SetActive(false);
         }
         if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
             SetWeaponType(WeaponType.Rifle);
             RightHandRig.GetComponent<MultiAimConstraint>().weight = 1f;
             LeftHandRig.GetComponent<TwoBoneIKConstraint>().weight = 1f;
-            guns[0].SetActive(false);
-            guns[1].SetActive(true);
         }
     }
 
@@ -119,6 +113,6 @@ public class PlayerAnimationController : MonoBehaviour
 
         targetForAnimation.transform.position = rayEnd;
 
-        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.green);
+        //Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.green);
     }
 }

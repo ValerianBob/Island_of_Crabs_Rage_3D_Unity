@@ -723,9 +723,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3021027447713769646}
   - component: {fileID: 7241311756320554225}
-  - component: {fileID: 3442642596164019564}
   - component: {fileID: 5780616545689295086}
   - component: {fileID: 7019985883516658855}
+  - component: {fileID: 5940130078157998597}
+  - component: {fileID: 307020497993873410}
+  - component: {fileID: 3442642596164019564}
   - component: {fileID: 8221077183040963661}
   m_Layer: 0
   m_Name: Player
@@ -776,31 +778,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &3442642596164019564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8324431966938215392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1365371830
-  InScenePlacedSourceGlobalObjectIdHash: 259269383
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &5780616545689295086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,10 +818,116 @@ MonoBehaviour:
   targetForAnimation: {fileID: 2559644495225200765}
   RightHandRig: {fileID: 1741468067370245621}
   LeftHandRig: {fileID: 2690554337271205768}
-  guns:
-  - {fileID: 1391321404634228694}
-  - {fileID: 3401402570011776012}
   isWalking: 0
+--- !u!114 &5940130078157998597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324431966938215392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf90d4e44dc452740a93ed3300b1ea1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionController
+  PlayerCamera: {fileID: 2944028535577751238}
+  InfoText: {fileID: 0}
+  InteractionText: {fileID: 0}
+  RayDistance: 4
+  _isVisible: 0
+--- !u!114 &307020497993873410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324431966938215392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 958353bebe1ccf54a9e59c9490924c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryController
+  InventoryObject: {fileID: 0}
+  HotKeysSlots:
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  InventorySlots:
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  - UiSlot: {fileID: 0}
+    ItemPrefab: {fileID: 0}
+    QuantityText: {fileID: 0}
+  isInventoryOpened: 0
+--- !u!114 &3442642596164019564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324431966938215392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 1365371830
+  InScenePlacedSourceGlobalObjectIdHash: 259269383
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &8221077183040963661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1513,18 +1596,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
---- !u!1 &1391321404634228694 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
-  m_PrefabInstance: {fileID: 2274210763244821127}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1730833469202677100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
@@ -1606,10 +1684,5 @@ PrefabInstance:
 --- !u!4 &2630072706713210550 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eba01cfecaf482f468cc3c25846d2e5e, type: 3}
-  m_PrefabInstance: {fileID: 2591078643579627869}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3401402570011776012 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eba01cfecaf482f468cc3c25846d2e5e, type: 3}
   m_PrefabInstance: {fileID: 2591078643579627869}
   m_PrefabAsset: {fileID: 0}

@@ -42,8 +42,7 @@ public class PlayerMovement : NetworkBehaviour
 
     //    _characterController = GetComponent<CharacterController>();
 
-    //    Cursor.lockState = CursorLockMode.Locked;
-    //    Cursor.visible = false;
+    //    CursorVisabilityController.Instance.SetCursorVisability(false);
 
     //    if (!IsOwner)
     //    {
@@ -55,8 +54,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         _characterController = GetComponent<CharacterController>();
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+       CursorVisabilityController.Instance.SetCursorVisability(false);
     }
 
     private void Update()
