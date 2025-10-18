@@ -149,5 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemController
   ItemInfo: Stone
   InteractionInfo: Press E to take Stone
-  Quantity: 5
+  Quantity: 50
+  ItemPrefab: {fileID: 11400000, guid: 03214ac9584f05646a1594d51d6cadf4, type: 2}
   ItemIcon: {fileID: 21300000, guid: 7e134365f48e383418a1591ac23cd340, type: 3}

@@ -902,6 +902,7 @@ MonoBehaviour:
   - UiSlot: {fileID: 0}
     ItemPrefab: {fileID: 0}
     QuantityText: {fileID: 0}
+  MaxQuantityInItem: 100
   isInventoryOpened: 0
 --- !u!114 &3442642596164019564
 MonoBehaviour:

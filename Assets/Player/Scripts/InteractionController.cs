@@ -1,3 +1,4 @@
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -63,11 +64,11 @@ public class InteractionController : MonoBehaviour
         {
             GameObject currentItem = _rayHit.collider.gameObject;
 
-            _inventoryController.AddItemInInventory(currentItem);
+            Sprite currentItemSprite = _rayHit.collider.gameObject.GetComponent<ItemController>().ItemIcon;
+            ItemPrefab currentItemPrefab = _rayHit.collider.gameObject.GetComponent<ItemController>().ItemPrefab;
+            int currentItemQuantity = _rayHit.collider.gameObject.GetComponent<ItemController>().Quantity;
 
-            Destroy(currentItem);
-
-            Debug.Log("Item Looted");
+            _inventoryController.AddItemInInventory(currentItem, currentItemSprite, currentItemPrefab, currentItemQuantity);
         }
     }
 

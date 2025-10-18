@@ -149,6 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemController
   ItemInfo: Stick
   InteractionInfo: Press E to take Stick
-  Quantity: 10
+  Quantity: 50
   ItemPrefab: {fileID: 11400000, guid: 5f150ae68bd495b43b3a27506a1c9d88, type: 2}
   ItemIcon: {fileID: 21300000, guid: 450ee82c09b001447bddeb5eca844a51, type: 3}

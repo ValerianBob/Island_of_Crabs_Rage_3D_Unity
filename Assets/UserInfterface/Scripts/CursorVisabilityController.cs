@@ -4,7 +4,7 @@ public class CursorVisabilityController : MonoBehaviour
 {
     public static CursorVisabilityController Instance;
 
-    void Start()
+    private void Awake()
     {
         if (Instance == null)
         {

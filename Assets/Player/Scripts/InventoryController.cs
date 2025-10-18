@@ -20,12 +20,9 @@ public class InventoryController : MonoBehaviour
 
     public InventorySlot[] InventorySlots;
 
-    public bool isInventoryOpened = false;
+    public int MaxQuantityInItem;
 
-    private void Start()
-    {
-        
-    }
+    public bool isInventoryOpened = false;
     
     private void Update()
     {
@@ -55,17 +52,42 @@ public class InventoryController : MonoBehaviour
         ToggleInventory();
     }
 
-    public void AddItemInInventory(GameObject currentItem)
+    public void AddItemInInventory(GameObject item, Sprite ItemIcon, ItemPrefab itemPrefab, int Quantity)
     {
-        if (currentItem.GetComponent<ItemController>() != null)
+        for (int i = 0; i < InventorySlots.Length; i++)
         {
-            InventorySlots[0].UiSlot.GetComponent<RawImage>().texture = currentItem.GetComponent<ItemController>().ItemIcon.texture;
+            if (InventorySlots[i].ItemPrefab == itemPrefab)
+            {
+                int tempQuantity = Int32.Parse(InventorySlots[i].QuantityText.text);
 
-            InventorySlots[0].ItemPrefab = currentItem.GetComponent<ItemController>().ItemPrefab;
+                if (tempQuantity + Quantity > MaxQuantityInItem)
+                {
+                    continue;
+                }
 
-            int tempQuantity = Int32.Parse(InventorySlots[0].QuantityText.text);
-            InventorySlots[0].QuantityText.text = (tempQuantity + currentItem.GetComponent<ItemController>().Quantity).ToString();
+                InventorySlots[i].ItemPrefab = itemPrefab;
+                InventorySlots[i].QuantityText.text = (tempQuantity + Quantity).ToString();
+
+                Destroy(item);
+
+                break;
+            }
+            else if (InventorySlots[i].ItemPrefab == null)
+            {
+                InventorySlots[i].UiSlot.GetComponent<RawImage>().texture = ItemIcon.texture;
+
+                InventorySlots[i].ItemPrefab = itemPrefab;
+
+                int tempQuantity = Int32.Parse(InventorySlots[i].QuantityText.text);
+                InventorySlots[i].QuantityText.text = (tempQuantity + Quantity).ToString();
+
+                Destroy(item);
+
+                break;
+            }
         }
+
+        Debug.Log("Inventory are full");
     }
 
     private void DropItem()
