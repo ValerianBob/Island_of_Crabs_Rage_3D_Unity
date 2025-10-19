@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a80c41b3a0c46143b2b02d0a380c29a, type: 3}
-  m_Name: Stone
+  m_Name: Wood
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  ObjectPrefab: {fileID: 5495303345303138299, guid: adf0189533b1c65419044767142c3ab1, type: 3}
-  ItemName: Stone
-  InteractInfo: Press E to take Stone
+  ObjectPrefab: {fileID: 6721352720567617533, guid: 804c16438dba41843a11d9b4a8ceac11, type: 3}
+  ItemName: Wood
+  InteractInfo: Press E to pick up Wood
   Type: 0
-  Icon: {fileID: 21300000, guid: 7e134365f48e383418a1591ac23cd340, type: 3}
+  Icon: {fileID: 21300000, guid: 450ee82c09b001447bddeb5eca844a51, type: 3}
   isStackble: 1
   MaxQuantity: 100

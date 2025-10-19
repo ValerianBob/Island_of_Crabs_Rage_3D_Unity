@@ -882,89 +882,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958353bebe1ccf54a9e59c9490924c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryController
-  InventoryObject: {fileID: 0}
-  DropPoint: {fileID: 4289080247290177146}
-  HotKeysSlots:
-  - UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+  Inventory: {fileID: 0}
+  isOpened: 0
+  Slots:
+  - ItemIcon: {fileID: 0}
     Item: {fileID: 0}
-  - UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  - ItemIcon: {fileID: 0}
     Item: {fileID: 0}
-  - UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  - ItemIcon: {fileID: 0}
     Item: {fileID: 0}
-  - UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  - ItemIcon: {fileID: 0}
     Item: {fileID: 0}
-  - UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  - ItemIcon: {fileID: 0}
     Item: {fileID: 0}
-  InventorySlots:
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+    Quantity: 0
     QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
     QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
     QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
     QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
     QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
     QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
     QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
     QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
-    QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
-    QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
-    QuantityText: {fileID: 0}
-  - ItemInfo: 
-    UiSlot: {fileID: 0}
-    ItemPrefab: {fileID: 0}
-    QuantityText: {fileID: 0}
-  DropButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  MaxQuantityInItem: 100
-  MaxQuantityInInstrument: 1
-  isInventoryOpened: 0
 --- !u!114 &8204421571749833980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,14 +945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848a900e95fd21c408a0b6ca2617bca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CraftController
-  CraftPickAxeButton: {fileID: 0}
-  Instruments:
-  - {fileID: 1391321404634228694}
-  PickAxeCraftCost: 50
-  PickAxePref: {fileID: 1981418351771185306, guid: 71c854d3c06d86d4f981f51f7d9df363, type: 3}
-  PickAxeOnPlayer: {fileID: 1391321404634228694}
-  WoodQuantityCost: {fileID: 0}
-  StoneQuantityCost: {fileID: 0}
 --- !u!114 &3442642596164019564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1685,11 +1645,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
---- !u!1 &1391321404634228694 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
-  m_PrefabInstance: {fileID: 2274210763244821127}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1730833469202677100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}

@@ -1,4 +1,3 @@
-using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -36,7 +35,7 @@ public class InteractionController : MonoBehaviour
         {
             if (_rayHit.collider.GetComponent<ItemController>() != null)
             {
-                InteractWithItem();
+                TakeItem();
             }
             else
             {
@@ -53,25 +52,25 @@ public class InteractionController : MonoBehaviour
         Debug.DrawRay(_ray.origin, _ray.direction * RayDistance, Color.black);
     }
 
-    private void InteractWithItem()
+    private void TakeItem()
     {
         _isVisible = true;
 
-        InfoText.text = _rayHit.collider.GetComponent<ItemController>().ItemInfo;
-        InteractionText.text = _rayHit.collider.GetComponent<ItemController>().InteractionInfo;
+        ItemController currentItem = _rayHit.collider.GetComponent<ItemController>();
+
+        InfoText.text = currentItem.ItemData.name;
+        InteractionText.text = currentItem.ItemData.InteractInfo;
+
+        bool TryPickUp = false;
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            GameObject currentItem = _rayHit.collider.gameObject;
-            GameObject instrumentObject = _rayHit.collider.GetComponent<ItemController>().InstrumentOrGunOnPlayerObject;
+            TryPickUp = _inventoryController.AddItem(currentItem.ItemData, currentItem.Quantity);
 
-            Sprite currentItemSprite = _rayHit.collider.gameObject.GetComponent<ItemController>().ItemIcon;
-            ItemPrefab currentItemPrefab = _rayHit.collider.gameObject.GetComponent<ItemController>().ItemPrefab;
-            int currentItemQuantity = _rayHit.collider.gameObject.GetComponent<ItemController>().Quantity;
-
-            string currentItemName = _rayHit.collider.gameObject.GetComponent<ItemController>().ItemInfo;
-
-            _inventoryController.AddItemInInventory(currentItem, currentItemSprite, currentItemPrefab, currentItemQuantity, instrumentObject, currentItemName);
+            if (TryPickUp)
+            {
+                Destroy(currentItem.gameObject);
+            }
         }
     }
 

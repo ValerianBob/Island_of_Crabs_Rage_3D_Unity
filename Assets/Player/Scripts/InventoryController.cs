@@ -1,165 +1,138 @@
-using System;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
-    [SerializeField] private GameObject InventoryObject;
+    [SerializeField] private GameObject Inventory;
 
-    [SerializeField] private GameObject DropPoint;
-
-    [System.Serializable]
-
-    public struct HotKeyInventorySlot
-    {
-        public GameObject UiSlot;
-        public ItemPrefab ItemPrefab;
-        public GameObject Item;
-    }
+    public bool isOpened = false;
 
     [System.Serializable]
     public struct InventorySlot
     {
-        public string ItemInfo;
-        public GameObject UiSlot;
-        public ItemPrefab ItemPrefab;
+        public RawImage ItemIcon;
+        public ItemData Item;
+        public int Quantity;
         public TextMeshProUGUI QuantityText;
     }
 
-    public HotKeyInventorySlot[] HotKeysSlots;
-
-    public InventorySlot[] InventorySlots;
-
-    public Button[] DropButtons;
-
-    public int MaxQuantityInItem;
-    public int MaxQuantityInInstrument;
-
-    public bool isInventoryOpened = false;
-
-    private void Start()
-    {
-        for (int i = 0; i < DropButtons.Length; i++)
-        {
-            int index = i;
-            DropButtons[i].onClick.AddListener(() => DropItem(index));
-        }
-    }
+    public InventorySlot[] Slots;
 
     private void Update()
     {
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
-        {
-            HotKeysSlots[0].Item.SetActive(true);
-        }
-        else if (Keyboard.current.digit2Key.wasPressedThisFrame)
-        {
-            Debug.Log("Selected 2 item");
-        }
-        else if (Keyboard.current.digit3Key.wasPressedThisFrame)
-        {
-            Debug.Log("Selected 3 item");
-        }
-        else if (Keyboard.current.digit4Key.wasPressedThisFrame)
-        {
-            Debug.Log("Selected 4 item");
-        }
-        else if (Keyboard.current.digit5Key.wasPressedThisFrame)
-        {
-            Debug.Log("Selected 5 item");
-        }
-
         ToggleInventory();
     }
 
-    public void AddItemInInventory(GameObject item, Sprite ItemIcon, ItemPrefab itemPrefab, int Quantity, GameObject InstrumentOrGunOnPlayerObject,
-        string itemInfo)
+    public bool CanAddItem(ItemData item, int Quantity)
     {
-        if (item.CompareTag("Item"))
+        if (item == null)
         {
-            for (int i = 0; i < InventorySlots.Length; i++)
+            return false;
+        }
+
+        int remaining = Quantity;
+
+        for (int i = 0; i < Slots.Length; i++)
+        {
+            InventorySlot slot = Slots[i];
+
+            if (slot.Item == item)
             {
-                if (InventorySlots[i].ItemPrefab == itemPrefab)
-                {
-                    int tempQuantity = Int32.Parse(InventorySlots[i].QuantityText.text);
+                int space = item.MaxQuantity - slot.Quantity;
+                remaining -= space;
+            }
+            else if (slot.Item == null)
+            {
+                remaining -= item.MaxQuantity;
+            }
 
-                    if (tempQuantity + Quantity > MaxQuantityInItem)
-                    {
-                        continue;
-                    }
-
-                    InventorySlots[i].ItemPrefab = itemPrefab;
-                    InventorySlots[i].QuantityText.text = (tempQuantity + Quantity).ToString();
-                    InventorySlots[i].ItemInfo = itemInfo;
-
-                    Destroy(item);
-
-                    break;
-                }
-                else if (InventorySlots[i].ItemPrefab == null)
-                {
-                    InventorySlots[i].UiSlot.GetComponent<RawImage>().texture = ItemIcon.texture;
-
-                    InventorySlots[i].ItemPrefab = itemPrefab;
-
-                    int tempQuantity = Int32.Parse(InventorySlots[i].QuantityText.text);
-                    InventorySlots[i].QuantityText.text = (tempQuantity + Quantity).ToString();
-
-                    InventorySlots[i].ItemInfo = itemInfo;
-
-                    Destroy(item);
-
-                    break;
-                }
+            if (remaining <= 0)
+            {
+                return true;
             }
         }
-        else if (item.CompareTag("Instrument"))
-        {
-            for (int i = 0; i < HotKeysSlots.Length; i++)
-            {
-                if (HotKeysSlots[i].ItemPrefab == null)
-                {
-                    HotKeysSlots[i].UiSlot.GetComponent<RawImage>().texture = ItemIcon.texture;
-
-                    HotKeysSlots[i].ItemPrefab = itemPrefab;
-
-                    HotKeysSlots[i].Item = InstrumentOrGunOnPlayerObject;
-
-                    Destroy(item);
-
-                    break;
-                }
-            }
-        }
+        return false;
     }
 
-    private void DropItem(int index)
+    public bool AddItem(ItemData item, int Quantity)
     {
-        if (InventorySlots[index].ItemPrefab != null)
+        if (item == null)
         {
-            GameObject dropped = Instantiate(InventorySlots[index].ItemPrefab.Prefab, DropPoint.transform.position, Quaternion.identity);
-
-            dropped.GetComponent<ItemController>().Quantity = Int32.Parse(InventorySlots[index].QuantityText.text);
-
-            InventorySlots[index].UiSlot.GetComponent<RawImage>().texture = null;
-
-            InventorySlots[index].ItemPrefab = null;
-
-            InventorySlots[index].QuantityText.text = "0";
+            return false;
         }
+
+        if (!CanAddItem(item, Quantity))
+        {
+            Debug.Log("Not enough space to pick up item !");
+
+            return false;
+        }
+
+        int remaining = Quantity;
+
+        if (item.isStackble)
+        {
+            for (int i = 0; i < Slots.Length; i++)
+            {
+                if (Slots[i].Item == item && Slots[i].Quantity < item.MaxQuantity)
+                {
+                    InventorySlot slot = Slots[i];
+
+                    int space = item.MaxQuantity - slot.Quantity;
+                    int toAdd = Mathf.Min(space, remaining);
+                    slot.Quantity += toAdd;
+                    remaining -= toAdd;
+
+                    slot.QuantityText.text = slot.Quantity.ToString();
+
+                    Slots[i].Quantity = slot.Quantity;
+
+                    Debug.Log("Added in existing slot");
+
+                    if (remaining <= 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i <= Slots.Length; i++)
+        {
+            if (Slots[i].Item == null)
+            {
+                InventorySlot slot = Slots[i];
+                slot.Item = item;
+                slot.Quantity = Mathf.Min(remaining, item.MaxQuantity);
+                remaining -= slot.Quantity;
+
+                slot.ItemIcon.texture = item.Icon.texture;
+                slot.QuantityText.text = slot.Quantity.ToString();
+
+                Slots[i].Item = item;
+                Slots[i].Quantity = slot.Quantity;
+
+                Debug.Log("Added in empty slot");
+
+                if (remaining <= 0) return true;
+            }
+        }
+
+        return false;
     }
 
     private void ToggleInventory()
     {
         if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
-            isInventoryOpened = !isInventoryOpened;
+            isOpened = !isOpened;
+            Inventory.SetActive(isOpened);
 
-            InventoryObject.SetActive(isInventoryOpened);
-
-            CursorVisabilityController.Instance.SetCursorVisability(isInventoryOpened);
+            CursorVisabilityController.Instance.SetCursorVisability(isOpened);
         }
     }
 }
