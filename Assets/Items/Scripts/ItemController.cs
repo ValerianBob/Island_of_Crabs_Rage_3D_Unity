@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
+    public GameObject InstrumentOrGunOnPlayerObject;
+
     public string ItemInfo;
 
     public string InteractionInfo;

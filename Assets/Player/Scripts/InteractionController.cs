@@ -63,12 +63,15 @@ public class InteractionController : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             GameObject currentItem = _rayHit.collider.gameObject;
+            GameObject instrumentObject = _rayHit.collider.GetComponent<ItemController>().InstrumentOrGunOnPlayerObject;
 
             Sprite currentItemSprite = _rayHit.collider.gameObject.GetComponent<ItemController>().ItemIcon;
             ItemPrefab currentItemPrefab = _rayHit.collider.gameObject.GetComponent<ItemController>().ItemPrefab;
             int currentItemQuantity = _rayHit.collider.gameObject.GetComponent<ItemController>().Quantity;
 
-            _inventoryController.AddItemInInventory(currentItem, currentItemSprite, currentItemPrefab, currentItemQuantity);
+            string currentItemName = _rayHit.collider.gameObject.GetComponent<ItemController>().ItemInfo;
+
+            _inventoryController.AddItemInInventory(currentItem, currentItemSprite, currentItemPrefab, currentItemQuantity, instrumentObject, currentItemName);
         }
     }
 

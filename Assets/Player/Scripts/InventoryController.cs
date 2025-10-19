@@ -8,27 +8,51 @@ public class InventoryController : MonoBehaviour
 {
     [SerializeField] private GameObject InventoryObject;
 
+    [SerializeField] private GameObject DropPoint;
+
+    [System.Serializable]
+
+    public struct HotKeyInventorySlot
+    {
+        public GameObject UiSlot;
+        public ItemPrefab ItemPrefab;
+        public GameObject Item;
+    }
+
     [System.Serializable]
     public struct InventorySlot
     {
+        public string ItemInfo;
         public GameObject UiSlot;
         public ItemPrefab ItemPrefab;
         public TextMeshProUGUI QuantityText;
     }
 
-    public InventorySlot[] HotKeysSlots;
+    public HotKeyInventorySlot[] HotKeysSlots;
 
     public InventorySlot[] InventorySlots;
 
+    public Button[] DropButtons;
+
     public int MaxQuantityInItem;
+    public int MaxQuantityInInstrument;
 
     public bool isInventoryOpened = false;
-    
+
+    private void Start()
+    {
+        for (int i = 0; i < DropButtons.Length; i++)
+        {
+            int index = i;
+            DropButtons[i].onClick.AddListener(() => DropItem(index));
+        }
+    }
+
     private void Update()
     {
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
-            Debug.Log("Selected 1 item");
+            HotKeysSlots[0].Item.SetActive(true);
         }
         else if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
@@ -47,56 +71,83 @@ public class InventoryController : MonoBehaviour
             Debug.Log("Selected 5 item");
         }
 
-        DropItem();
-
         ToggleInventory();
     }
 
-    public void AddItemInInventory(GameObject item, Sprite ItemIcon, ItemPrefab itemPrefab, int Quantity)
+    public void AddItemInInventory(GameObject item, Sprite ItemIcon, ItemPrefab itemPrefab, int Quantity, GameObject InstrumentOrGunOnPlayerObject,
+        string itemInfo)
     {
-        for (int i = 0; i < InventorySlots.Length; i++)
+        if (item.CompareTag("Item"))
         {
-            if (InventorySlots[i].ItemPrefab == itemPrefab)
+            for (int i = 0; i < InventorySlots.Length; i++)
             {
-                int tempQuantity = Int32.Parse(InventorySlots[i].QuantityText.text);
-
-                if (tempQuantity + Quantity > MaxQuantityInItem)
+                if (InventorySlots[i].ItemPrefab == itemPrefab)
                 {
-                    continue;
+                    int tempQuantity = Int32.Parse(InventorySlots[i].QuantityText.text);
+
+                    if (tempQuantity + Quantity > MaxQuantityInItem)
+                    {
+                        continue;
+                    }
+
+                    InventorySlots[i].ItemPrefab = itemPrefab;
+                    InventorySlots[i].QuantityText.text = (tempQuantity + Quantity).ToString();
+                    InventorySlots[i].ItemInfo = itemInfo;
+
+                    Destroy(item);
+
+                    break;
                 }
+                else if (InventorySlots[i].ItemPrefab == null)
+                {
+                    InventorySlots[i].UiSlot.GetComponent<RawImage>().texture = ItemIcon.texture;
 
-                InventorySlots[i].ItemPrefab = itemPrefab;
-                InventorySlots[i].QuantityText.text = (tempQuantity + Quantity).ToString();
+                    InventorySlots[i].ItemPrefab = itemPrefab;
 
-                Destroy(item);
+                    int tempQuantity = Int32.Parse(InventorySlots[i].QuantityText.text);
+                    InventorySlots[i].QuantityText.text = (tempQuantity + Quantity).ToString();
 
-                break;
-            }
-            else if (InventorySlots[i].ItemPrefab == null)
-            {
-                InventorySlots[i].UiSlot.GetComponent<RawImage>().texture = ItemIcon.texture;
+                    InventorySlots[i].ItemInfo = itemInfo;
 
-                InventorySlots[i].ItemPrefab = itemPrefab;
+                    Destroy(item);
 
-                int tempQuantity = Int32.Parse(InventorySlots[i].QuantityText.text);
-                InventorySlots[i].QuantityText.text = (tempQuantity + Quantity).ToString();
-
-                Destroy(item);
-
-                break;
+                    break;
+                }
             }
         }
+        else if (item.CompareTag("Instrument"))
+        {
+            for (int i = 0; i < HotKeysSlots.Length; i++)
+            {
+                if (HotKeysSlots[i].ItemPrefab == null)
+                {
+                    HotKeysSlots[i].UiSlot.GetComponent<RawImage>().texture = ItemIcon.texture;
 
-        Debug.Log("Inventory are full");
+                    HotKeysSlots[i].ItemPrefab = itemPrefab;
+
+                    HotKeysSlots[i].Item = InstrumentOrGunOnPlayerObject;
+
+                    Destroy(item);
+
+                    break;
+                }
+            }
+        }
     }
 
-    private void DropItem()
+    private void DropItem(int index)
     {
-        if (Keyboard.current.qKey.wasPressedThisFrame)
+        if (InventorySlots[index].ItemPrefab != null)
         {
-            GameObject dropped = Instantiate(InventorySlots[0].ItemPrefab.Prefab, transform.position, Quaternion.identity);
+            GameObject dropped = Instantiate(InventorySlots[index].ItemPrefab.Prefab, DropPoint.transform.position, Quaternion.identity);
 
-            dropped.GetComponent<ItemController>().Quantity = Int32.Parse(InventorySlots[0].QuantityText.text);
+            dropped.GetComponent<ItemController>().Quantity = Int32.Parse(InventorySlots[index].QuantityText.text);
+
+            InventorySlots[index].UiSlot.GetComponent<RawImage>().texture = null;
+
+            InventorySlots[index].ItemPrefab = null;
+
+            InventorySlots[index].QuantityText.text = "0";
         }
     }
 

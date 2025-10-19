@@ -89,7 +89,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void ChangePlayerPoseByWeapon()
     {
-
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
             SetWeaponType(WeaponType.Melee);
