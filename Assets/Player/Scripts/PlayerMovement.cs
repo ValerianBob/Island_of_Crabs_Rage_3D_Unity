@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : NetworkBehaviour
 {
     private CharacterController _characterController;
+    private InventoryController _inventoryController;
 
     public Camera PlayerCamera;
 
@@ -53,6 +54,7 @@ public class PlayerMovement : NetworkBehaviour
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _inventoryController = GetComponent<InventoryController>();
 
        CursorVisabilityController.Instance.SetCursorVisability(false);
     }
@@ -64,9 +66,12 @@ public class PlayerMovement : NetworkBehaviour
         //    return;
         //}
 
-        GetMouseImput();
+        if (!_inventoryController.isOpened)
+        {
+            GetMouseImput();
 
-        CameraMovement();
+            CameraMovement();
+        }
 
         Movement();
 

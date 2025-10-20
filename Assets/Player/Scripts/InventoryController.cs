@@ -9,6 +9,8 @@ public class InventoryController : MonoBehaviour
 {
     [SerializeField] private GameObject Inventory;
 
+    [SerializeField] private GameObject DropPoint;
+
     public bool isOpened = false;
 
     [System.Serializable]
@@ -123,6 +125,60 @@ public class InventoryController : MonoBehaviour
         }
 
         return false;
+    }
+    
+    public bool DropItem(int index)
+    {
+        if (index >= 0 && index <= Slots.Length )
+        {
+            if (Slots[index].Item != null)
+            {
+                GameObject ItemObjectToDrop = Instantiate(Slots[index].Item.ObjectPrefab, DropPoint.transform.position, Quaternion.identity);
+
+                ItemObjectToDrop.GetComponent<ItemController>().Quantity= Slots[index].Quantity;
+
+                Slots[index].ItemIcon.texture = null;
+                Slots[index].Item = null;
+                Slots[index].Quantity = 0;
+                Slots[index].QuantityText.text = "0";
+
+                return true;
+            }
+            else
+            {
+                Debug.Log("Item is empty");
+
+                return false;
+            }
+        }
+        else
+        {
+            Debug.Log("Invalid index");
+        }
+
+        return false;
+    }
+
+    public void SwapItems(int fromIndex, int toIndex)
+    {
+        //Swap Images :
+        Texture tempRawImage = Slots[fromIndex].ItemIcon.texture;
+        Slots[fromIndex].ItemIcon.texture = Slots[toIndex].ItemIcon.texture;
+        Slots[toIndex].ItemIcon.texture = tempRawImage;
+
+        //ItemData :
+        ItemData tempItem = Slots[fromIndex].Item;
+        Slots[fromIndex].Item = Slots[toIndex].Item;
+        Slots[toIndex].Item = tempItem;
+
+        //Quantity :
+        int tempQuantity = Slots[fromIndex].Quantity;
+        Slots[fromIndex].Quantity = Slots[toIndex].Quantity;
+        Slots[toIndex].Quantity = tempQuantity;
+
+        //Quantity Text :
+        Slots[fromIndex].QuantityText.text = Slots[fromIndex].Quantity.ToString();
+        Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
     }
 
     private void ToggleInventory()

@@ -1,17 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
 
-public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     [SerializeField] private Canvas canvas;
+    [SerializeField] private InventoryController inventoryController;
+    
+    private CanvasGroup _canvasGroup;
 
     private RectTransform rectTransform;
 
     [SerializeField] RectTransform Panel;
+    [SerializeField] private List<RawImage> slotImages;
 
     private Vector2 startPosioion;
     private Vector2 pointerOffset;
+    private Vector2 startAnchoredPosition;
 
     public int SlotIndex;
 
@@ -20,6 +26,8 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         rectTransform = GetComponent<RectTransform>();
 
         startPosioion = rectTransform.anchoredPosition;
+
+        _canvasGroup = GetComponent<CanvasGroup>();
     }
 
     public bool IsOverPanel(PointerEventData eventData)
@@ -33,6 +41,9 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        _canvasGroup.blocksRaycasts = false;
+        _canvasGroup.alpha = 0.5f;
+
         if (IsOverPanel(eventData))
         {
             Debug.Log("On Panel!");
@@ -68,8 +79,34 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("Left mouse");
+        TryToDropItem(eventData);
 
+        _canvasGroup.alpha = 1f;
+        _canvasGroup.blocksRaycasts = true;
+        rectTransform.anchoredPosition = startPosioion;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (eventData.pointerDrag != null)
+        {
+            var draggedItem = eventData.pointerDrag.GetComponent<DragAndDrop>();
+
+            if (draggedItem != null)
+            {
+                inventoryController.SwapItems(draggedItem.SlotIndex, SlotIndex);
+
+                Debug.Log($"Dropped item {draggedItem.SlotIndex} swapped with slot {SlotIndex}");
+            }
+        }
+    }
+
+    private void TryToDropItem(PointerEventData eventData)
+    {
         if (IsOverPanel(eventData))
         {
             Debug.Log("Was on Panel when left!");
@@ -77,12 +114,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         else
         {
             Debug.Log("wasn't on Panel when left mouse");
+            inventoryController.DropItem(SlotIndex);
         }
-
-        rectTransform.anchoredPosition = startPosioion;
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
     }
 }
