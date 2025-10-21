@@ -65,7 +65,18 @@ public class InteractionController : MonoBehaviour
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            TryPickUp = _inventoryController.AddItem(currentItem.ItemData, currentItem.Quantity);
+            if (currentItem.ItemData.Type == ItemType.Resource)
+            {
+                TryPickUp = _inventoryController.AddItem(currentItem.ItemData, currentItem.Quantity);
+            }
+            else if (currentItem.ItemData.Type == ItemType.Instrument)
+            {
+                TryPickUp = _inventoryController.AddItemInHotKeys(currentItem.ItemData, currentItem.Quantity);
+            }
+            else
+            {
+                Debug.Log("Can't take this item with strange type");
+            }
 
             if (TryPickUp)
             {

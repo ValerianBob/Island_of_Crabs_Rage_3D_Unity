@@ -12,14 +12,14 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     private RectTransform rectTransform;
 
-    [SerializeField] RectTransform Panel;
-    [SerializeField] private List<RawImage> slotImages;
+    [SerializeField] RectTransform[] Panels;
 
     private Vector2 startPosioion;
     private Vector2 pointerOffset;
-    private Vector2 startAnchoredPosition;
 
     public int SlotIndex;
+
+    public bool isHotKeySlot = false;
 
     private void Awake()
     {
@@ -32,11 +32,18 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public bool IsOverPanel(PointerEventData eventData)
     {
-        return RectTransformUtility.RectangleContainsScreenPoint(
-            Panel,
-            eventData.position,
-            eventData.pressEventCamera
-        );
+        foreach (var panel in Panels)
+        {
+            if (RectTransformUtility.RectangleContainsScreenPoint(
+                panel,
+                eventData.position,
+                eventData.pressEventCamera))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -98,7 +105,22 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
             if (draggedItem != null)
             {
-                inventoryController.SwapItems(draggedItem.SlotIndex, SlotIndex);
+                if (!draggedItem.isHotKeySlot && !isHotKeySlot)
+                {
+                    inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 0);
+                }
+                else if (draggedItem.isHotKeySlot && isHotKeySlot)
+                {
+                    inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 1);
+                }
+                else if (draggedItem.isHotKeySlot && !isHotKeySlot)
+                {
+                    inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 2);
+                }
+                else if (!draggedItem.isHotKeySlot && isHotKeySlot)
+                {
+                    inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 3);
+                }
 
                 Debug.Log($"Dropped item {draggedItem.SlotIndex} swapped with slot {SlotIndex}");
             }
@@ -107,6 +129,8 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     private void TryToDropItem(PointerEventData eventData)
     {
+        var draggedItem = eventData.pointerDrag.GetComponent<DragAndDrop>();
+
         if (IsOverPanel(eventData))
         {
             Debug.Log("Was on Panel when left!");
@@ -114,7 +138,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         else
         {
             Debug.Log("wasn't on Panel when left mouse");
-            inventoryController.DropItem(SlotIndex);
+            inventoryController.DropItem(SlotIndex, draggedItem.isHotKeySlot);
         }
     }
 }

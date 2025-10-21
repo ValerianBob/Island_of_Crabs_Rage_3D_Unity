@@ -934,6 +934,27 @@ MonoBehaviour:
     Item: {fileID: 0}
     Quantity: 0
     QuantityText: {fileID: 0}
+  HotKeysSlots:
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
 --- !u!114 &8204421571749833980
 MonoBehaviour:
   m_ObjectHideFlags: 0

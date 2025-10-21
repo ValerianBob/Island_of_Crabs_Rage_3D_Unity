@@ -23,6 +23,7 @@ public class InventoryController : MonoBehaviour
     }
 
     public InventorySlot[] Slots;
+    public InventorySlot[] HotKeysSlots;
 
     private void Update()
     {
@@ -126,59 +127,216 @@ public class InventoryController : MonoBehaviour
 
         return false;
     }
-    
-    public bool DropItem(int index)
+
+    public bool AddItemInHotKeys(ItemData item, int Quantity)
     {
-        if (index >= 0 && index <= Slots.Length )
+        bool isHotKeysFull = false;
+
+        if (item == null)
         {
-            if (Slots[index].Item != null)
+            Debug.Log("Item is empty");
+
+            return false;
+        }
+
+        for (int i = 0; i < HotKeysSlots.Length; i++)
+        {
+            if (HotKeysSlots[i].Item == null)
             {
-                GameObject ItemObjectToDrop = Instantiate(Slots[index].Item.ObjectPrefab, DropPoint.transform.position, Quaternion.identity);
+                HotKeysSlots[i].ItemIcon.texture = item.Icon.texture;
+                HotKeysSlots[i].Item = item;
+                HotKeysSlots[i].Quantity = Quantity;
 
-                ItemObjectToDrop.GetComponent<ItemController>().Quantity= Slots[index].Quantity;
-
-                Slots[index].ItemIcon.texture = null;
-                Slots[index].Item = null;
-                Slots[index].Quantity = 0;
-                Slots[index].QuantityText.text = "0";
+                Debug.Log("Added in empty HotKeySlot");
 
                 return true;
             }
             else
             {
-                Debug.Log("Item is empty");
+                isHotKeysFull = true;
+            }
+        }
 
-                return false;
+        if (isHotKeysFull)
+        {
+            Debug.Log("Not enough space in HotKeySlots inventory. Trying to add in Main Inventory :");
+            
+            return AddItem(item, Quantity); 
+        }
+        
+        return false;
+    }
+    
+    public bool DropItem(int index, bool isHotKeySlot)
+    {
+        if (!isHotKeySlot)
+        {
+            if (index >= 0 && index <= Slots.Length)
+            {
+                if (Slots[index].Item != null)
+                {
+                    GameObject ItemObjectToDrop = Instantiate(Slots[index].Item.ObjectPrefab, DropPoint.transform.position, Quaternion.identity);
+
+                    ItemObjectToDrop.GetComponent<ItemController>().Quantity = Slots[index].Quantity;
+
+                    Slots[index].ItemIcon.texture = null;
+                    Slots[index].Item = null;
+                    Slots[index].Quantity = 0;
+                    Slots[index].QuantityText.text = "0";
+
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("Item is empty");
+
+                    return false;
+                }
+            }
+            else
+            {
+                Debug.Log("Invalid index");
             }
         }
         else
         {
-            Debug.Log("Invalid index");
+            if (index >= 0 && index <= HotKeysSlots.Length)
+            {
+                if (HotKeysSlots[index].Item != null)
+                {
+                    GameObject ItemObjectToDrop = Instantiate(HotKeysSlots[index].Item.ObjectPrefab, DropPoint.transform.position, Quaternion.identity);
+
+                    ItemObjectToDrop.GetComponent<ItemController>().Quantity = HotKeysSlots[index].Quantity;
+
+                    HotKeysSlots[index].ItemIcon.texture = null;
+                    HotKeysSlots[index].Item = null;
+                    HotKeysSlots[index].Quantity = 0;
+
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("Item is empty");
+
+                    return false;
+                }
+            }
+            else
+            {
+                Debug.Log("Invalid index");
+            }
         }
 
         return false;
     }
 
-    public void SwapItems(int fromIndex, int toIndex)
+    public void SwapItem(int fromIndex, int toIndex, int TypeOfSwap)
     {
-        //Swap Images :
-        Texture tempRawImage = Slots[fromIndex].ItemIcon.texture;
-        Slots[fromIndex].ItemIcon.texture = Slots[toIndex].ItemIcon.texture;
-        Slots[toIndex].ItemIcon.texture = tempRawImage;
+        switch (TypeOfSwap)
+        {
+            case 0:
+                Debug.Log("Main item swap with Main Item");
 
-        //ItemData :
-        ItemData tempItem = Slots[fromIndex].Item;
-        Slots[fromIndex].Item = Slots[toIndex].Item;
-        Slots[toIndex].Item = tempItem;
+                //Swap Images :
+                Texture tempRawImage = Slots[fromIndex].ItemIcon.texture;
+                Slots[fromIndex].ItemIcon.texture = Slots[toIndex].ItemIcon.texture;
+                Slots[toIndex].ItemIcon.texture = tempRawImage;
 
-        //Quantity :
-        int tempQuantity = Slots[fromIndex].Quantity;
-        Slots[fromIndex].Quantity = Slots[toIndex].Quantity;
-        Slots[toIndex].Quantity = tempQuantity;
+                //ItemData :
+                ItemData tempItem = Slots[fromIndex].Item;
+                Slots[fromIndex].Item = Slots[toIndex].Item;
+                Slots[toIndex].Item = tempItem;
 
-        //Quantity Text :
-        Slots[fromIndex].QuantityText.text = Slots[fromIndex].Quantity.ToString();
-        Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                //Quantity :
+                int tempQuantity = Slots[fromIndex].Quantity;
+                Slots[fromIndex].Quantity = Slots[toIndex].Quantity;
+                Slots[toIndex].Quantity = tempQuantity;
+
+                //Quantity Text :
+                Slots[fromIndex].QuantityText.text = Slots[fromIndex].Quantity.ToString();
+                Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+
+                break;
+            case 1:
+                Debug.Log("HotKey item swap with HotKey Item");
+
+                //Swap Images :
+                Texture tempRawImage1 = HotKeysSlots[fromIndex].ItemIcon.texture;
+                HotKeysSlots[fromIndex].ItemIcon.texture = HotKeysSlots[toIndex].ItemIcon.texture;
+                HotKeysSlots[toIndex].ItemIcon.texture = tempRawImage1;
+
+                //ItemData :
+                ItemData tempItem1 = HotKeysSlots[fromIndex].Item;
+                HotKeysSlots[fromIndex].Item = HotKeysSlots[toIndex].Item;
+                HotKeysSlots[toIndex].Item = tempItem1;
+
+                //Quantity :
+                int tempQuantity1 = HotKeysSlots[fromIndex].Quantity;
+                HotKeysSlots[fromIndex].Quantity = HotKeysSlots[toIndex].Quantity;
+                HotKeysSlots[toIndex].Quantity = tempQuantity1;
+
+                break;
+
+            case 2:
+                Debug.Log("HotKey item swap with Main Item");
+
+                if (Slots[toIndex].Item == null || Slots[toIndex].Item.Type != ItemType.Resource)
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = HotKeysSlots[fromIndex].ItemIcon.texture;
+                    HotKeysSlots[fromIndex].ItemIcon.texture = Slots[toIndex].ItemIcon.texture;
+                    Slots[toIndex].ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = HotKeysSlots[fromIndex].Item;
+                    HotKeysSlots[fromIndex].Item = Slots[toIndex].Item;
+                    Slots[toIndex].Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = HotKeysSlots[fromIndex].Quantity;
+                    HotKeysSlots[fromIndex].Quantity = Slots[toIndex].Quantity;
+                    Slots[toIndex].Quantity = tempQuantity2;
+
+                    Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                }
+                else
+                {
+                    Debug.Log("Can't put Resource in HotKey");
+                }
+                
+                break;
+
+            case 3:
+                Debug.Log("Main item swap with HotKey Item");
+
+                if (Slots[fromIndex].Item.Type != ItemType.Resource)
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = HotKeysSlots[toIndex].ItemIcon.texture;
+                    HotKeysSlots[toIndex].ItemIcon.texture = Slots[fromIndex].ItemIcon.texture;
+                    Slots[fromIndex].ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = HotKeysSlots[toIndex].Item;
+                    HotKeysSlots[toIndex].Item = Slots[fromIndex].Item;
+                    Slots[fromIndex].Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = HotKeysSlots[toIndex].Quantity;
+                    HotKeysSlots[toIndex].Quantity = Slots[fromIndex].Quantity;
+                    Slots[fromIndex].Quantity = tempQuantity2;
+                }
+                else
+                {
+                    Debug.Log("Can't put Resource in HotKey");
+                }
+
+                break;
+
+            default:
+                Debug.LogWarning("Unknown item type!");
+                break;
+        }
     }
 
     private void ToggleInventory()
