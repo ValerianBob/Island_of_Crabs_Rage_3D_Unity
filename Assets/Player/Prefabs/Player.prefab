@@ -967,6 +967,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848a900e95fd21c408a0b6ca2617bca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CraftController
+  ItemsBluePrints:
+  - CraftItemButton: {fileID: 0}
+    Item: {fileID: 11400000, guid: b8a282bec892c484784aea65742a446d, type: 2}
+    Woods: 100
+    Stones: 100
+  - CraftItemButton: {fileID: 0}
+    Item: {fileID: 0}
+    Woods: 0
+    Stones: 0
 --- !u!114 &3442642596164019564
 MonoBehaviour:
   m_ObjectHideFlags: 0

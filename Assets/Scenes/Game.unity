@@ -1965,7 +1965,7 @@ GameObject:
   - component: {fileID: 130905244}
   - component: {fileID: 130905243}
   m_Layer: 5
-  m_Name: Craft
+  m_Name: CraftPickAxeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3955,6 +3955,14 @@ PrefabInstance:
       propertyPath: InteractionText
       value: 
       objectReference: {fileID: 2079522605}
+    - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
+      propertyPath: ItemsBluePrints.Array.data[0].CraftItemButton
+      value: 
+      objectReference: {fileID: 130905243}
+    - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
+      propertyPath: ItemsBluePrints.Array.data[1].CraftItemButton
+      value: 
+      objectReference: {fileID: 1848352865}
     - target: {fileID: 8324431966938215392, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5371,7 +5379,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.000028246819}
-  m_SizeDelta: {x: 0, y: 180}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &406835914
 MonoBehaviour:
@@ -11584,7 +11592,7 @@ RectTransform:
   m_Father: {fileID: 565619193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13602,7 +13610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1065998951
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15444,9 +15452,9 @@ RectTransform:
   m_Father: {fileID: 1586956345}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1257935352
 MonoBehaviour:
@@ -20187,7 +20195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1668310947}
   m_Layer: 5
-  m_Name: HammerBluePrint
+  m_Name: HammerCraft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20211,9 +20219,9 @@ RectTransform:
   - {fileID: 1848352864}
   m_Father: {fileID: 406835913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 281.5, y: -140}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1670011916
@@ -23076,7 +23084,7 @@ GameObject:
   - component: {fileID: 1848352866}
   - component: {fileID: 1848352865}
   m_Layer: 5
-  m_Name: Craft
+  m_Name: CraftHammerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24823,7 +24831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2019557978}
   m_Layer: 5
-  m_Name: PickAxeBluePrint
+  m_Name: PickAxeCraft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24847,9 +24855,9 @@ RectTransform:
   - {fileID: 130905242}
   m_Father: {fileID: 406835913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 281.5, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2027541542
