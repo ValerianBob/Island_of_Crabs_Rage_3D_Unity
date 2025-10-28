@@ -970,12 +970,14 @@ MonoBehaviour:
   ItemsBluePrints:
   - CraftItemButton: {fileID: 0}
     Item: {fileID: 11400000, guid: b8a282bec892c484784aea65742a446d, type: 2}
-    Woods: 100
-    Stones: 100
+    Woods: 150
+    Stones: 150
+    Quantity: 1
   - CraftItemButton: {fileID: 0}
-    Item: {fileID: 0}
-    Woods: 0
+    Item: {fileID: 11400000, guid: cf1cc20d96b242244a134f1120c3fb37, type: 2}
+    Woods: 200
     Stones: 0
+    Quantity: 1
 --- !u!114 &3442642596164019564
 MonoBehaviour:
   m_ObjectHideFlags: 0

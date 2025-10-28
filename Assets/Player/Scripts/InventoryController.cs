@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -338,6 +339,51 @@ public class InventoryController : MonoBehaviour
                 break;
         }
     }
+
+    public void ClearSlots(List<int> slotsIndexes)
+    {
+        if (slotsIndexes.Count != 0)
+        {
+            for (int i = 0; i < Slots.Length; i++)
+            {
+                for (int j = 0; j < slotsIndexes.Count; j++)
+                {
+                    if (i == slotsIndexes[j])
+                    {
+                        Slots[i].ItemIcon.texture = null;
+                        Slots[i].Item = null;
+                        Slots[i].Quantity = 0;
+                        Slots[i].QuantityText.text = "0";
+                    }
+                }
+            }
+        }
+    }
+
+    public bool IsSlotsFull()
+    {
+        foreach (var slot in Slots)
+        {
+            if (slot.Item == null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool IsHotKeysSlotsFull()
+    {
+        foreach (var slot in HotKeysSlots)
+        {
+            if (slot.Item == null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     private void ToggleInventory()
     {
