@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private GameObject Inventory;
 
     [SerializeField] private GameObject DropPoint;
+
+    [SerializeField] private Texture EmptyIcon;
 
     public bool isOpened = false;
 
@@ -26,9 +29,87 @@ public class InventoryController : MonoBehaviour
     public InventorySlot[] Slots;
     public InventorySlot[] HotKeysSlots;
 
+    [SerializeField] private GameObject[] PlayerInstrumentAndGunsPrefabs;
+
+    public bool isMeleeItemInHand = true;
+
+    private int _selectedItemInHotKeysIndex = -1;
+
     private void Update()
     {
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        {
+            _selectedItemInHotKeysIndex = 0;
+            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+        }
+        if (Keyboard.current.digit2Key.wasPressedThisFrame) 
+        { 
+            _selectedItemInHotKeysIndex = 1;
+            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+        }
+        if (Keyboard.current.digit3Key.wasPressedThisFrame) 
+        {
+            _selectedItemInHotKeysIndex = 2;
+            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+        }
+        if (Keyboard.current.digit4Key.wasPressedThisFrame) 
+        {
+            _selectedItemInHotKeysIndex = 3;
+            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+        }
+        if (Keyboard.current.digit5Key.wasPressedThisFrame)
+        {
+            _selectedItemInHotKeysIndex = 4;
+            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+        }
+
         ToggleInventory();
+    }
+
+    private void ChangePlayerHotKeyItem(int index)
+    {
+        if (index < 0 || index > HotKeysSlots.Length)
+        {
+            return;
+        }
+
+        if (HotKeysSlots[index].Item != null)
+        {
+            if (HotKeysSlots[index].Item.Type == ItemType.Instrument)
+            {
+                isMeleeItemInHand = true;
+            }
+            else
+            {
+                isMeleeItemInHand = false;
+            }
+
+            for (int i = 0; i < PlayerInstrumentAndGunsPrefabs.Length; i++)
+            {
+                if (HotKeysSlots[index].Item.name == PlayerInstrumentAndGunsPrefabs[i].name)
+                {
+                    PlayerInstrumentAndGunsPrefabs[i].SetActive(true);
+                }
+                else
+                {
+                    PlayerInstrumentAndGunsPrefabs[i].SetActive(false);
+                }
+            }
+            Debug.Log($"Take {HotKeysSlots[index].Item.name} in slot {index}");
+        }
+        else
+        {
+            isMeleeItemInHand = true;
+
+            _selectedItemInHotKeysIndex = -1;
+
+            for (int i = 0; i < PlayerInstrumentAndGunsPrefabs.Length; i++)
+            {
+                PlayerInstrumentAndGunsPrefabs[i].SetActive(false);
+            }
+
+            Debug.Log("Swap on empty slot");
+        }
     }
 
     public bool CanAddItem(ItemData item, int Quantity)
@@ -180,7 +261,7 @@ public class InventoryController : MonoBehaviour
 
                     ItemObjectToDrop.GetComponent<ItemController>().Quantity = Slots[index].Quantity;
 
-                    Slots[index].ItemIcon.texture = null;
+                    Slots[index].ItemIcon.texture = EmptyIcon;
                     Slots[index].Item = null;
                     Slots[index].Quantity = 0;
                     Slots[index].QuantityText.text = "0";
@@ -209,9 +290,23 @@ public class InventoryController : MonoBehaviour
 
                     ItemObjectToDrop.GetComponent<ItemController>().Quantity = HotKeysSlots[index].Quantity;
 
-                    HotKeysSlots[index].ItemIcon.texture = null;
+                    HotKeysSlots[index].ItemIcon.texture = EmptyIcon;
                     HotKeysSlots[index].Item = null;
                     HotKeysSlots[index].Quantity = 0;
+
+                    // Drop if it selected :
+                    if (index == _selectedItemInHotKeysIndex)
+                    {
+                        isMeleeItemInHand = true;
+
+                        _selectedItemInHotKeysIndex = -1;
+
+                        for (int i = 0; i < PlayerInstrumentAndGunsPrefabs.Length; i++)
+                        {
+                            PlayerInstrumentAndGunsPrefabs[i].SetActive(false);
+                        }
+
+                    }
 
                     return true;
                 }
@@ -276,6 +371,9 @@ public class InventoryController : MonoBehaviour
                 HotKeysSlots[fromIndex].Quantity = HotKeysSlots[toIndex].Quantity;
                 HotKeysSlots[toIndex].Quantity = tempQuantity1;
 
+                //Swap item in hand :
+                ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+
                 break;
 
             case 2:
@@ -299,6 +397,9 @@ public class InventoryController : MonoBehaviour
                     Slots[toIndex].Quantity = tempQuantity2;
 
                     Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+
+                    //Swap item in hand :
+                    ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
                 }
                 else
                 {
@@ -326,6 +427,9 @@ public class InventoryController : MonoBehaviour
                     int tempQuantity2 = HotKeysSlots[toIndex].Quantity;
                     HotKeysSlots[toIndex].Quantity = Slots[fromIndex].Quantity;
                     Slots[fromIndex].Quantity = tempQuantity2;
+
+                    //Swap item in hand :
+                    ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
                 }
                 else
                 {
@@ -350,7 +454,7 @@ public class InventoryController : MonoBehaviour
                 {
                     if (i == slotsIndexes[j])
                     {
-                        Slots[i].ItemIcon.texture = null;
+                        Slots[i].ItemIcon.texture = EmptyIcon;
                         Slots[i].Item = null;
                         Slots[i].Quantity = 0;
                         Slots[i].QuantityText.text = "0";

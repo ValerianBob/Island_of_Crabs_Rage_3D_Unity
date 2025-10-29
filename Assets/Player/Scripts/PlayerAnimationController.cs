@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerAnimationController : MonoBehaviour
 {
+    [SerializeField] private InventoryController _inventoryController;
+
     private PlayerMovement playerMovement;
 
     private Ray ray;
@@ -33,6 +35,7 @@ public class PlayerAnimationController : MonoBehaviour
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        _inventoryController = GetComponent<InventoryController>();
 
         SetWeaponType(0);
     }
@@ -89,13 +92,13 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void ChangePlayerPoseByWeapon()
     {
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        if (_inventoryController.isMeleeItemInHand)
         {
             SetWeaponType(WeaponType.Melee);
             RightHandRig.GetComponent<MultiAimConstraint>().weight = 0f;
             LeftHandRig.GetComponent<TwoBoneIKConstraint>().weight = 0f;
         }
-        if (Keyboard.current.digit2Key.wasPressedThisFrame)
+        if (!_inventoryController.isMeleeItemInHand)
         {
             SetWeaponType(WeaponType.Rifle);
             RightHandRig.GetComponent<MultiAimConstraint>().weight = 1f;

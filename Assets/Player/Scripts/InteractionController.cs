@@ -49,7 +49,7 @@ public class InteractionController : MonoBehaviour
 
         ShowOrHideInteractionInfoText();
 
-        Debug.DrawRay(_ray.origin, _ray.direction * RayDistance, Color.black);
+        //Debug.DrawRay(_ray.origin, _ray.direction * RayDistance, Color.black);
     }
 
     private void TakeItem()
@@ -69,7 +69,7 @@ public class InteractionController : MonoBehaviour
             {
                 TryPickUp = _inventoryController.AddItem(currentItem.ItemData, currentItem.Quantity);
             }
-            else if (currentItem.ItemData.Type == ItemType.Instrument)
+            else if (currentItem.ItemData.Type == ItemType.Instrument || currentItem.ItemData.Type == ItemType.Gun)
             {
                 TryPickUp = _inventoryController.AddItemInHotKeys(currentItem.ItemData, currentItem.Quantity);
             }

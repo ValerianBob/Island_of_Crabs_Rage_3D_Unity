@@ -7,6 +7,8 @@ public class CraftController : MonoBehaviour
 {
     private InventoryController _inventoryController;
 
+    [SerializeField] private Texture EmptyIcon;
+
     [System.Serializable]
     public struct ItemBluePrint
     {
@@ -127,7 +129,7 @@ public class CraftController : MonoBehaviour
             if (_inventoryController.Slots[i].Quantity == 0)
             {
                 _inventoryController.Slots[i].Item = null;
-                _inventoryController.Slots[i].ItemIcon.texture = null;
+                _inventoryController.Slots[i].ItemIcon.texture = EmptyIcon;
             }
         }
 
