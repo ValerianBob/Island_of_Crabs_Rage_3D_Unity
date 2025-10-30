@@ -58,7 +58,7 @@ public class InteractionController : MonoBehaviour
 
         ItemController currentItem = _rayHit.collider.GetComponent<ItemController>();
 
-        InfoText.text = currentItem.ItemData.name;
+        InfoText.text = currentItem.ItemData.ItemName;
         InteractionText.text = currentItem.ItemData.InteractInfo;
 
         bool TryPickUp = false;

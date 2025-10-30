@@ -8,10 +8,6 @@ public class PalmaController : MonoBehaviour
 
     public ItemData Item;
 
-    public int Quantity;
-
-    public int QuantityToGive;
-
     private void Update()
     {
         if (health <= 0)
@@ -20,9 +16,9 @@ public class PalmaController : MonoBehaviour
         }
     }
 
-    public void FarmWood()
+    public void FarmWood(int Quantity)
     {
-        health -= QuantityToGive;
-        _inventoryController.AddItem(Item, QuantityToGive);
+        health -= Quantity;
+        _inventoryController.AddItem(Item, Quantity);
     }
 }

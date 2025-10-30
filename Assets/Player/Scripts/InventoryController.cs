@@ -86,7 +86,7 @@ public class InventoryController : MonoBehaviour
 
             for (int i = 0; i < PlayerInstrumentAndGunsPrefabs.Length; i++)
             {
-                if (HotKeysSlots[index].Item.name == PlayerInstrumentAndGunsPrefabs[i].name)
+                if (HotKeysSlots[index].Item.ObjectPrefab.name == PlayerInstrumentAndGunsPrefabs[i].name)
                 {
                     PlayerInstrumentAndGunsPrefabs[i].SetActive(true);
                 }

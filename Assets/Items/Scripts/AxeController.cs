@@ -11,6 +11,8 @@ public class AxeController : MonoBehaviour
 
     public float RayDistance;
 
+    public int QuntityToEarn;
+
     private void Update()
     {
         _ray.origin = PlayerCamera.transform.position;
@@ -23,7 +25,7 @@ public class AxeController : MonoBehaviour
             if (Mouse.current.leftButton.wasPressedThisFrame && _hit.collider.CompareTag("Palma"))
             {
                 PalmaController palmaController = hitTransform.GetComponent<PalmaController>();
-                palmaController.FarmWood();
+                palmaController.FarmWood(QuntityToEarn);
             }
         }
 

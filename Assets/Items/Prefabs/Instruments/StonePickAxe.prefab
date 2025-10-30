@@ -34,19 +34,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99219275
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.124713995
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -58,11 +58,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -14.328
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
       propertyPath: m_Name
-      value: Pick_Axe
+      value: StonePickAxe
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
       propertyPath: m_TagString

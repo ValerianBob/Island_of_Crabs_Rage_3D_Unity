@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a80c41b3a0c46143b2b02d0a380c29a, type: 3}
-  m_Name: Hammer
+  m_Name: StoneSword
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  ObjectPrefab: {fileID: 2210613449177651780, guid: 8ad62c6ee172f514bbab39b0c2b430a7, type: 3}
-  ItemName: Hammer
-  InteractInfo: Press E to take Hammer
+  ObjectPrefab: {fileID: 4192627140108807173, guid: adfcd3c1139ac0d44a6f0e13b26cb1dd, type: 3}
+  ItemName: Stone Sword
+  InteractInfo: Press E to take Stone Sword
   Type: 1
-  Icon: {fileID: 21300000, guid: 7ff3dad947afd704bbb6c11316064af4, type: 3}
+  Icon: {fileID: 21300000, guid: 6a7896b600284fb4981ce3f342efb7c8, type: 3}
   isStackble: 0
   MaxQuantity: 1

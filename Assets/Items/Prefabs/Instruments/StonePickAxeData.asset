@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a80c41b3a0c46143b2b02d0a380c29a, type: 3}
-  m_Name: PickAxe
+  m_Name: StonePickAxeData
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ObjectPrefab: {fileID: 7344967672178888207, guid: faa177dd70df85a4396552dbc91e5bdf, type: 3}
-  ItemName: PickAxe
-  InteractInfo: Press E to take Pick Axe
+  ItemName: Stone PickAxe
+  InteractInfo: Press E to take PickAxe
   Type: 1
   Icon: {fileID: 21300000, guid: b63ed0565419014498eed94dca2423b5, type: 3}
   isStackble: 0
