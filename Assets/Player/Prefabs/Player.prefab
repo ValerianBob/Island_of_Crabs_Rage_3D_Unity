@@ -1958,8 +1958,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21d404c95cffa146825144edc569486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HammerController
+  Camera: {fileID: 2944028535577751238}
   BuildingsPrefabs:
   - {fileID: 2730409405443551495, guid: 10b381ba437bbbb48bc644eef8729723, type: 3}
+  Terrain: {fileID: 0}
+  isBuilding: 0
 --- !u!4 &4163284640621537177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 33e6beb750e62f046a8f0e634d1d2491, type: 3}
