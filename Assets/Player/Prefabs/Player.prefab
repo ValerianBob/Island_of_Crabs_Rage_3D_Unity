@@ -1962,6 +1962,7 @@ MonoBehaviour:
   BuildingsPrefabs:
   - {fileID: 2730409405443551495, guid: 10b381ba437bbbb48bc644eef8729723, type: 3}
   Terrain: {fileID: 0}
+  HelpKeysText: {fileID: 0}
   isBuilding: 0
 --- !u!4 &4163284640621537177 stripped
 Transform:
