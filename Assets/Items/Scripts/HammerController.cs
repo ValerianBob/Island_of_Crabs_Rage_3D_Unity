@@ -1,26 +1,56 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class HammerController : MonoBehaviour
 {
+    [SerializeField] private InventoryController _inventoryController;
+
+    [System.Serializable]
+    private struct BuildBluePrint
+    {
+        public GameObject BuildPrefab;
+
+        public int WoodQuantity;
+        public int StoneQuantity;
+
+        public TextMeshProUGUI WoodText;
+        public TextMeshProUGUI StoneText;
+    }
+
+    [SerializeField] private BuildBluePrint[] BuildingsBluePrints;
+
     [SerializeField] private Camera Camera;
-    [SerializeField] private GameObject[] BuildingsPrefabs;
     [SerializeField] private Terrain Terrain;
     [SerializeField] private GameObject HelpKeysText;
+    [SerializeField] private GameObject BuildBluePrintInfo;
+
+    [SerializeField] private Texture EmptyIcon;
+
+    private PlaceBuildBlockController _placeBuildBlockController;
 
     private GameObject _currentBuildPrefab;
 
     private Dictionary<Material, Color> _originalColors = new Dictionary<Material, Color>();
 
-    private float buildDistance = 4f;
+    private int _currentBuildIndex = 0;
 
     private float alpha = 0.5f;
 
+    //Position :
+    private Vector3 ForwardPos;
+
+    private float terrainY;
+    private float objectHeight;
+    private float buildDistance = 4f;
+
+    // Scroll :
     private float scroll = 0f;
     private float currentRotationY = 0f;
     private float rotationSpeed = 10f;
 
+    public bool canPlaceBuild = true;
     public bool isBuilding = false;
 
     private void Update()
@@ -36,19 +66,32 @@ public class HammerController : MonoBehaviour
         {
             MoveBuild();
 
-            ChangeBuild();
+            SelectBuild();
 
             PlaceBuild();
+        }
+
+        if (_placeBuildBlockController != null)
+        {
+            canPlaceBuild = _placeBuildBlockController.canPlaceBuild;
+
+            if (!canPlaceBuild)
+            {
+                SetPreviewMaterial(_currentBuildPrefab, Color.red, alpha);
+            }
+            else
+            {
+                SetPreviewMaterial(_currentBuildPrefab, Color.green, alpha);
+            }
         }
     }
 
     private void MoveBuild()
     {
-        Vector3 ForwardPos = Camera.transform.position + Camera.transform.forward * buildDistance;
-        float terrainY = Terrain.SampleHeight(ForwardPos);
-        Vector3 offset = Camera.transform.right * 2f + Camera.transform.forward * 2f;
+        ForwardPos = Camera.transform.position + Camera.transform.forward * buildDistance;
+        terrainY = Terrain.SampleHeight(ForwardPos);
 
-        float objectHeight = _currentBuildPrefab.GetComponentInChildren<Renderer>().bounds.size.y;
+        objectHeight = _currentBuildPrefab.GetComponentInChildren<Renderer>().bounds.size.y;
 
         _currentBuildPrefab.transform.position = new Vector3(ForwardPos.x, terrainY + objectHeight / 2, ForwardPos.z);
 
@@ -65,29 +108,48 @@ public class HammerController : MonoBehaviour
         }
     }
 
-    private void ChangeBuild()
+    private void SelectBuild()
     {
         if (Keyboard.current.zKey.wasPressedThisFrame)
         {
-
+            if (_currentBuildIndex > 0)
+            {
+                ChangeBuild(-1);
+            }
         }
         else if (Keyboard.current.xKey.wasPressedThisFrame)
         {
-
+            if (_currentBuildIndex < BuildingsBluePrints.Length - 1)
+            {
+                ChangeBuild(1);
+            }
         }
     }
 
+    private void ChangeBuild(int index)
+    {
+        _currentBuildIndex += index;
+
+        RestoreMaterialColors();
+        Destroy(_currentBuildPrefab);
+
+        _currentBuildPrefab = Instantiate(BuildingsBluePrints[_currentBuildIndex].BuildPrefab,
+            new Vector3(ForwardPos.x, terrainY + objectHeight / 2, ForwardPos.z),
+            BuildingsBluePrints[_currentBuildIndex].BuildPrefab.transform.rotation);
+
+        _placeBuildBlockController = _currentBuildPrefab.GetComponent<PlaceBuildBlockController>();
+
+        SetCostText(_currentBuildIndex);
+
+        SetPreviewMaterial(_currentBuildPrefab, Color.green, alpha);
+    }
+
+
     private void PlaceBuild()
     {
-        if (Mouse.current.rightButton.wasPressedThisFrame)
+        if (Mouse.current.rightButton.wasPressedThisFrame && canPlaceBuild)
         {
-            RestoreMaterialColors();
-
-            _currentBuildPrefab = Instantiate(BuildingsPrefabs[0], transform.position, BuildingsPrefabs[0].transform.rotation);
-
-            SetPreviewMaterial(_currentBuildPrefab, Color.green, alpha);
-
-            Debug.Log("Build was placed");
+            TryPlaceBuild(_currentBuildIndex);
         }
     }
 
@@ -168,17 +230,139 @@ public class HammerController : MonoBehaviour
         _originalColors.Clear();
     }
 
+    private void SetCostText(int index)
+    {
+        BuildingsBluePrints[index].WoodText.text = BuildingsBluePrints[index].WoodQuantity.ToString();
+
+        BuildingsBluePrints[index].StoneText.text = BuildingsBluePrints[index].StoneQuantity.ToString();
+    }
+
+    private void TryPlaceBuild(int index)
+    {
+        int remainingWoods = BuildingsBluePrints[index].WoodQuantity;
+        int remainingStones = BuildingsBluePrints[index].StoneQuantity;
+
+        int availableWoods = 0;
+        int availableStones = 0;
+
+        for (int i = 0; i < _inventoryController.Slots.Length; i++)
+        {
+            if (_inventoryController.Slots[i].Item == null)
+            {
+                continue;
+            }
+
+            if (_inventoryController.Slots[i].Item.name == "Wood")
+            {
+                availableWoods += _inventoryController.Slots[i].Quantity;
+            }
+            else if (_inventoryController.Slots[i].Item.name == "Stone")
+            {
+                availableStones += _inventoryController.Slots[i].Quantity;
+            }
+        }
+
+        if (availableWoods < remainingWoods || availableStones < remainingStones)
+        {
+            Debug.Log("Not enough resources");
+
+            Debug.Log($"Need Woods: {Mathf.Max(0, remainingWoods - availableWoods)}, " +
+                $"Need Stones: {Mathf.Max(0, remainingStones - availableStones)}");
+
+            return;
+        }
+
+        List<int> itemsIndexesToDelete = new List<int>();
+
+        for (int i = 0; i < _inventoryController.Slots.Length; i++)
+        {
+            if (BuildingsBluePrints[index].WoodQuantity > 0 && remainingWoods != 0)
+            {
+                if (_inventoryController.Slots[i].Item != null)
+                {
+                    if (_inventoryController.Slots[i].Item.name == "Wood")
+                    {
+                        remainingWoods = RemoveResourceFromSlot(i, "Wood", remainingWoods, itemsIndexesToDelete);
+                    }
+                }
+            }
+
+            if (BuildingsBluePrints[index].StoneQuantity > 0 && remainingStones != 0)
+            {
+                if (_inventoryController.Slots[i].Item != null)
+                {
+                    if (_inventoryController.Slots[i].Item.name == "Stone")
+                    {
+                        remainingStones = RemoveResourceFromSlot(i, "Stone", remainingStones, itemsIndexesToDelete);
+                    }
+                }
+            }
+        }
+
+        if (remainingWoods == 0 && remainingStones == 0)
+        {
+            _inventoryController.ClearSlots(itemsIndexesToDelete);
+
+            RestoreMaterialColors();
+
+            Collider[] Colliders = _currentBuildPrefab.GetComponents<Collider>();
+
+            foreach (Collider collider in Colliders)
+            {
+                collider.isTrigger = false;
+            }
+
+            _currentBuildPrefab = Instantiate(BuildingsBluePrints[index].BuildPrefab,
+                new Vector3(ForwardPos.x, terrainY + objectHeight / 2, ForwardPos.z),
+                BuildingsBluePrints[index].BuildPrefab.transform.rotation);
+
+            _placeBuildBlockController = _currentBuildPrefab.GetComponent<PlaceBuildBlockController>();
+
+            SetPreviewMaterial(_currentBuildPrefab, Color.green, alpha);
+
+            Debug.Log($"Build :{BuildingsBluePrints[index].BuildPrefab.name} Placed");
+        }
+    }
+
+    private int RemoveResourceFromSlot(int i, string resourceName, int remainingAmount, List<int> itemsIndexesToDelete)
+    {
+        if (remainingAmount > _inventoryController.Slots[i].Quantity)
+        {
+            itemsIndexesToDelete.Add(i);
+            remainingAmount -= _inventoryController.Slots[i].Quantity;
+        }
+        else
+        {
+            _inventoryController.Slots[i].Quantity -= remainingAmount;
+            _inventoryController.Slots[i].QuantityText.text = _inventoryController.Slots[i].Quantity.ToString();
+
+            remainingAmount = 0;
+
+            if (_inventoryController.Slots[i].Quantity == 0)
+            {
+                _inventoryController.Slots[i].Item = null;
+                _inventoryController.Slots[i].ItemIcon.texture = EmptyIcon;
+            }
+        }
+
+        return remainingAmount;
+    }
+
     private void OnEnable()
     {
         isBuilding = true;
 
         HelpKeysText.SetActive(true);
+        BuildBluePrintInfo.SetActive(true);
+        SetCostText(_currentBuildIndex);
 
-        _currentBuildPrefab = Instantiate(BuildingsPrefabs[2], transform.position, BuildingsPrefabs[2].transform.rotation);
+        _currentBuildPrefab = Instantiate(BuildingsBluePrints[_currentBuildIndex].BuildPrefab, 
+            new Vector3(ForwardPos.x, terrainY + objectHeight / 2, ForwardPos.z),
+            BuildingsBluePrints[_currentBuildIndex].BuildPrefab.transform.rotation);
+
+        _placeBuildBlockController = _currentBuildPrefab.GetComponent<PlaceBuildBlockController>();
 
         SetPreviewMaterial(_currentBuildPrefab, Color.green, alpha);
-
-        Debug.Log("I take hammer");
     }
 
     private void OnDisable()
@@ -186,9 +370,10 @@ public class HammerController : MonoBehaviour
         isBuilding = false;
 
         HelpKeysText.SetActive(false);
+        BuildBluePrintInfo.SetActive(false);
+
+        _placeBuildBlockController = null;
 
         Destroy(_currentBuildPrefab);
-
-        Debug.Log("I hide the hammer");
     }
 }

@@ -1958,11 +1958,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21d404c95cffa146825144edc569486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HammerController
+  _inventoryController: {fileID: 307020497993873410}
+  BuildingsBluePrints:
+  - BuildPrefab: {fileID: 2730409405443551495, guid: 10b381ba437bbbb48bc644eef8729723, type: 3}
+    WoodQuantity: 200
+    StoneQuantity: 200
+    WoodText: {fileID: 0}
+    StoneText: {fileID: 0}
+  - BuildPrefab: {fileID: 1415200396068883550, guid: 86826c9065fa33248ba5334e3d0a9e99, type: 3}
+    WoodQuantity: 50
+    StoneQuantity: 50
+    WoodText: {fileID: 0}
+    StoneText: {fileID: 0}
+  - BuildPrefab: {fileID: 136152571449853340, guid: 11ee85c7061495c4b80f58384b267d82, type: 3}
+    WoodQuantity: 150
+    StoneQuantity: 150
+    WoodText: {fileID: 0}
+    StoneText: {fileID: 0}
+  - BuildPrefab: {fileID: 8397547917244044412, guid: dc6e72e8dfe011449b66fc750b035ddf, type: 3}
+    WoodQuantity: 300
+    StoneQuantity: 300
+    WoodText: {fileID: 0}
+    StoneText: {fileID: 0}
   Camera: {fileID: 2944028535577751238}
-  BuildingsPrefabs:
-  - {fileID: 2730409405443551495, guid: 10b381ba437bbbb48bc644eef8729723, type: 3}
   Terrain: {fileID: 0}
   HelpKeysText: {fileID: 0}
+  BuildBluePrintInfo: {fileID: 0}
+  EmptyIcon: {fileID: 2800000, guid: 5fd12480a9310a14aa4dea585241be51, type: 3}
   isBuilding: 0
 --- !u!4 &4163284640621537177 stripped
 Transform:
