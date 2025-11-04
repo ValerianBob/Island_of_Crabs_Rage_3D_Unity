@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class AxeController : MonoBehaviour
 {
     [SerializeField] private Camera PlayerCamera;
-
+    
     private Ray _ray;
 
     private RaycastHit _hit;
@@ -20,12 +20,24 @@ public class AxeController : MonoBehaviour
 
         if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, RayDistance))
         {
-            Transform hitTransform = _hit.collider.transform.parent;
-
             if (Mouse.current.leftButton.wasPressedThisFrame && _hit.collider.CompareTag("Palma"))
             {
-                PalmaController palmaController = hitTransform.GetComponent<PalmaController>();
-                palmaController.FarmWood(QuntityToEarn);
+                Transform parent = _hit.collider.transform;
+                while (parent != null && parent.name != "Palm")
+                {
+                    parent = parent.parent;
+                }
+
+                Debug.Log(parent);
+
+                if (parent != null)
+                {
+                    PalmaController palmaController = parent.GetComponent<PalmaController>();
+                    if (palmaController != null)
+                    {
+                        palmaController.FarmWood(QuntityToEarn);
+                    }
+                }
             }
         }
 
