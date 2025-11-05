@@ -152,7 +152,7 @@ public class InventoryController : MonoBehaviour
 
         if (!CanAddItem(item, Quantity))
         {
-            Debug.Log("Not enough space to pick up item !");
+            Notifications.Instance.CreateNotification("Not enough space to pick up item", Color.red);
 
             return false;
         }
@@ -176,10 +176,11 @@ public class InventoryController : MonoBehaviour
 
                     Slots[i].Quantity = slot.Quantity;
 
-                    Debug.Log("Added in existing slot");
+                    Debug.Log("Added in existing slot");                    
 
                     if (remaining <= 0)
                     {
+                        Notifications.Instance.CreateNotification($"+ {Quantity} {slot.Item.ItemName}", Color.green);
                         return true;
                     }
                 }
@@ -202,8 +203,12 @@ public class InventoryController : MonoBehaviour
                 Slots[i].Quantity = slot.Quantity;
 
                 Debug.Log("Added in empty slot");
-
-                if (remaining <= 0) return true;
+                
+                if (remaining <= 0)
+                {
+                    Notifications.Instance.CreateNotification($"+ {Quantity} {slot.Item.ItemName}", Color.green);
+                    return true;
+                }
             }
         }
 
@@ -230,6 +235,7 @@ public class InventoryController : MonoBehaviour
                 HotKeysSlots[i].Quantity = Quantity;
 
                 Debug.Log("Added in empty HotKeySlot");
+                Notifications.Instance.CreateNotification($"+ {HotKeysSlots[i].Quantity} {HotKeysSlots[i].Item.ItemName}", Color.green);
 
                 return true;
             }
@@ -242,7 +248,7 @@ public class InventoryController : MonoBehaviour
         if (isHotKeysFull)
         {
             Debug.Log("Not enough space in HotKeySlots inventory. Trying to add in Main Inventory :");
-            
+
             return AddItem(item, Quantity); 
         }
         
@@ -404,6 +410,7 @@ public class InventoryController : MonoBehaviour
                 else
                 {
                     Debug.Log("Can't put Resource in HotKey");
+                    Notifications.Instance.CreateNotification("Can't put Resource in HotKey", Color.red);
                 }
                 
                 break;
@@ -434,6 +441,7 @@ public class InventoryController : MonoBehaviour
                 else
                 {
                     Debug.Log("Can't put Resource in HotKey");
+                    Notifications.Instance.CreateNotification("Can't put Resource in HotKey", Color.red);
                 }
 
                 break;

@@ -14,8 +14,6 @@ public class PalmaController : MonoBehaviour
 
     public ItemData Item;
 
-    public bool repeat = false;
-
     private void Start()
     {
         _originalPosition = _palmPosition;
@@ -30,20 +28,15 @@ public class PalmaController : MonoBehaviour
             _rigidbody.isKinematic = false;
             _animator.enabled = false;
         }
-
-        if (repeat)
-        {
-            health = 100;
-            _palmPosition = _originalPosition;
-            _rigidbody.isKinematic = true;
-            //repeat = false;
-        }
     }
 
     public void FarmWood(int Quantity)
     {
-        _animator.SetTrigger("Hitted");
-        health -= Quantity;
-        _inventoryController.AddItem(Item, Quantity);
+        if (health > 0)
+        {
+            _animator.SetTrigger("Hitted");
+            health -= Quantity;
+            _inventoryController.AddItem(Item, Quantity);
+        }       
     }
 }

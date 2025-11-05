@@ -151,6 +151,10 @@ public class HammerController : MonoBehaviour
         {
             TryPlaceBuild(_currentBuildIndex);
         }
+        else if (Mouse.current.rightButton.wasPressedThisFrame && !canPlaceBuild)
+        {
+            Notifications.Instance.CreateNotification("Can't Place Build here", Color.red);
+        }
     }
 
     private void SetPreviewMaterial(GameObject buildObject, Color color, float alpha)
@@ -264,10 +268,7 @@ public class HammerController : MonoBehaviour
 
         if (availableWoods < remainingWoods || availableStones < remainingStones)
         {
-            Debug.Log("Not enough resources");
-
-            Debug.Log($"Need Woods: {Mathf.Max(0, remainingWoods - availableWoods)}, " +
-                $"Need Stones: {Mathf.Max(0, remainingStones - availableStones)}");
+            Notifications.Instance.CreateNotification("Not enough resources", Color.red);
 
             return;
         }
@@ -319,8 +320,6 @@ public class HammerController : MonoBehaviour
             _placeBuildBlockController = _currentBuildPrefab.GetComponent<PlaceBuildBlockController>();
 
             SetPreviewMaterial(_currentBuildPrefab, Color.green, alpha);
-
-            Debug.Log($"Build :{BuildingsBluePrints[index].BuildPrefab.name} Placed");
         }
     }
 
