@@ -46,7 +46,9 @@ public class Notifications : MonoBehaviour
         // optional: ensure CanvasGroup exists for fading
         CanvasGroup canvasGroup = textObj.GetComponent<CanvasGroup>();
         if (canvasGroup == null)
+        {
             canvasGroup = textObj.AddComponent<CanvasGroup>();
+        }
 
         Vector3 startPos = rect.anchoredPosition;
         Vector3 endPos = startPos + new Vector3(0f, 50f, 0f); // move up 50 px

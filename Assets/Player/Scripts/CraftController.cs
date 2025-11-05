@@ -62,6 +62,7 @@ public class CraftController : MonoBehaviour
         if (availableWoods < remainingWoods || availableStones < remainingStones)
         {
             Debug.Log("Not enough resources");
+            Notifications.Instance.CreateNotification("Not enough resources", Color.red);
 
             Debug.Log($"Need Woods: {Mathf.Max(0, remainingWoods - availableWoods)}, " +
                 $"Need Stones: {Mathf.Max(0, remainingStones - availableStones)}");
@@ -72,6 +73,7 @@ public class CraftController : MonoBehaviour
         if (_inventoryController.IsHotKeysSlotsFull() && _inventoryController.IsSlotsFull())
         {
             Debug.Log("Hot keys and Slots are full");
+            Notifications.Instance.CreateNotification("Hot keys and Slots are full", Color.red);
 
             return;
         }
@@ -109,6 +111,7 @@ public class CraftController : MonoBehaviour
 
             _inventoryController.AddItemInHotKeys(ItemsBluePrints[index].Item, ItemsBluePrints[index].Quantity);
             Debug.Log($"Item :{ItemsBluePrints[index].Item} crafted");
+            //Notifications.Instance.CreateNotification($"Item :{ItemsBluePrints[index].Item} crafted", Color.green);
         }
     }
 
