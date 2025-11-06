@@ -39,8 +39,17 @@ public class AxeController : MonoBehaviour
         if (_hit.collider == null) return;
 
         Transform parent = _hit.collider.transform;
-        while (parent != null && parent.name != "Palm")
+
+        while (parent != null)
         {
+            PalmaController palmController = parent.GetComponent<PalmaController>();
+            if (palmController != null)
+            {
+                Debug.Log($"Palm found: {parent.name}");
+                palmController.FarmWood(QuntityToEarn);
+                return;
+            }
+
             parent = parent.parent;
         }
 
@@ -49,15 +58,9 @@ public class AxeController : MonoBehaviour
             Debug.LogWarning("Palm parent not found!");
             return;
         }
-
-        PalmaController palmaController = parent.GetComponent<PalmaController>();
-        if (palmaController != null)
-        {
-            palmaController.FarmWood(QuntityToEarn);
-        }
         else
         {
-            Debug.LogWarning("PalmaController not found on parent!");
+            Debug.Log($"This palm : {parent}");
         }
     }
 
