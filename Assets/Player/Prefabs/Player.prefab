@@ -1233,6 +1233,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterModel
       objectReference: {fileID: 0}
+    - target: {fileID: 5097370190579632962, guid: cce4b399565f6a443b750152bec5b1de, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7765932
+      objectReference: {fileID: 0}
+    - target: {fileID: 5097370190579632962, guid: cce4b399565f6a443b750152bec5b1de, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.63000244
+      objectReference: {fileID: 0}
+    - target: {fileID: 5097370190579632962, guid: cce4b399565f6a443b750152bec5b1de, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000443883
+      objectReference: {fileID: 0}
+    - target: {fileID: 5097370190579632962, guid: cce4b399565f6a443b750152bec5b1de, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0000004947179
+      objectReference: {fileID: 0}
+    - target: {fileID: 5097370190579632962, guid: cce4b399565f6a443b750152bec5b1de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 78.101
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: cce4b399565f6a443b750152bec5b1de, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1775,13 +1795,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 256271291408446150}
   m_SourcePrefab: {fileID: 100100000, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
 --- !u!1 &1391321404634228694 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 65a125dda517b314d8b251dce19c2953, type: 3}
   m_PrefabInstance: {fileID: 2274210763244821127}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &256271291408446150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391321404634228694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f2f14f6e5391794194cc199a1d10e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickAxeController
+  PlayerCamera: {fileID: 2944028535577751238}
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  RayDistance: 4
+  QuntityToEarn: 10
+  AttackDelay: 0.4
 --- !u!4 &1730833469202677100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}

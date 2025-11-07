@@ -12,7 +12,7 @@ public class PalmaController : MonoBehaviour
     private Vector3 _originalPosition;
     private Quaternion _originalRotation;
 
-    public int health;
+    public int Capacity;
 
     public ItemData Item;
 
@@ -30,7 +30,7 @@ public class PalmaController : MonoBehaviour
 
     private void Update()
     {
-        if (health <= 0 && !isDead)
+        if (Capacity <= 0 && !isDead)
         {
             isDead = true;
 
@@ -43,10 +43,10 @@ public class PalmaController : MonoBehaviour
 
     public void FarmWood(int Quantity)
     {
-        if (health > 0)
+        if (Capacity > 0)
         {
             _animator.SetTrigger("Hitted");
-            health -= Quantity;
+            Capacity -= Quantity;
             _inventoryController.AddItem(Item, Quantity);
         }  
     }
@@ -57,7 +57,7 @@ public class PalmaController : MonoBehaviour
 
         _palmPosition.gameObject.SetActive(true);
 
-        health = 100;
+        Capacity = 100;
 
         _palmPosition.transform.position = _originalPosition;
         _palmPosition.transform.rotation = _originalRotation;

@@ -8,11 +8,12 @@ TagManager:
   - Instrument
   - Palma
   - Build
+  - Ore
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ore
   - Water
   - UI
   - 
