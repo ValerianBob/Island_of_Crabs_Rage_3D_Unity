@@ -49,11 +49,11 @@ public class CraftController : MonoBehaviour
                 continue;
             }
 
-            if (_inventoryController.Slots[i].Item.name == "Wood")
+            if (_inventoryController.Slots[i].Item.ItemName == "Wood")
             {
                 availableWoods += _inventoryController.Slots[i].Quantity;
             }
-            else if (_inventoryController.Slots[i].Item.name == "Stone")
+            else if (_inventoryController.Slots[i].Item.ItemName == "Stone")
             {
                 availableStones += _inventoryController.Slots[i].Quantity;
             }
@@ -86,7 +86,7 @@ public class CraftController : MonoBehaviour
             {
                 if (_inventoryController.Slots[i].Item != null)
                 {
-                    if (_inventoryController.Slots[i].Item.name == "Wood")
+                    if (_inventoryController.Slots[i].Item.ItemName == "Wood")
                     {
                         remainingWoods = RemoveResourceFromSlot(i, "Wood", remainingWoods, itemsIndexesToDelete);
                     }
@@ -97,7 +97,7 @@ public class CraftController : MonoBehaviour
             {
                 if (_inventoryController.Slots[i].Item != null)
                 {
-                    if (_inventoryController.Slots[i].Item.name == "Stone")
+                    if (_inventoryController.Slots[i].Item.ItemName == "Stone")
                     {
                         remainingStones = RemoveResourceFromSlot(i, "Stone", remainingStones, itemsIndexesToDelete);
                     }

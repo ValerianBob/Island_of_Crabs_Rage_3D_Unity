@@ -256,12 +256,16 @@ public class HammerController : MonoBehaviour
                 continue;
             }
 
-            if (_inventoryController.Slots[i].Item.name == "Wood")
+            Debug.Log(_inventoryController.Slots[i].Item.ItemName);
+
+            if (_inventoryController.Slots[i].Item.ItemName == "Wood")
             {
+                Debug.Log("I am fiding wood");
                 availableWoods += _inventoryController.Slots[i].Quantity;
             }
-            else if (_inventoryController.Slots[i].Item.name == "Stone")
+            else if (_inventoryController.Slots[i].Item.ItemName == "Stone")
             {
+                Debug.Log("I am fiding stone");
                 availableStones += _inventoryController.Slots[i].Quantity;
             }
         }
@@ -269,6 +273,7 @@ public class HammerController : MonoBehaviour
         if (availableWoods < remainingWoods || availableStones < remainingStones)
         {
             Notifications.Instance.CreateNotification("Not enough resources", Color.red);
+            Debug.Log($"Woods : {availableWoods}, Stones : {availableStones}");
 
             return;
         }
@@ -281,7 +286,7 @@ public class HammerController : MonoBehaviour
             {
                 if (_inventoryController.Slots[i].Item != null)
                 {
-                    if (_inventoryController.Slots[i].Item.name == "Wood")
+                    if (_inventoryController.Slots[i].Item.ItemName == "Wood")
                     {
                         remainingWoods = RemoveResourceFromSlot(i, "Wood", remainingWoods, itemsIndexesToDelete);
                     }
@@ -292,7 +297,7 @@ public class HammerController : MonoBehaviour
             {
                 if (_inventoryController.Slots[i].Item != null)
                 {
-                    if (_inventoryController.Slots[i].Item.name == "Stone")
+                    if (_inventoryController.Slots[i].Item.ItemName == "Stone")
                     {
                         remainingStones = RemoveResourceFromSlot(i, "Stone", remainingStones, itemsIndexesToDelete);
                     }
