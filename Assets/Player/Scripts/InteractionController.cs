@@ -9,6 +9,8 @@ public class InteractionController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI InfoText;
     [SerializeField] private TextMeshProUGUI InteractionText;
 
+    [SerializeField] private HammerController _hammerController;
+
     private InventoryController _inventoryController;
 
     private Ray _ray;
@@ -36,6 +38,10 @@ public class InteractionController : MonoBehaviour
             if (_rayHit.collider.GetComponent<ItemController>() != null)
             {
                 TakeItem();
+            }
+            else if (_rayHit.collider.GetComponent<FurnaceController>() != null && !_hammerController.isBuilding)
+            {
+                UseFurnace();
             }
             else
             {
@@ -82,6 +88,21 @@ public class InteractionController : MonoBehaviour
             {
                 Destroy(currentItem.gameObject);
             }
+        }
+    }
+
+    private void UseFurnace()
+    {
+        _isVisible = true;
+
+        FurnaceController currentFurnace = _rayHit.collider.GetComponent<FurnaceController>();
+
+        InfoText.text = currentFurnace.ObjectName;
+        InteractionText.text = currentFurnace.Info;
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            currentFurnace.OpenFurnace(currentFurnace);
         }
     }
 

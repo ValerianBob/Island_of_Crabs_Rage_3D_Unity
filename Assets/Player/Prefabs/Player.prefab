@@ -871,6 +871,7 @@ MonoBehaviour:
   PlayerCamera: {fileID: 2944028535577751238}
   InfoText: {fileID: 0}
   InteractionText: {fileID: 0}
+  _hammerController: {fileID: 5584685175234667706}
   RayDistance: 4
   _isVisible: 0
 --- !u!114 &307020497993873410
@@ -886,6 +887,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryController
   Inventory: {fileID: 0}
+  CraftUI: {fileID: 0}
+  FurnaceUI: {fileID: 0}
   DropPoint: {fileID: 4289080247290177146}
   EmptyIcon: {fileID: 2800000, guid: 5fd12480a9310a14aa4dea585241be51, type: 3}
   isOpened: 0
@@ -956,6 +959,16 @@ MonoBehaviour:
     Quantity: 0
     QuantityText: {fileID: 0}
   - ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  WoodFurnaceSlots:
+    ItemIcon: {fileID: 0}
+    Item: {fileID: 0}
+    Quantity: 0
+    QuantityText: {fileID: 0}
+  OreFurnaceSlots:
+    ItemIcon: {fileID: 0}
     Item: {fileID: 0}
     Quantity: 0
     QuantityText: {fileID: 0}
@@ -2001,25 +2014,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HammerController
   _inventoryController: {fileID: 307020497993873410}
+  FurnaceUI: {fileID: 0}
+  CraftUI: {fileID: 0}
   BuildingsBluePrints:
-  - BuildPrefab: {fileID: 2730409405443551495, guid: 10b381ba437bbbb48bc644eef8729723, type: 3}
+  - BuildPrefab: {fileID: 2600939621561566063, guid: 10b381ba437bbbb48bc644eef8729723, type: 3}
     WoodQuantity: 200
     StoneQuantity: 200
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
-  - BuildPrefab: {fileID: 1415200396068883550, guid: 86826c9065fa33248ba5334e3d0a9e99, type: 3}
+  - BuildPrefab: {fileID: 1516443348489085602, guid: a95c38b778879d9418067983789a5f29, type: 3}
     WoodQuantity: 50
     StoneQuantity: 50
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
-  - BuildPrefab: {fileID: 136152571449853340, guid: 11ee85c7061495c4b80f58384b267d82, type: 3}
-    WoodQuantity: 150
-    StoneQuantity: 150
-    WoodText: {fileID: 0}
-    StoneText: {fileID: 0}
-  - BuildPrefab: {fileID: 8397547917244044412, guid: dc6e72e8dfe011449b66fc750b035ddf, type: 3}
-    WoodQuantity: 300
-    StoneQuantity: 300
+  - BuildPrefab: {fileID: 4605622384726763044, guid: af173e97b64f9084d926f79b5e42ad01, type: 3}
+    WoodQuantity: 100
+    StoneQuantity: 100
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
   Camera: {fileID: 2944028535577751238}

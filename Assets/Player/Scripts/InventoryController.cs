@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -10,6 +8,9 @@ using UnityEngine.UI;
 public class InventoryController : MonoBehaviour
 {
     [SerializeField] private GameObject Inventory;
+
+    [SerializeField] private GameObject CraftUI;
+    [SerializeField] private GameObject FurnaceUI;
 
     [SerializeField] private GameObject DropPoint;
 
@@ -30,6 +31,8 @@ public class InventoryController : MonoBehaviour
     public InventorySlot[] HotKeysSlots;
 
     [SerializeField] private GameObject[] PlayerInstrumentAndGunsPrefabs;
+
+    private FurnaceController _currentFurnace;
 
     public bool isMeleeItemInHand = true;
 
@@ -332,6 +335,9 @@ public class InventoryController : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Swap items in different inventory slots.
+    /// </summary>
     public void SwapItem(int fromIndex, int toIndex, int TypeOfSwap)
     {
         switch (TypeOfSwap)
@@ -446,6 +452,38 @@ public class InventoryController : MonoBehaviour
 
                 break;
 
+            case 4:
+                Debug.Log("Main item swap with Wood Furnace Item");
+
+                if (Slots[fromIndex].Item.Type == ItemType.Resource)
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[fromIndex].ItemIcon.texture;
+                    Slots[fromIndex].ItemIcon.texture = _currentFurnace.WoodSlot.ItemIcon.texture;
+                    _currentFurnace.WoodSlot.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[fromIndex].Item;
+                    Slots[fromIndex].Item = _currentFurnace.WoodSlot.Item;
+                    _currentFurnace.WoodSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[fromIndex].Quantity;
+                    Slots[fromIndex].Quantity = _currentFurnace.WoodSlot.Quantity;
+                    _currentFurnace.WoodSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[fromIndex].QuantityText.text = Slots[fromIndex].Quantity.ToString();
+                    _currentFurnace.WoodSlot.QuantityText.text = _currentFurnace.WoodSlot.Quantity.ToString();
+                }
+                else
+                {
+                    Debug.Log("Can't put Resource in HotKey");
+                    Notifications.Instance.CreateNotification("Can't put Resource in HotKey", Color.red);
+                }
+
+                break;
+
             default:
                 Debug.LogWarning("Unknown item type!");
                 break;
@@ -503,8 +541,26 @@ public class InventoryController : MonoBehaviour
         {
             isOpened = !isOpened;
             Inventory.SetActive(isOpened);
+            CraftUI.SetActive(isOpened);
+            FurnaceUI.SetActive(!isOpened);
 
             CursorVisabilityController.Instance.SetCursorVisability(isOpened);
         }
+    }
+
+    public void ToggleFromFurnace(FurnaceController currentFurnace)
+    {
+        isOpened = !isOpened;
+
+        if (currentFurnace != null)
+        {
+            _currentFurnace = currentFurnace;
+        }
+
+        Inventory.SetActive(isOpened);
+        CraftUI.SetActive(!isOpened);
+        FurnaceUI.SetActive(isOpened);
+
+        CursorVisabilityController.Instance.SetCursorVisability(isOpened);
     }
 }

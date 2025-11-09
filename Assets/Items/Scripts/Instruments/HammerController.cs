@@ -7,6 +7,9 @@ public class HammerController : MonoBehaviour
 {
     [SerializeField] private InventoryController _inventoryController;
 
+    [SerializeField] private GameObject FurnaceUI;
+    [SerializeField] private GameObject CraftUI;
+
     [System.Serializable]
     private struct BuildBluePrint
     {
@@ -42,7 +45,6 @@ public class HammerController : MonoBehaviour
     private Vector3 ForwardPos;
 
     private float terrainY;
-    private float objectHeight;
     private float buildDistance = 4f;
 
     // Scroll :
@@ -73,7 +75,7 @@ public class HammerController : MonoBehaviour
 
         if (_placeBuildBlockController != null)
         {
-            canPlaceBuild = _placeBuildBlockController.canPlaceBuild;
+            canPlaceBuild = GetPlcaeBuildBlock().canPlaceBuild;
 
             if (!canPlaceBuild)
             {
@@ -89,12 +91,10 @@ public class HammerController : MonoBehaviour
     private void MoveBuild()
     {
         ForwardPos = Camera.transform.position + Camera.transform.forward * buildDistance;
+
         terrainY = Terrain.SampleHeight(ForwardPos);
 
-        objectHeight = _currentBuildPrefab.GetComponentInChildren<Renderer>().bounds.size.y;
-
-        _currentBuildPrefab.transform.position = new Vector3(ForwardPos.x, terrainY + objectHeight / 2, ForwardPos.z);
-
+        _currentBuildPrefab.transform.position = new Vector3(ForwardPos.x, terrainY, ForwardPos.z);
         _currentBuildPrefab.transform.rotation = Quaternion.Euler(0f, Camera.transform.eulerAngles.y + currentRotationY, 0f);
     }
 
@@ -134,10 +134,10 @@ public class HammerController : MonoBehaviour
         Destroy(_currentBuildPrefab);
 
         _currentBuildPrefab = Instantiate(BuildingsBluePrints[_currentBuildIndex].BuildPrefab,
-            new Vector3(ForwardPos.x, terrainY + objectHeight / 2, ForwardPos.z),
+            new Vector3(ForwardPos.x, terrainY),
             BuildingsBluePrints[_currentBuildIndex].BuildPrefab.transform.rotation);
 
-        _placeBuildBlockController = _currentBuildPrefab.GetComponent<PlaceBuildBlockController>();
+        _placeBuildBlockController = GetPlcaeBuildBlock();
 
         SetCostText(_currentBuildIndex);
 
@@ -311,7 +311,7 @@ public class HammerController : MonoBehaviour
 
             RestoreMaterialColors();
 
-            Collider[] Colliders = _currentBuildPrefab.GetComponents<Collider>();
+            Collider[] Colliders = _currentBuildPrefab.transform.GetChild(0).GetComponents<Collider>();
 
             foreach (Collider collider in Colliders)
             {
@@ -319,10 +319,10 @@ public class HammerController : MonoBehaviour
             }
 
             _currentBuildPrefab = Instantiate(BuildingsBluePrints[index].BuildPrefab,
-                new Vector3(ForwardPos.x, terrainY + objectHeight / 2, ForwardPos.z),
+                new Vector3(ForwardPos.x, terrainY),
                 BuildingsBluePrints[index].BuildPrefab.transform.rotation);
 
-            _placeBuildBlockController = _currentBuildPrefab.GetComponent<PlaceBuildBlockController>();
+            _placeBuildBlockController = GetPlcaeBuildBlock();
 
             SetPreviewMaterial(_currentBuildPrefab, Color.green, alpha);
         }
@@ -352,6 +352,13 @@ public class HammerController : MonoBehaviour
         return remainingAmount;
     }
 
+    private PlaceBuildBlockController GetPlcaeBuildBlock()
+    {
+        PlaceBuildBlockController BuildModel = _currentBuildPrefab.transform.GetChild(0).gameObject.GetComponent<PlaceBuildBlockController>();
+
+        return BuildModel;
+    }
+
     private void OnEnable()
     {
         isBuilding = true;
@@ -360,11 +367,11 @@ public class HammerController : MonoBehaviour
         BuildBluePrintInfo.SetActive(true);
         SetCostText(_currentBuildIndex);
 
-        _currentBuildPrefab = Instantiate(BuildingsBluePrints[_currentBuildIndex].BuildPrefab, 
-            new Vector3(ForwardPos.x, terrainY + objectHeight / 2, ForwardPos.z),
+        _currentBuildPrefab = Instantiate(BuildingsBluePrints[_currentBuildIndex].BuildPrefab,
+            new Vector3(ForwardPos.x, terrainY),
             BuildingsBluePrints[_currentBuildIndex].BuildPrefab.transform.rotation);
 
-        _placeBuildBlockController = _currentBuildPrefab.GetComponent<PlaceBuildBlockController>();
+        _placeBuildBlockController = GetPlcaeBuildBlock();
 
         SetPreviewMaterial(_currentBuildPrefab, Color.green, alpha);
     }

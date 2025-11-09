@@ -21,6 +21,9 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public bool isHotKeySlot = false;
 
+    public bool isFurnaceWoodSlot = false;
+    public bool isFurnaceOreSlot = false;
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -105,7 +108,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
             if (draggedItem != null)
             {
-                if (!draggedItem.isHotKeySlot && !isHotKeySlot)
+                if (!draggedItem.isHotKeySlot && !isHotKeySlot && !isFurnaceWoodSlot)
                 {
                     inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 0);
                 }
@@ -120,6 +123,10 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
                 else if (!draggedItem.isHotKeySlot && isHotKeySlot)
                 {
                     inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 3);
+                }
+                else if (!draggedItem.isHotKeySlot && isFurnaceWoodSlot)
+                {
+                    inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 4);
                 }
 
                 Debug.Log($"Dropped item {draggedItem.SlotIndex} swapped with slot {SlotIndex}");
