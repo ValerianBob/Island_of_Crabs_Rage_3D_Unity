@@ -1823,7 +1823,7 @@ MonoBehaviour:
     m_Bits: 8
   RayDistance: 4
   QuntityToEarn: 10
-  AttackDelay: 0.4
+  AttackDelay: 0.6
 --- !u!4 &1730833469202677100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65a125dda517b314d8b251dce19c2953, type: 3}

@@ -14,6 +14,11 @@ public class OreController : MonoBehaviour
 
     private bool isDead = false;
 
+    private void Start()
+    {
+        _inventoryController = GameObject.Find("Player").GetComponent<InventoryController>();
+    }
+
     private void Update()
     {
         if (Capacity <= 0 && !isDead)
