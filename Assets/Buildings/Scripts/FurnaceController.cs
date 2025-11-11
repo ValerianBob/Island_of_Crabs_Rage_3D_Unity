@@ -7,16 +7,14 @@ public class FurnaceController : MonoBehaviour
     [SerializeField] private InventoryController _inventoryController;
 
     [System.Serializable]
-    public struct InventorySlot
+    public struct FurnaceSlot
     {
-        public RawImage ItemIcon;
         public ItemData Item;
         public int Quantity;
-        public TextMeshProUGUI QuantityText;
     }
 
-    public InventorySlot WoodSlot;
-    public InventorySlot OreSlot;
+    public FurnaceSlot WoodSlot;
+    public FurnaceSlot OreSlot;
 
     public string ObjectName;
     public string Info;
@@ -24,16 +22,5 @@ public class FurnaceController : MonoBehaviour
     private void Start()
     {
         _inventoryController = GameObject.Find("Player").GetComponent<InventoryController>();
-
-        WoodSlot.ItemIcon = UIManager.Instance.WoodFurnace.ItemIcon;
-        WoodSlot.QuantityText = UIManager.Instance.WoodFurnace.QuantityText;
-
-        OreSlot.ItemIcon = UIManager.Instance.OreFurnace.ItemIcon;
-        OreSlot.QuantityText = UIManager.Instance.OreFurnace.QuantityText;
-    }
-
-    public void OpenFurnace(FurnaceController currentFurnace)
-    {
-        _inventoryController.ToggleFromFurnace(currentFurnace);
     }
 }

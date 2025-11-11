@@ -102,7 +102,7 @@ public class InteractionController : MonoBehaviour
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            currentFurnace.OpenFurnace(currentFurnace);
+            _inventoryController.ToggleFromFurnace(currentFurnace);
         }
     }
 

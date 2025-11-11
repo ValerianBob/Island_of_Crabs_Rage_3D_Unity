@@ -258,9 +258,9 @@ public class InventoryController : MonoBehaviour
         return false;
     }
     
-    public bool DropItem(int index, bool isHotKeySlot)
+    public bool DropItem(int index, bool isHotKeySlot, bool FurnaceWoodSlot, bool FurnaceOreSlot)
     {
-        if (!isHotKeySlot)
+        if (!isHotKeySlot && !FurnaceWoodSlot && !FurnaceOreSlot)
         {
             if (index >= 0 && index <= Slots.Length)
             {
@@ -288,6 +288,46 @@ public class InventoryController : MonoBehaviour
             {
                 Debug.Log("Invalid index");
             }
+        }
+        else if (FurnaceWoodSlot && !FurnaceOreSlot && !isHotKeySlot)
+        {
+            if (_currentFurnace.WoodSlot.Item != null)
+            {
+                GameObject ItemObjectToDrop = Instantiate(_currentFurnace.WoodSlot.Item.ObjectPrefab, DropPoint.transform.position, Quaternion.identity);
+
+                ItemObjectToDrop.GetComponent<ItemController>().Quantity = _currentFurnace.WoodSlot.Quantity;
+
+                UIManager.Instance.WoodFurnace.ItemIcon.texture = EmptyIcon;
+                _currentFurnace.WoodSlot.Item = null;
+                _currentFurnace.WoodSlot.Quantity = 0;
+                UIManager.Instance.WoodFurnace.QuantityText.text = "0";
+
+                Debug.Log("Wood dropped from furnace");
+
+                return true;
+            }
+
+            return false;
+        }
+        else if (FurnaceOreSlot && !FurnaceWoodSlot && !isHotKeySlot)
+        {
+            if (_currentFurnace.OreSlot.Item != null)
+            {
+                GameObject ItemObjectToDrop = Instantiate(_currentFurnace.OreSlot.Item.ObjectPrefab, DropPoint.transform.position, Quaternion.identity);
+
+                ItemObjectToDrop.GetComponent<ItemController>().Quantity = _currentFurnace.OreSlot.Quantity;
+
+                UIManager.Instance.OreFurnace.ItemIcon.texture = EmptyIcon;
+                _currentFurnace.OreSlot.Item = null;
+                _currentFurnace.OreSlot.Quantity = 0;
+                UIManager.Instance.OreFurnace.QuantityText.text = "0";
+
+                Debug.Log("Ore dropped from furnace");
+
+                return true;
+            }
+
+            return false;
         }
         else
         {
@@ -455,12 +495,12 @@ public class InventoryController : MonoBehaviour
             case 4:
                 Debug.Log("Main item swap with Wood Furnace Item");
 
-                if (Slots[fromIndex].Item.Type == ItemType.Resource)
+                if (Slots[fromIndex].Item.Type == ItemType.Resource && Slots[fromIndex].Item.ItemName == "Wood")
                 {
                     //Swap Images :
                     Texture tempRawImage2 = Slots[fromIndex].ItemIcon.texture;
-                    Slots[fromIndex].ItemIcon.texture = _currentFurnace.WoodSlot.ItemIcon.texture;
-                    _currentFurnace.WoodSlot.ItemIcon.texture = tempRawImage2;
+                    Slots[fromIndex].ItemIcon.texture = UIManager.Instance.WoodFurnace.ItemIcon.texture;
+                    UIManager.Instance.WoodFurnace.ItemIcon.texture = tempRawImage2;
 
                     //ItemData :
                     ItemData tempItem2 = Slots[fromIndex].Item;
@@ -474,12 +514,162 @@ public class InventoryController : MonoBehaviour
 
                     //Quantity Text :
                     Slots[fromIndex].QuantityText.text = Slots[fromIndex].Quantity.ToString();
-                    _currentFurnace.WoodSlot.QuantityText.text = _currentFurnace.WoodSlot.Quantity.ToString();
+                    UIManager.Instance.WoodFurnace.QuantityText.text = _currentFurnace.WoodSlot.Quantity.ToString();
+
+                    ReloadFurnaceUI(_currentFurnace);
                 }
                 else
                 {
-                    Debug.Log("Can't put Resource in HotKey");
-                    Notifications.Instance.CreateNotification("Can't put Resource in HotKey", Color.red);
+                    Debug.Log("Can put only Wood in this slot");
+                    Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
+                }
+
+                break;
+
+            case 5:
+                Debug.Log("Wood Furnace Item swap with Main Item");
+
+                if (Slots[toIndex].Item == null)
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[toIndex].ItemIcon.texture;
+                    Slots[toIndex].ItemIcon.texture = UIManager.Instance.WoodFurnace.ItemIcon.texture;
+                    UIManager.Instance.WoodFurnace.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[toIndex].Item;
+                    Slots[toIndex].Item = _currentFurnace.WoodSlot.Item;
+                    _currentFurnace.WoodSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[toIndex].Quantity;
+                    Slots[toIndex].Quantity = _currentFurnace.WoodSlot.Quantity;
+                    _currentFurnace.WoodSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                    UIManager.Instance.WoodFurnace.QuantityText.text = _currentFurnace.WoodSlot.Quantity.ToString();
+
+                    ReloadFurnaceUI(_currentFurnace);
+                }
+                else if (Slots[toIndex].Item.Type == ItemType.Resource && Slots[toIndex].Item.ItemName == "Wood")
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[toIndex].ItemIcon.texture;
+                    Slots[toIndex].ItemIcon.texture = UIManager.Instance.WoodFurnace.ItemIcon.texture;
+                    UIManager.Instance.WoodFurnace.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[toIndex].Item;
+                    Slots[toIndex].Item = _currentFurnace.WoodSlot.Item;
+                    _currentFurnace.WoodSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[toIndex].Quantity;
+                    Slots[toIndex].Quantity = _currentFurnace.WoodSlot.Quantity;
+                    _currentFurnace.WoodSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                    UIManager.Instance.WoodFurnace.QuantityText.text = _currentFurnace.WoodSlot.Quantity.ToString();
+
+                    ReloadFurnaceUI(_currentFurnace);
+                }
+                else
+                {
+                    Debug.Log("Can put only Wood in this slot");
+                    Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
+                }
+
+                break;
+
+            case 6:
+                Debug.Log("Main Item spaw with Furnace Ore Slot");
+
+                if (Slots[fromIndex].Item.Type == ItemType.Resource && Slots[fromIndex].Item.ItemName == "Iron Ore")
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[fromIndex].ItemIcon.texture;
+                    Slots[fromIndex].ItemIcon.texture = UIManager.Instance.OreFurnace.ItemIcon.texture;
+                    UIManager.Instance.OreFurnace.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[fromIndex].Item;
+                    Slots[fromIndex].Item = _currentFurnace.OreSlot.Item;
+                    _currentFurnace.OreSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[fromIndex].Quantity;
+                    Slots[fromIndex].Quantity = _currentFurnace.OreSlot.Quantity;
+                    _currentFurnace.OreSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[fromIndex].QuantityText.text = Slots[fromIndex].Quantity.ToString();
+                    UIManager.Instance.OreFurnace.QuantityText.text = _currentFurnace.OreSlot.Quantity.ToString();
+
+                    ReloadFurnaceUI(_currentFurnace);
+                }
+                else
+                {
+                    Debug.Log("Can put only Iron Ore in this slot");
+                    Notifications.Instance.CreateNotification("Can put only Iron Ore in this slot", Color.red);
+                }
+
+                break;
+
+            case 7:
+                Debug.Log("Ore Furnace Item swap with Main Item");
+
+                if (Slots[toIndex].Item == null)
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[toIndex].ItemIcon.texture;
+                    Slots[toIndex].ItemIcon.texture = UIManager.Instance.OreFurnace.ItemIcon.texture;
+                    UIManager.Instance.OreFurnace.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[toIndex].Item;
+                    Slots[toIndex].Item = _currentFurnace.OreSlot.Item;
+                    _currentFurnace.OreSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[toIndex].Quantity;
+                    Slots[toIndex].Quantity = _currentFurnace.OreSlot.Quantity;
+                    _currentFurnace.OreSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                    UIManager.Instance.OreFurnace.QuantityText.text = _currentFurnace.OreSlot.Quantity.ToString();
+
+                    ReloadFurnaceUI(_currentFurnace);
+                }
+                else if (Slots[toIndex].Item.Type == ItemType.Resource && Slots[toIndex].Item.ItemName == "Iron Ore")
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[toIndex].ItemIcon.texture;
+                    Slots[toIndex].ItemIcon.texture = UIManager.Instance.OreFurnace.ItemIcon.texture;
+                    UIManager.Instance.OreFurnace.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[toIndex].Item;
+                    Slots[toIndex].Item = _currentFurnace.OreSlot.Item;
+                    _currentFurnace.OreSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[toIndex].Quantity;
+                    Slots[toIndex].Quantity = _currentFurnace.OreSlot.Quantity;
+                    _currentFurnace.OreSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                    UIManager.Instance.OreFurnace.QuantityText.text = _currentFurnace.OreSlot.Quantity.ToString();
+
+                    ReloadFurnaceUI(_currentFurnace);
+                }
+                else
+                {
+                    Debug.Log("Can put only Iron Ore in this slot");
+                    Notifications.Instance.CreateNotification("Can put only Iron Ore in this slot", Color.red);
                 }
 
                 break;
@@ -533,7 +723,37 @@ public class InventoryController : MonoBehaviour
         }
         return true;
     }
+    private void ReloadFurnaceUI(FurnaceController currentFurnace)
+    {
+        if (currentFurnace.WoodSlot.Item != null)
+        {
+            Debug.Log("Reload Furnace Wood UI");
 
+            UIManager.Instance.WoodFurnace.ItemIcon.texture = currentFurnace.WoodSlot.Item.Icon.texture;
+            UIManager.Instance.WoodFurnace.QuantityText.text = currentFurnace.WoodSlot.Quantity.ToString();
+        }
+        else
+        {
+            Debug.Log("Reload Furnace Wood UI to zero");
+
+            UIManager.Instance.WoodFurnace.ItemIcon.texture = EmptyIcon;
+            UIManager.Instance.WoodFurnace.QuantityText.text = "0";
+        }
+        if (currentFurnace.OreSlot.Item != null)
+        {
+            Debug.Log("Reload Furnace Ore UI");
+
+            UIManager.Instance.OreFurnace.ItemIcon.texture = currentFurnace.OreSlot.Item.Icon.texture;
+            UIManager.Instance.OreFurnace.QuantityText.text = currentFurnace.OreSlot.Quantity.ToString();
+        }
+        else
+        {
+            Debug.Log("Reload Furnace Ore UI to zero");
+
+            UIManager.Instance.OreFurnace.ItemIcon.texture = EmptyIcon;
+            UIManager.Instance.OreFurnace.QuantityText.text = "0";
+        }
+    }
 
     private void ToggleInventory()
     {
@@ -554,6 +774,8 @@ public class InventoryController : MonoBehaviour
 
         if (currentFurnace != null)
         {
+            ReloadFurnaceUI(currentFurnace);
+
             _currentFurnace = currentFurnace;
         }
 
