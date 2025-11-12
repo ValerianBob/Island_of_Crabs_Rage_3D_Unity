@@ -29,4 +29,5 @@ public class UIManager : MonoBehaviour
     //Furnace Properties :
     public FurnaceSlotUI WoodFurnace;
     public FurnaceSlotUI OreFurnace;
+    public TextMeshProUGUI MeltTimeText;
 }

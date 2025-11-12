@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a80c41b3a0c46143b2b02d0a380c29a, type: 3}
-  m_Name: IronData
+  m_Name: IronOreData
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  ObjectPrefab: {fileID: 336745731655225463, guid: 85ac03537532f3a4dae02e9a72c22330, type: 3}
-  ItemName: Iron
-  InteractInfo: Press E to take Iron
+  ObjectPrefab: {fileID: 6053943123986515285, guid: bde25c20ab3ae7649a6b9104c6a28a9b, type: 3}
+  ItemName: Iron Ore
+  InteractInfo: Press E to take Iron Ore
   Type: 0
-  Icon: {fileID: 21300000, guid: 616526e655d719d4680694bfff7b8f97, type: 3}
+  Icon: {fileID: 21300000, guid: 15b935a40678d8241b8245c40c91187a, type: 3}
   isStackble: 1
   MaxQuantity: 100

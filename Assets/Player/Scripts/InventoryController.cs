@@ -764,6 +764,11 @@ public class InventoryController : MonoBehaviour
             CraftUI.SetActive(isOpened);
             FurnaceUI.SetActive(!isOpened);
 
+            if (_currentFurnace != null)
+            {
+                _currentFurnace.isFurnaceSelected = false;
+            }
+
             CursorVisabilityController.Instance.SetCursorVisability(isOpened);
         }
     }
@@ -775,6 +780,8 @@ public class InventoryController : MonoBehaviour
         if (currentFurnace != null)
         {
             ReloadFurnaceUI(currentFurnace);
+
+            currentFurnace.isFurnaceSelected = isOpened;
 
             _currentFurnace = currentFurnace;
         }
