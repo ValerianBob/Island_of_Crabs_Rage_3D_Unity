@@ -342,6 +342,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Palma
       objectReference: {fileID: 0}
+    - target: {fileID: -9123271753770908329, guid: d2fe16f16391f7d4cbb86a3c11a35921, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d2fe16f16391f7d4cbb86a3c11a35921, type: 3}
       propertyPath: m_LocalScale.x
       value: 100
@@ -510,7 +514,7 @@ MonoBehaviour:
   _inventoryController: {fileID: 0}
   _rigidbody: {fileID: 4435975036597555065}
   _palmPosition: {fileID: 5125670436071365469}
-  health: 100
+  Capacity: 100
   Item: {fileID: 11400000, guid: f6e079682ac8f8e4abefaa8befdeb53b, type: 2}
   _recreateDelay: 10
 --- !u!1 &8676037648101211029 stripped

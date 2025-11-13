@@ -762,6 +762,7 @@ GameObject:
   - component: {fileID: 5940130078157998597}
   - component: {fileID: 307020497993873410}
   - component: {fileID: 8204421571749833980}
+  - component: {fileID: 7428191099796781704}
   - component: {fileID: 3442642596164019564}
   - component: {fileID: 8221077183040963661}
   m_Layer: 0
@@ -962,16 +963,6 @@ MonoBehaviour:
     Item: {fileID: 0}
     Quantity: 0
     QuantityText: {fileID: 0}
-  WoodFurnaceSlots:
-    ItemIcon: {fileID: 0}
-    Item: {fileID: 0}
-    Quantity: 0
-    QuantityText: {fileID: 0}
-  OreFurnaceSlots:
-    ItemIcon: {fileID: 0}
-    Item: {fileID: 0}
-    Quantity: 0
-    QuantityText: {fileID: 0}
   PlayerInstrumentAndGunsPrefabs:
   - {fileID: 3642609446693535011}
   - {fileID: 1391321404634228694}
@@ -1012,6 +1003,24 @@ MonoBehaviour:
     Woods: 150
     Stones: 350
     Quantity: 1
+--- !u!114 &7428191099796781704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324431966938215392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208704e31195fea4e8b0801d2a9cf7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerConditionController
+  HelathBar: {fileID: 0}
+  HungerBar: {fileID: 0}
+  ThirstBar: {fileID: 0}
+  Health: 100
+  Hunger: 100
+  Thirs: 100
 --- !u!114 &3442642596164019564
 MonoBehaviour:
   m_ObjectHideFlags: 0

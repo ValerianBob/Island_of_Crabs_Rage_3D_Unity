@@ -43,6 +43,10 @@ public class InteractionController : MonoBehaviour
             {
                 UseFurnace();
             }
+            else if (_rayHit.collider.GetComponent<WaterCollectionController>() != null && !_hammerController.isBuilding)
+            {
+                UseWaterCollection();
+            }
             else
             {
                 _isVisible = false;
@@ -103,6 +107,21 @@ public class InteractionController : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             _inventoryController.ToggleFromFurnace(currentFurnace);
+        }
+    }
+
+    private void UseWaterCollection()
+    {
+        _isVisible = true;
+
+        WaterCollectionController currentWaterCollection = _rayHit.collider.GetComponent<WaterCollectionController>();
+
+        InfoText.text = currentWaterCollection.ObjectName;
+        InteractionText.text = currentWaterCollection.Info;
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            currentWaterCollection.DrinkWater(GetComponent<PlayerConditionController>(), 10);
         }
     }
 
