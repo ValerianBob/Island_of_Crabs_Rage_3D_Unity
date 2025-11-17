@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a80c41b3a0c46143b2b02d0a380c29a, type: 3}
+  m_Name: WoodBoardData
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  ObjectPrefab: {fileID: 7067017068422331986, guid: 83db2129e34c09c4e8cfe6aa1e97261e, type: 3}
+  ItemName: Wood Board
+  InteractInfo: Press E to take Wood Board
+  Type: 0
+  Icon: {fileID: 21300000, guid: 3795766edda091443bb6bdda4cfac08c, type: 3}
+  isStackble: 1
+  MaxQuantity: 100

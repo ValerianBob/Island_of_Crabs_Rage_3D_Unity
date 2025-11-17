@@ -17,9 +17,11 @@ public class HammerController : MonoBehaviour
 
         public int WoodQuantity;
         public int StoneQuantity;
+        public int IronQuantity;
 
         public TextMeshProUGUI WoodText;
         public TextMeshProUGUI StoneText;
+        public TextMeshProUGUI IronText;
     }
 
     [SerializeField] private BuildBluePrint[] BuildingsBluePrints;
@@ -239,15 +241,19 @@ public class HammerController : MonoBehaviour
         BuildingsBluePrints[index].WoodText.text = BuildingsBluePrints[index].WoodQuantity.ToString();
 
         BuildingsBluePrints[index].StoneText.text = BuildingsBluePrints[index].StoneQuantity.ToString();
+
+        BuildingsBluePrints[index].IronText.text = BuildingsBluePrints[index].IronQuantity.ToString();
     }
 
     private void TryPlaceBuild(int index)
     {
         int remainingWoods = BuildingsBluePrints[index].WoodQuantity;
         int remainingStones = BuildingsBluePrints[index].StoneQuantity;
+        int remainingIrons = BuildingsBluePrints[index].IronQuantity;
 
         int availableWoods = 0;
         int availableStones = 0;
+        int availableIrons = 0;
 
         for (int i = 0; i < _inventoryController.Slots.Length; i++)
         {
@@ -255,8 +261,6 @@ public class HammerController : MonoBehaviour
             {
                 continue;
             }
-
-            Debug.Log(_inventoryController.Slots[i].Item.ItemName);
 
             if (_inventoryController.Slots[i].Item.ItemName == "Wood")
             {
@@ -268,12 +272,19 @@ public class HammerController : MonoBehaviour
                 Debug.Log("I am fiding stone");
                 availableStones += _inventoryController.Slots[i].Quantity;
             }
+            else if (_inventoryController.Slots[i].Item.ItemName == "Iron")
+            {
+                Debug.Log("I am fiding Iron");
+                availableIrons += _inventoryController.Slots[i].Quantity;
+            }
         }
 
-        if (availableWoods < remainingWoods || availableStones < remainingStones)
+        if (availableWoods < remainingWoods || availableStones < remainingStones || availableIrons < remainingIrons)
         {
             Notifications.Instance.CreateNotification("Not enough resources", Color.red);
-            Debug.Log($"Woods : {availableWoods}, Stones : {availableStones}");
+            Debug.Log($"Need Woods : {remainingWoods - availableWoods}, " +
+                $"Stones : {remainingStones - availableStones}, " +
+                $"Irons : {remainingIrons - availableIrons}");
 
             return;
         }
@@ -288,7 +299,7 @@ public class HammerController : MonoBehaviour
                 {
                     if (_inventoryController.Slots[i].Item.ItemName == "Wood")
                     {
-                        remainingWoods = RemoveResourceFromSlot(i, "Wood", remainingWoods, itemsIndexesToDelete);
+                        remainingWoods = RemoveResourceFromSlot(i, remainingWoods, itemsIndexesToDelete);
                     }
                 }
             }
@@ -299,13 +310,24 @@ public class HammerController : MonoBehaviour
                 {
                     if (_inventoryController.Slots[i].Item.ItemName == "Stone")
                     {
-                        remainingStones = RemoveResourceFromSlot(i, "Stone", remainingStones, itemsIndexesToDelete);
+                        remainingStones = RemoveResourceFromSlot(i, remainingStones, itemsIndexesToDelete);
+                    }
+                }
+            }
+
+            if (BuildingsBluePrints[index].IronQuantity > 0 && remainingIrons != 0)
+            {
+                if (_inventoryController.Slots[i].Item != null)
+                {
+                    if (_inventoryController.Slots[i].Item.ItemName == "Iron")
+                    {
+                        remainingIrons = RemoveResourceFromSlot(i, remainingIrons, itemsIndexesToDelete);
                     }
                 }
             }
         }
 
-        if (remainingWoods == 0 && remainingStones == 0)
+        if (remainingWoods == 0 && remainingStones == 0 && remainingIrons == 0)
         {
             _inventoryController.ClearSlots(itemsIndexesToDelete);
 
@@ -328,7 +350,7 @@ public class HammerController : MonoBehaviour
         }
     }
 
-    private int RemoveResourceFromSlot(int i, string resourceName, int remainingAmount, List<int> itemsIndexesToDelete)
+    private int RemoveResourceFromSlot(int i, int remainingAmount, List<int> itemsIndexesToDelete)
     {
         if (remainingAmount > _inventoryController.Slots[i].Quantity)
         {

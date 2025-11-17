@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static CircularSawController;
 
 public class UIManager : MonoBehaviour
 {
@@ -20,14 +21,19 @@ public class UIManager : MonoBehaviour
     }
 
     [System.Serializable]
-    public struct FurnaceSlotUI
+    public struct BuildSlotUI
     {
         public RawImage ItemIcon;
         public TextMeshProUGUI QuantityText;
     }
 
-    //Furnace Properties :
-    public FurnaceSlotUI WoodFurnace;
-    public FurnaceSlotUI OreFurnace;
+    [Header("Furnac Properties :")]
+    public BuildSlotUI WoodFurnace;
+    public BuildSlotUI OreFurnace;
     public TextMeshProUGUI MeltTimeText;
+
+    [Header("CircularSaw Properties :")]
+    public BuildSlotUI WoodCiruclarSaw;
+    public TextMeshProUGUI CutTimeText;
+    public Button CutButton;
 }

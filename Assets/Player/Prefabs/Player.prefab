@@ -890,6 +890,7 @@ MonoBehaviour:
   Inventory: {fileID: 0}
   CraftUI: {fileID: 0}
   FurnaceUI: {fileID: 0}
+  CircularSawUI: {fileID: 0}
   DropPoint: {fileID: 4289080247290177146}
   EmptyIcon: {fileID: 2800000, guid: 5fd12480a9310a14aa4dea585241be51, type: 3}
   isOpened: 0
@@ -985,23 +986,23 @@ MonoBehaviour:
   ItemsBluePrints:
   - CraftItemButton: {fileID: 0}
     Item: {fileID: 11400000, guid: cf1cc20d96b242244a134f1120c3fb37, type: 2}
-    Woods: 200
+    Woods: 100
     Stones: 0
     Quantity: 1
   - CraftItemButton: {fileID: 0}
     Item: {fileID: 11400000, guid: b8a282bec892c484784aea65742a446d, type: 2}
-    Woods: 250
-    Stones: 250
+    Woods: 150
+    Stones: 150
     Quantity: 1
   - CraftItemButton: {fileID: 0}
     Item: {fileID: 11400000, guid: a820abaeaa33fa04989e9234ca512603, type: 2}
-    Woods: 250
-    Stones: 250
+    Woods: 150
+    Stones: 150
     Quantity: 1
   - CraftItemButton: {fileID: 0}
     Item: {fileID: 11400000, guid: 9b32a116185ae98479a0f96ffc968f99, type: 2}
-    Woods: 150
-    Stones: 350
+    Woods: 50
+    Stones: 200
     Quantity: 1
 --- !u!114 &7428191099796781704
 MonoBehaviour:
@@ -2029,18 +2030,31 @@ MonoBehaviour:
   - BuildPrefab: {fileID: 2600939621561566063, guid: 10b381ba437bbbb48bc644eef8729723, type: 3}
     WoodQuantity: 200
     StoneQuantity: 200
+    IronQuantity: 0
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
+    IronText: {fileID: 0}
   - BuildPrefab: {fileID: 1516443348489085602, guid: a95c38b778879d9418067983789a5f29, type: 3}
     WoodQuantity: 50
     StoneQuantity: 50
+    IronQuantity: 0
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
+    IronText: {fileID: 0}
   - BuildPrefab: {fileID: 4605622384726763044, guid: af173e97b64f9084d926f79b5e42ad01, type: 3}
     WoodQuantity: 100
     StoneQuantity: 100
+    IronQuantity: 0
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
+    IronText: {fileID: 0}
+  - BuildPrefab: {fileID: 2826366528032921327, guid: b2da98743a3ff8e4e814d55c985c0ea7, type: 3}
+    WoodQuantity: 300
+    StoneQuantity: 300
+    IronQuantity: 100
+    WoodText: {fileID: 0}
+    StoneText: {fileID: 0}
+    IronText: {fileID: 0}
   Camera: {fileID: 2944028535577751238}
   Terrain: {fileID: 0}
   HelpKeysText: {fileID: 0}

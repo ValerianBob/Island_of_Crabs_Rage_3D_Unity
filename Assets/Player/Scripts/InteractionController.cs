@@ -47,6 +47,10 @@ public class InteractionController : MonoBehaviour
             {
                 UseWaterCollection();
             }
+            else if (_rayHit.collider.GetComponent<CircularSawController>() != null && !_hammerController.isBuilding)
+            {
+                UseCircularSaw();
+            }
             else
             {
                 _isVisible = false;
@@ -122,6 +126,21 @@ public class InteractionController : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             currentWaterCollection.DrinkWater(GetComponent<PlayerConditionController>(), 10);
+        }
+    }
+
+    private void UseCircularSaw()
+    {
+        _isVisible = true;
+
+        CircularSawController currentCircularSaw = _rayHit.collider.GetComponent<CircularSawController>();
+
+        InfoText.text = currentCircularSaw.ObjectName;
+        InteractionText.text = currentCircularSaw.Info;
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            _inventoryController.ToggleFromCirculatSaw(currentCircularSaw);
         }
     }
 

@@ -11,6 +11,7 @@ public class InventoryController : MonoBehaviour
 
     [SerializeField] private GameObject CraftUI;
     [SerializeField] private GameObject FurnaceUI;
+    [SerializeField] private GameObject CircularSawUI;
 
     [SerializeField] private GameObject DropPoint;
 
@@ -33,6 +34,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private GameObject[] PlayerInstrumentAndGunsPrefabs;
 
     private FurnaceController _currentFurnace;
+    private CircularSawController _currentCircularSaw;
 
     public bool isMeleeItemInHand = true;
 
@@ -258,9 +260,9 @@ public class InventoryController : MonoBehaviour
         return false;
     }
     
-    public bool DropItem(int index, bool isHotKeySlot, bool FurnaceWoodSlot, bool FurnaceOreSlot)
+    public bool DropItem(int index, bool isHotKeySlot, bool FurnaceWoodSlot, bool FurnaceOreSlot, bool CircularSawWoodSlot)
     {
-        if (!isHotKeySlot && !FurnaceWoodSlot && !FurnaceOreSlot)
+        if (!isHotKeySlot && !FurnaceWoodSlot && !FurnaceOreSlot && !CircularSawWoodSlot)
         {
             if (index >= 0 && index <= Slots.Length)
             {
@@ -323,6 +325,26 @@ public class InventoryController : MonoBehaviour
                 UIManager.Instance.OreFurnace.QuantityText.text = "0";
 
                 Debug.Log("Ore dropped from furnace");
+
+                return true;
+            }
+
+            return false;
+        }
+        else if (!FurnaceOreSlot && !FurnaceWoodSlot && !isHotKeySlot && CircularSawWoodSlot)
+        {
+            if (_currentCircularSaw.WoodSlot.Item != null)
+            {
+                GameObject ItemObjectToDrop = Instantiate(_currentCircularSaw.WoodSlot.Item.ObjectPrefab, DropPoint.transform.position, Quaternion.identity);
+
+                ItemObjectToDrop.GetComponent<ItemController>().Quantity = _currentCircularSaw.WoodSlot.Quantity;
+
+                UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = EmptyIcon;
+                _currentCircularSaw.WoodSlot.Item = null;
+                _currentCircularSaw.WoodSlot.Quantity = 0;
+                UIManager.Instance.WoodCiruclarSaw.QuantityText.text = "0";
+
+                Debug.Log("Wood dropped from CircularSaw");
 
                 return true;
             }
@@ -674,6 +696,97 @@ public class InventoryController : MonoBehaviour
 
                 break;
 
+            case 8:
+                Debug.Log("Main Item swap with CircularSaw Wood");
+
+                if (Slots[fromIndex].Item.Type == ItemType.Resource && Slots[fromIndex].Item.ItemName == "Wood")
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[fromIndex].ItemIcon.texture;
+                    Slots[fromIndex].ItemIcon.texture = UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture;
+                    UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[fromIndex].Item;
+                    Slots[fromIndex].Item = _currentCircularSaw.WoodSlot.Item;
+                    _currentCircularSaw.WoodSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[fromIndex].Quantity;
+                    Slots[fromIndex].Quantity = _currentCircularSaw.WoodSlot.Quantity;
+                    _currentCircularSaw.WoodSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[fromIndex].QuantityText.text = Slots[fromIndex].Quantity.ToString();
+                    UIManager.Instance.WoodCiruclarSaw.QuantityText.text = _currentCircularSaw.WoodSlot.Quantity.ToString();
+
+                    ReloadCircularSawUI(_currentCircularSaw);
+                }
+                else
+                {
+                    Debug.Log("Can put only Wood in this slot");
+                    Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
+                }
+
+                break;
+
+            case 9:
+                Debug.Log("CircularSaw Wood Item swap with Main Item");
+
+                if (Slots[toIndex].Item == null)
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[toIndex].ItemIcon.texture;
+                    Slots[toIndex].ItemIcon.texture = UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture;
+                    UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[toIndex].Item;
+                    Slots[toIndex].Item = _currentCircularSaw.WoodSlot.Item;
+                    _currentCircularSaw.WoodSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[toIndex].Quantity;
+                    Slots[toIndex].Quantity = _currentCircularSaw.WoodSlot.Quantity;
+                    _currentCircularSaw.WoodSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                    UIManager.Instance.WoodCiruclarSaw.QuantityText.text = _currentCircularSaw.WoodSlot.Quantity.ToString();
+
+                    ReloadCircularSawUI(_currentCircularSaw);
+                }
+                else if (Slots[toIndex].Item.Type == ItemType.Resource && Slots[toIndex].Item.ItemName == "Wood")
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[toIndex].ItemIcon.texture;
+                    Slots[toIndex].ItemIcon.texture = UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture;
+                    UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[toIndex].Item;
+                    Slots[toIndex].Item = _currentCircularSaw.WoodSlot.Item;
+                    _currentCircularSaw.WoodSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[toIndex].Quantity;
+                    Slots[toIndex].Quantity = _currentCircularSaw.WoodSlot.Quantity;
+                    _currentCircularSaw.WoodSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                    UIManager.Instance.WoodCiruclarSaw.QuantityText.text = _currentCircularSaw.WoodSlot.Quantity.ToString();
+
+                    ReloadCircularSawUI(_currentCircularSaw);
+                }
+                else
+                {
+                    Debug.Log("Can put only Wood in this slot");
+                    Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
+                }
+
+                break;
+
             default:
                 Debug.LogWarning("Unknown item type!");
                 break;
@@ -755,6 +868,24 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    private void ReloadCircularSawUI(CircularSawController currentCircularSaw)
+    {
+        if (currentCircularSaw.WoodSlot.Item != null)
+        {
+            Debug.Log("Reload CircularSaw Wood UI");
+
+            UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = currentCircularSaw.WoodSlot.Item.Icon.texture;
+            UIManager.Instance.WoodCiruclarSaw.QuantityText.text = currentCircularSaw.WoodSlot.Quantity.ToString();
+        }
+        else
+        {
+            Debug.Log("Reload CircularSaw Wood UI to zero");
+
+            UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = EmptyIcon;
+            UIManager.Instance.WoodCiruclarSaw.QuantityText.text = "0";
+        }
+    }
+
     private void ToggleInventory()
     {
         if (Keyboard.current.tabKey.wasPressedThisFrame)
@@ -763,6 +894,7 @@ public class InventoryController : MonoBehaviour
             Inventory.SetActive(isOpened);
             CraftUI.SetActive(isOpened);
             FurnaceUI.SetActive(!isOpened);
+            CircularSawUI.SetActive(!isOpened);
 
             if (_currentFurnace != null)
             {
@@ -789,6 +921,30 @@ public class InventoryController : MonoBehaviour
         Inventory.SetActive(isOpened);
         CraftUI.SetActive(!isOpened);
         FurnaceUI.SetActive(isOpened);
+        CircularSawUI.SetActive(!isOpened);
+
+        CursorVisabilityController.Instance.SetCursorVisability(isOpened);
+    }
+
+    public void ToggleFromCirculatSaw(CircularSawController currentCircular)
+    {
+        isOpened = !isOpened;
+
+        if (currentCircular != null)
+        {
+            ReloadCircularSawUI(currentCircular);
+
+            currentCircular.isCirculatSawSelected = isOpened;
+
+            UIManager.Instance.CutButton.onClick.AddListener(currentCircular.CutWood);
+
+            _currentCircularSaw = currentCircular;
+        }
+
+        Inventory.SetActive(isOpened);
+        CraftUI.SetActive(!isOpened);
+        FurnaceUI.SetActive(!isOpened);
+        CircularSawUI.SetActive(isOpened);
 
         CursorVisabilityController.Instance.SetCursorVisability(isOpened);
     }

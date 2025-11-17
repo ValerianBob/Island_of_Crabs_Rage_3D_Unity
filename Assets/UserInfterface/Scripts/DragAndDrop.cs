@@ -22,6 +22,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public bool isHotKeySlot = false;
     public bool isFurnaceWoodSlot = false;
     public bool isFurnaceOreSlot = false;
+    public bool isCircularSawWoodSlot = false;
 
     private void Awake()
     {
@@ -108,8 +109,12 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
             if (draggedItem != null)
             {
                 if (!draggedItem.isHotKeySlot && !isHotKeySlot 
-                    && !isFurnaceWoodSlot && !isFurnaceOreSlot &&
-                    !draggedItem.isFurnaceWoodSlot && !draggedItem.isFurnaceOreSlot)
+                    && !isFurnaceWoodSlot
+                    && !isFurnaceOreSlot
+                    && !isCircularSawWoodSlot
+                    && !draggedItem.isFurnaceWoodSlot
+                    && !draggedItem.isFurnaceOreSlot
+                    && !draggedItem.isCircularSawWoodSlot)
                 {
                     inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 0);
                 }
@@ -141,6 +146,14 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
                 {
                     inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 7);
                 }
+                else if (!draggedItem.isHotKeySlot && isCircularSawWoodSlot)
+                {
+                    inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 8);
+                }
+                else if (draggedItem.isCircularSawWoodSlot && !isHotKeySlot)
+                {
+                    inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 9);
+                }
 
                 Debug.Log($"Dropped item {draggedItem.SlotIndex} swapped with slot {SlotIndex}");
             }
@@ -158,7 +171,8 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         else
         {
             Debug.Log("wasn't on Panel when left mouse");
-            inventoryController.DropItem(SlotIndex, draggedItem.isHotKeySlot, draggedItem.isFurnaceWoodSlot, draggedItem.isFurnaceOreSlot);
+            inventoryController.DropItem(SlotIndex, draggedItem.isHotKeySlot, draggedItem.isFurnaceWoodSlot, draggedItem.isFurnaceOreSlot,
+                draggedItem.isCircularSawWoodSlot);
         }
     }
 }
