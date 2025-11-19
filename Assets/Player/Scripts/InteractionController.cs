@@ -51,6 +51,10 @@ public class InteractionController : MonoBehaviour
             {
                 UseCircularSaw();
             }
+            else if (_rayHit.collider.GetComponent<ShipFixerBenchController>() != null && !_hammerController.isBuilding)
+            {
+                UseShipFixerBench();
+            }
             else
             {
                 _isVisible = false;
@@ -141,6 +145,21 @@ public class InteractionController : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             _inventoryController.ToggleFromCirculatSaw(currentCircularSaw);
+        }
+    }
+
+    private void UseShipFixerBench()
+    {
+        _isVisible = true;
+
+        ShipFixerBenchController currentShipFixerBench = _rayHit.collider.GetComponent<ShipFixerBenchController>();
+
+        InfoText.text = currentShipFixerBench.ObjectName;
+        InteractionText.text = currentShipFixerBench.Info;
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            _inventoryController.ToggleFromShipFixer(currentShipFixerBench);
         }
     }
 

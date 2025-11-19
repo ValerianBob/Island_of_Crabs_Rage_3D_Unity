@@ -891,6 +891,7 @@ MonoBehaviour:
   CraftUI: {fileID: 0}
   FurnaceUI: {fileID: 0}
   CircularSawUI: {fileID: 0}
+  ShipFixerBenchUI: {fileID: 0}
   DropPoint: {fileID: 4289080247290177146}
   EmptyIcon: {fileID: 2800000, guid: 5fd12480a9310a14aa4dea585241be51, type: 3}
   isOpened: 0
@@ -2052,6 +2053,13 @@ MonoBehaviour:
     WoodQuantity: 300
     StoneQuantity: 300
     IronQuantity: 100
+    WoodText: {fileID: 0}
+    StoneText: {fileID: 0}
+    IronText: {fileID: 0}
+  - BuildPrefab: {fileID: 5793816150380791720, guid: 99c8970acc75282489fa6bba318c744f, type: 3}
+    WoodQuantity: 350
+    StoneQuantity: 350
+    IronQuantity: 200
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
     IronText: {fileID: 0}

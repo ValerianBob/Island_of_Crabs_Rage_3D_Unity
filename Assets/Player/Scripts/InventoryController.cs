@@ -12,6 +12,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private GameObject CraftUI;
     [SerializeField] private GameObject FurnaceUI;
     [SerializeField] private GameObject CircularSawUI;
+    [SerializeField] private GameObject ShipFixerBenchUI;
 
     [SerializeField] private GameObject DropPoint;
 
@@ -35,6 +36,7 @@ public class InventoryController : MonoBehaviour
 
     private FurnaceController _currentFurnace;
     private CircularSawController _currentCircularSaw;
+    private ShipFixerBenchController _currentShipFixerBench;
 
     public bool isMeleeItemInHand = true;
 
@@ -787,6 +789,98 @@ public class InventoryController : MonoBehaviour
 
                 break;
 
+            case 10:
+                Debug.Log("Main Item swap with ShipFixerBench Recource");
+
+                if (Slots[fromIndex].Item.Type == ItemType.Resource && Slots[fromIndex].Item.ItemName == "Wood Board")
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[fromIndex].ItemIcon.texture;
+                    Slots[fromIndex].ItemIcon.texture = UIManager.Instance.RecourcesShipFixer.ItemIcon.texture;
+                    UIManager.Instance.RecourcesShipFixer.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[fromIndex].Item;
+                    Slots[fromIndex].Item = _currentShipFixerBench.ResourceSlot.Item;
+                    _currentShipFixerBench.ResourceSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[fromIndex].Quantity;
+                    Slots[fromIndex].Quantity = _currentShipFixerBench.ResourceSlot.Quantity;
+                    _currentShipFixerBench.ResourceSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[fromIndex].QuantityText.text = Slots[fromIndex].Quantity.ToString();
+                    UIManager.Instance.RecourcesShipFixer.QuantityText.text = _currentShipFixerBench.ResourceSlot.Quantity.ToString();
+
+                    ReloadShipFixerUI(_currentShipFixerBench);
+                }
+                else
+                {
+                    Debug.Log("Can put only Wood Board in this slot");
+                    Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
+                }
+
+                break;
+
+
+            case 11:
+                Debug.Log("ShipFixerSlot Item swap with Main Item");
+
+                if (Slots[toIndex].Item == null)
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[toIndex].ItemIcon.texture;
+                    Slots[toIndex].ItemIcon.texture = UIManager.Instance.RecourcesShipFixer.ItemIcon.texture;
+                    UIManager.Instance.RecourcesShipFixer.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[toIndex].Item;
+                    Slots[toIndex].Item = _currentShipFixerBench.ResourceSlot.Item;
+                    _currentShipFixerBench.ResourceSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[toIndex].Quantity;
+                    Slots[toIndex].Quantity = _currentShipFixerBench.ResourceSlot.Quantity;
+                    _currentShipFixerBench.ResourceSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                    UIManager.Instance.RecourcesShipFixer.QuantityText.text = _currentShipFixerBench.ResourceSlot.Quantity.ToString();
+
+                    ReloadShipFixerUI(_currentShipFixerBench);
+                }
+                else if (Slots[toIndex].Item.Type == ItemType.Resource && Slots[toIndex].Item.ItemName == "Wood")
+                {
+                    //Swap Images :
+                    Texture tempRawImage2 = Slots[toIndex].ItemIcon.texture;
+                    Slots[toIndex].ItemIcon.texture = UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture;
+                    UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = tempRawImage2;
+
+                    //ItemData :
+                    ItemData tempItem2 = Slots[toIndex].Item;
+                    Slots[toIndex].Item = _currentCircularSaw.WoodSlot.Item;
+                    _currentCircularSaw.WoodSlot.Item = tempItem2;
+
+                    //Quantity :
+                    int tempQuantity2 = Slots[toIndex].Quantity;
+                    Slots[toIndex].Quantity = _currentCircularSaw.WoodSlot.Quantity;
+                    _currentCircularSaw.WoodSlot.Quantity = tempQuantity2;
+
+                    //Quantity Text :
+                    Slots[toIndex].QuantityText.text = Slots[toIndex].Quantity.ToString();
+                    UIManager.Instance.WoodCiruclarSaw.QuantityText.text = _currentCircularSaw.WoodSlot.Quantity.ToString();
+
+                    ReloadCircularSawUI(_currentCircularSaw);
+                }
+                else
+                {
+                    Debug.Log("Can put only Wood in this slot");
+                    Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
+                }
+
+                break;
+
             default:
                 Debug.LogWarning("Unknown item type!");
                 break;
@@ -886,6 +980,24 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    private void ReloadShipFixerUI(ShipFixerBenchController currentShipFixer)
+    {
+        if (currentShipFixer.ResourceSlot.Item != null)
+        {
+            Debug.Log("Reload ShipFixer Resource UI");
+
+            UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = currentShipFixer.ResourceSlot.Item.Icon.texture;
+            UIManager.Instance.WoodCiruclarSaw.QuantityText.text = currentShipFixer.ResourceSlot.Quantity.ToString();
+        }
+        else
+        {
+            Debug.Log("Reload ShipFixer Resource UI to zero");
+
+            UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = EmptyIcon;
+            UIManager.Instance.WoodCiruclarSaw.QuantityText.text = "0";
+        }
+    }
+
     private void ToggleInventory()
     {
         if (Keyboard.current.tabKey.wasPressedThisFrame)
@@ -895,6 +1007,7 @@ public class InventoryController : MonoBehaviour
             CraftUI.SetActive(isOpened);
             FurnaceUI.SetActive(!isOpened);
             CircularSawUI.SetActive(!isOpened);
+            ShipFixerBenchUI.SetActive(!isOpened);
 
             if (_currentFurnace != null)
             {
@@ -922,6 +1035,7 @@ public class InventoryController : MonoBehaviour
         CraftUI.SetActive(!isOpened);
         FurnaceUI.SetActive(isOpened);
         CircularSawUI.SetActive(!isOpened);
+        ShipFixerBenchUI.SetActive(!isOpened);
 
         CursorVisabilityController.Instance.SetCursorVisability(isOpened);
     }
@@ -945,6 +1059,29 @@ public class InventoryController : MonoBehaviour
         CraftUI.SetActive(!isOpened);
         FurnaceUI.SetActive(!isOpened);
         CircularSawUI.SetActive(isOpened);
+        ShipFixerBenchUI.SetActive(!isOpened);
+
+        CursorVisabilityController.Instance.SetCursorVisability(isOpened);
+    }
+
+    public void ToggleFromShipFixer(ShipFixerBenchController currentShipFixer)
+    {
+        isOpened = !isOpened;
+
+        if (currentShipFixer != null)
+        {
+            ReloadShipFixerUI(currentShipFixer);
+
+            UIManager.Instance.FixButton.onClick.AddListener(currentShipFixer.FixShip);
+
+            _currentShipFixerBench = currentShipFixer;
+        }
+
+        Inventory.SetActive(isOpened);
+        CraftUI.SetActive(!isOpened);
+        FurnaceUI.SetActive(!isOpened);
+        CircularSawUI.SetActive(!isOpened);
+        ShipFixerBenchUI.SetActive(isOpened);
 
         CursorVisabilityController.Instance.SetCursorVisability(isOpened);
     }

@@ -23,6 +23,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public bool isFurnaceWoodSlot = false;
     public bool isFurnaceOreSlot = false;
     public bool isCircularSawWoodSlot = false;
+    public bool isShipFixerBenchSlot = false;
 
     private void Awake()
     {
@@ -112,9 +113,11 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
                     && !isFurnaceWoodSlot
                     && !isFurnaceOreSlot
                     && !isCircularSawWoodSlot
+                    && !isShipFixerBenchSlot
                     && !draggedItem.isFurnaceWoodSlot
                     && !draggedItem.isFurnaceOreSlot
-                    && !draggedItem.isCircularSawWoodSlot)
+                    && !draggedItem.isCircularSawWoodSlot
+                    && !draggedItem.isShipFixerBenchSlot)
                 {
                     inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 0);
                 }
@@ -153,6 +156,14 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
                 else if (draggedItem.isCircularSawWoodSlot && !isHotKeySlot)
                 {
                     inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 9);
+                }
+                else if (!draggedItem.isHotKeySlot && isShipFixerBenchSlot)
+                {
+                    inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 10);
+                }
+                else if (draggedItem.isShipFixerBenchSlot && !draggedItem.isHotKeySlot)
+                {
+                    inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 11);
                 }
 
                 Debug.Log($"Dropped item {draggedItem.SlotIndex} swapped with slot {SlotIndex}");

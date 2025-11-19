@@ -36,4 +36,8 @@ public class UIManager : MonoBehaviour
     public BuildSlotUI WoodCiruclarSaw;
     public TextMeshProUGUI CutTimeText;
     public Button CutButton;
+
+    [Header("ShipFixerBench Properties :")]
+    public BuildSlotUI RecourcesShipFixer;
+    public Button FixButton;
 }
