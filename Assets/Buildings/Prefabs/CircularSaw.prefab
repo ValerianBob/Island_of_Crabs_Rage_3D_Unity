@@ -30,6 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6998325948711566823}
+  - {fileID: 6522622985304317777}
   - {fileID: 7129031562972698499}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80,7 +81,7 @@ GameObject:
   - component: {fileID: 824405698625325567}
   - component: {fileID: 2348244270700704723}
   m_Layer: 0
-  m_Name: CircularSawModel
+  m_Name: CircularSawScripts
   m_TagString: Build
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +117,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5814342727218349744}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -251,3 +252,77 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaceBuildBlockController
   canPlaceBuild: 1
+--- !u!1001 &6705783388367878330
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4105141751274006882}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2858407
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5721275
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.74785113
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.091
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.018
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.044
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+      propertyPath: m_Name
+      value: CircularSawModel
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+--- !u!4 &6522622985304317777 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0fd7feeee313b964c9f6877826e762d9, type: 3}
+  m_PrefabInstance: {fileID: 6705783388367878330}
+  m_PrefabAsset: {fileID: 0}
