@@ -183,7 +183,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         {
             Debug.Log("wasn't on Panel when left mouse");
             inventoryController.DropItem(SlotIndex, draggedItem.isHotKeySlot, draggedItem.isFurnaceWoodSlot, draggedItem.isFurnaceOreSlot,
-                draggedItem.isCircularSawWoodSlot);
+                draggedItem.isCircularSawWoodSlot, draggedItem.isShipFixerBenchSlot);
         }
     }
 }

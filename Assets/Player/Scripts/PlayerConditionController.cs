@@ -9,7 +9,7 @@ public class PlayerConditionController : MonoBehaviour
     [SerializeField] private Slider HungerBar;
     [SerializeField] private Slider ThirstBar;
 
-    private int GettingSustenanceSpeed = 1;
+    private int GettingSustenanceSpeed = 5;
     private int DyingFromSustenanceSpeed = 1;
 
     private float NextTimeGetSustenance = 0f;

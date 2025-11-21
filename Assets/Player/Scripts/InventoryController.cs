@@ -262,9 +262,9 @@ public class InventoryController : MonoBehaviour
         return false;
     }
     
-    public bool DropItem(int index, bool isHotKeySlot, bool FurnaceWoodSlot, bool FurnaceOreSlot, bool CircularSawWoodSlot)
+    public bool DropItem(int index, bool isHotKeySlot, bool FurnaceWoodSlot, bool FurnaceOreSlot, bool CircularSawWoodSlot, bool ShipFixer)
     {
-        if (!isHotKeySlot && !FurnaceWoodSlot && !FurnaceOreSlot && !CircularSawWoodSlot)
+        if (!isHotKeySlot && !FurnaceWoodSlot && !FurnaceOreSlot && !CircularSawWoodSlot && !ShipFixer)
         {
             if (index >= 0 && index <= Slots.Length)
             {
@@ -345,6 +345,26 @@ public class InventoryController : MonoBehaviour
                 _currentCircularSaw.WoodSlot.Item = null;
                 _currentCircularSaw.WoodSlot.Quantity = 0;
                 UIManager.Instance.WoodCiruclarSaw.QuantityText.text = "0";
+
+                Debug.Log("Wood dropped from CircularSaw");
+
+                return true;
+            }
+
+            return false;
+        }
+        else if (ShipFixer && !FurnaceOreSlot && !FurnaceWoodSlot && !isHotKeySlot && !CircularSawWoodSlot)
+        {
+            if (_currentShipFixerBench.ResourceSlot.Item != null)
+            {
+                GameObject ItemObjectToDrop = Instantiate(_currentShipFixerBench.ResourceSlot.Item.ObjectPrefab, DropPoint.transform.position, Quaternion.identity);
+
+                ItemObjectToDrop.GetComponent<ItemController>().Quantity = _currentShipFixerBench.ResourceSlot.Quantity;
+
+                UIManager.Instance.RecourcesShipFixer.ItemIcon.texture = EmptyIcon;
+                _currentShipFixerBench.ResourceSlot.Item = null;
+                _currentShipFixerBench.ResourceSlot.Quantity = 0;
+                UIManager.Instance.RecourcesShipFixer.QuantityText.text = "0";
 
                 Debug.Log("Wood dropped from CircularSaw");
 
@@ -792,7 +812,10 @@ public class InventoryController : MonoBehaviour
             case 10:
                 Debug.Log("Main Item swap with ShipFixerBench Recource");
 
-                if (Slots[fromIndex].Item.Type == ItemType.Resource && Slots[fromIndex].Item.ItemName == "Wood Board")
+                if (Slots[fromIndex].Item.Type == ItemType.Resource && 
+                    Slots[fromIndex].Item.ItemName == "Wood Board" || 
+                    Slots[fromIndex].Item.ItemName == "Iron" || 
+                    Slots[fromIndex].Item.ItemName == "Stone")
                 {
                     //Swap Images :
                     Texture tempRawImage2 = Slots[fromIndex].ItemIcon.texture;
@@ -817,8 +840,7 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can put only Wood Board in this slot");
-                    Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
+                    Notifications.Instance.CreateNotification("Can't put this recource in this slot", Color.red);
                 }
 
                 break;
@@ -850,7 +872,10 @@ public class InventoryController : MonoBehaviour
 
                     ReloadShipFixerUI(_currentShipFixerBench);
                 }
-                else if (Slots[toIndex].Item.Type == ItemType.Resource && Slots[toIndex].Item.ItemName == "Wood")
+                else if (Slots[fromIndex].Item.Type == ItemType.Resource &&
+                    Slots[fromIndex].Item.ItemName == "Wood Board" ||
+                    Slots[fromIndex].Item.ItemName == "Iron" ||
+                    Slots[fromIndex].Item.ItemName == "Stone")
                 {
                     //Swap Images :
                     Texture tempRawImage2 = Slots[toIndex].ItemIcon.texture;
@@ -875,8 +900,7 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can put only Wood in this slot");
-                    Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
+                    Notifications.Instance.CreateNotification("Can't put this recource in this slot", Color.red);
                 }
 
                 break;

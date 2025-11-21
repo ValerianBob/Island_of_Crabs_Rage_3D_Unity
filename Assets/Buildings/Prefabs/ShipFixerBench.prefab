@@ -198,5 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d1bf993bfcfdd45a5d91132b6d8131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShipFixerBenchController
+  ShipController: {fileID: 0}
+  EmptyIcon: {fileID: 2800000, guid: 5fd12480a9310a14aa4dea585241be51, type: 3}
   ObjectName: Ship Fixer Bench
   Info: Press E to use Ship Fixer
+  ResourceSlot:
+    Item: {fileID: 0}
+    Quantity: 0
