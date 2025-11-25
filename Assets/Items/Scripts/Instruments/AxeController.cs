@@ -16,6 +16,8 @@ public class AxeController : MonoBehaviour
 
     public float AttackDelay;
 
+    private Coroutine _hitCoroutine;
+
     private bool _canAttack = true;
 
     private void Update()
@@ -27,7 +29,7 @@ public class AxeController : MonoBehaviour
         {
             if (Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.CompareTag("Palma"))
             {
-                StartCoroutine(Delay());
+                _hitCoroutine = StartCoroutine(Delay());
             }
         }
 
@@ -73,5 +75,14 @@ public class AxeController : MonoBehaviour
         Hit();
 
         _canAttack = true;
+    }
+
+    private void OnDisable()
+    {
+        if (_hitCoroutine != null)
+        {
+            StopCoroutine(_hitCoroutine);
+            _canAttack = true;
+        }
     }
 }

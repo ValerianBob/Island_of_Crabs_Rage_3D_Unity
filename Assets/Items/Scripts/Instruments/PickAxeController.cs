@@ -18,6 +18,8 @@ public class PickAxeController : MonoBehaviour
 
     public float AttackDelay;
 
+    private Coroutine _hitCoroutine;
+
     private bool _canAttack = true;
 
     private void Update()
@@ -31,7 +33,7 @@ public class PickAxeController : MonoBehaviour
             {
                 Debug.Log($"Pick Axe hitted : {_hit.collider.gameObject.name}");
 
-                StartCoroutine(Delay(_hit));
+                _hitCoroutine = StartCoroutine(Delay(_hit));
             }
         }
 
@@ -77,5 +79,14 @@ public class PickAxeController : MonoBehaviour
         Hit(hit);
 
         _canAttack = true;
+    }
+
+    private void OnDisable()
+    {
+        if (_hitCoroutine != null)
+        {
+            StopCoroutine(_hitCoroutine);
+            _canAttack = true;
+        }
     }
 }
