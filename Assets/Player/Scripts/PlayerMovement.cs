@@ -37,6 +37,8 @@ public class PlayerMovement : NetworkBehaviour
     public bool _isGrounded = false;
     private bool _isRunning = false;
 
+    private bool _stopMovement = false;
+
     //public override void OnNetworkSpawn()
     //{
     //    base.OnNetworkSpawn();
@@ -66,51 +68,54 @@ public class PlayerMovement : NetworkBehaviour
         //    return;
         //}
 
-        if (!_inventoryController.isOpened)
+        if (!_stopMovement)
         {
-            GetMouseImput();
-
-            CameraMovement();
-        }
-
-        Movement();
-
-        _velocity.y += _gravity * Time.deltaTime;
-
-        _characterController.Move(_velocity * Time.deltaTime);
-
-        if (_characterController.isGrounded)
-        {
-            _isGrounded = true;
-
-            if (_velocity.y < 0)
+            if (!_inventoryController.isOpened)
             {
-                _velocity.y = -2f;
+                GetMouseImput();
+
+                CameraMovement();
             }
 
-        }
-        else
-        {
-            _isGrounded = false;
-        }
+            Movement();
 
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
+            _velocity.y += _gravity * Time.deltaTime;
+
+            _characterController.Move(_velocity * Time.deltaTime);
+
             if (_characterController.isGrounded)
             {
-                _velocity.y = Mathf.Sqrt(JumpHeigh * -_gravity);
-            }
-        }
+                _isGrounded = true;
 
-        if (Keyboard.current.leftShiftKey.isPressed && _characterController.isGrounded && !_isRunning)
-        {
-            MovementSpeed += RunningSpeed;
-            _isRunning = true;
-        }
-        else if (_characterController.isGrounded && _isRunning)
-        {
-            MovementSpeed -= RunningSpeed;
-            _isRunning = false;
+                if (_velocity.y < 0)
+                {
+                    _velocity.y = -2f;
+                }
+
+            }
+            else
+            {
+                _isGrounded = false;
+            }
+
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                if (_characterController.isGrounded)
+                {
+                    _velocity.y = Mathf.Sqrt(JumpHeigh * -_gravity);
+                }
+            }
+
+            if (Keyboard.current.leftShiftKey.isPressed && _characterController.isGrounded && !_isRunning)
+            {
+                MovementSpeed += RunningSpeed;
+                _isRunning = true;
+            }
+            else if (_characterController.isGrounded && _isRunning)
+            {
+                MovementSpeed -= RunningSpeed;
+                _isRunning = false;
+            }
         }
     }
 
@@ -164,5 +169,21 @@ public class PlayerMovement : NetworkBehaviour
 
         PlayerCamera.transform.localRotation = Quaternion.Euler(_mouseRotation.y, 0f, 0f);
         transform.rotation = Quaternion.Euler(0f, _mouseRotation.x, 0f);
+    }
+
+    private void OnEnable()
+    {
+        ShipController.OnGameOver += DisablePlayer;
+    }
+
+    private void OnDisable()
+    {
+        ShipController.OnGameOver -= DisablePlayer;
+    }
+
+    private void DisablePlayer()
+    {
+        _stopMovement = true;
+        PlayerCamera.gameObject.SetActive(false);
     }
 }

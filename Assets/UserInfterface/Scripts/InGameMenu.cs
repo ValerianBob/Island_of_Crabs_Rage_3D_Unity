@@ -13,6 +13,8 @@ public class InGameMenu : MonoBehaviour
 
     private bool isOpen = false;
 
+    private bool isGameOver = false;
+
     private void Start()
     {
         Continue.onClick.AddListener(ToggleInGameMenu);
@@ -21,7 +23,7 @@ public class InGameMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && !isGameOver)
         {
             ToggleInGameMenu();
         }
@@ -46,5 +48,21 @@ public class InGameMenu : MonoBehaviour
     private void ExitToMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private void IsGameOver()
+    {
+        isGameOver = true;
+    }
+
+
+    private void OnEnable()
+    {
+        ShipController.OnGameOver += IsGameOver;
+    }
+
+    private void OnDisable()
+    {
+        ShipController.OnGameOver -= IsGameOver;
     }
 }
