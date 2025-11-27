@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 4284606738612240903}
   - component: {fileID: 1984367443125754505}
   - component: {fileID: 824405698625325567}
+  - component: {fileID: 7463618236353139237}
   - component: {fileID: 2348244270700704723}
   m_Layer: 0
   m_Name: CircularSawScripts
@@ -239,6 +240,19 @@ MonoBehaviour:
   ObjectName: Circular Saw
   Info: Press E to use Circular Saw
   isCirculatSawSelected: 0
+--- !u!114 &7463618236353139237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5814342727218349744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c603e3a7e6c3ea44a83fa55cd3fe5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildHealth
+  CurrentHealth: 100
 --- !u!114 &2348244270700704723
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5897971098799736173}
   - component: {fileID: 6175346998790735458}
   - component: {fileID: 2062526681913306629}
+  - component: {fileID: 4957753253946947111}
   - component: {fileID: 3202886028934097676}
   m_Layer: 0
   m_Name: WorkBenchScripts
@@ -171,6 +172,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaceBuildBlockController
   canPlaceBuild: 1
+--- !u!114 &4957753253946947111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23577825965984118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c603e3a7e6c3ea44a83fa55cd3fe5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildHealth
+  CurrentHealth: 100
 --- !u!65 &3202886028934097676
 BoxCollider:
   m_ObjectHideFlags: 0

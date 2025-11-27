@@ -45,15 +45,6 @@ public class PlayerConditionController : MonoBehaviour
                 }
             }
         }
-
-        if (Keyboard.current.tKey.wasPressedThisFrame)
-        {
-            ChangeHealth(10, true);
-        }
-        else if (Keyboard.current.fKey.wasPressedThisFrame)
-        {
-            ChangeHealth(10, false);
-        }
     }
 
     private float _maxConditions = 100f;
@@ -62,7 +53,7 @@ public class PlayerConditionController : MonoBehaviour
     public float Hunger = 100f;
     public float Thirs = 100f;
 
-    private void ChangeHealth(int number, bool isHurting)
+    public void ChangeHealth(int number, bool isHurting)
     {
         if (isHurting)
         {

@@ -36,23 +36,11 @@ public class SwordController : MonoBehaviour
 
     private void Hit(RaycastHit hit)
     {
-        if (hit.collider == null)
+        EnemyController enemyHealth = hit.collider.gameObject.GetComponent<EnemyController>();
+
+        if (enemyHealth != null)
         {
-            return;
-        }
-
-        Transform parent = hit.collider.transform;
-
-        while (parent != null)
-        {
-            CrabHealth oreController = parent.GetComponent<CrabHealth>();
-            if (oreController != null)
-            {
-                oreController.TakeDamage(damage);
-                return;
-            }
-
-            parent = parent.parent;
+            enemyHealth.TakeDamage(damage);
         }
     }
 

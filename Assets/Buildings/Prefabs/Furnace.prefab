@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 2606019750131901418}
   - component: {fileID: 4503557640832900464}
   - component: {fileID: 437974275722018991}
+  - component: {fileID: 4598496332967287678}
   - component: {fileID: 236527101698639712}
   m_Layer: 0
   m_Name: FurnaceScripts
@@ -223,6 +224,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaceBuildBlockController
   canPlaceBuild: 1
+--- !u!114 &4598496332967287678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283346783636857164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c603e3a7e6c3ea44a83fa55cd3fe5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildHealth
+  CurrentHealth: 100
 --- !u!114 &236527101698639712
 MonoBehaviour:
   m_ObjectHideFlags: 0

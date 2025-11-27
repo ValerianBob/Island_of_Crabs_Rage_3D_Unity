@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 6447271821718180228}
   - component: {fileID: 3022698551426006724}
   - component: {fileID: 6864467704553406108}
+  - component: {fileID: 9007112587191937826}
   - component: {fileID: 2313775400262811866}
   m_Layer: 0
   m_Name: WaterCollectionScripts
@@ -193,6 +194,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaceBuildBlockController
   canPlaceBuild: 1
+--- !u!114 &9007112587191937826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6468565931432879019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c603e3a7e6c3ea44a83fa55cd3fe5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildHealth
+  CurrentHealth: 100
 --- !u!114 &2313775400262811866
 MonoBehaviour:
   m_ObjectHideFlags: 0
