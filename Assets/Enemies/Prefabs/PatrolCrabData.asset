@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f5399caf69db2f4a94db5d39996cafe, type: 3}
-  m_Name: YellowCrabConfig
+  m_Name: PatrolCrabData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
   MaxHealth: 100
   Speed: 5
@@ -19,4 +19,4 @@ MonoBehaviour:
   Damage: 5
   PlayerDetectionRange: 10
   PreferPlayer: 0
-  Potroller: 0
+  Potroller: 1

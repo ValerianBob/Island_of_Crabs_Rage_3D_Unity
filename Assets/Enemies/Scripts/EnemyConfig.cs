@@ -15,4 +15,6 @@ public class EnemyConfig : ScriptableObject
     public float PlayerDetectionRange;
 
     public bool PreferPlayer;
+
+    public bool Potroller;
 }

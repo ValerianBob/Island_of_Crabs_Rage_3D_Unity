@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1826812629085395764
+--- !u!1 &2602914681443425300
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,56 +8,56 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2346154515961238955}
-  - component: {fileID: 4283605663414011222}
-  - component: {fileID: 7652795165339783496}
-  - component: {fileID: 8265597734151192762}
+  - component: {fileID: 7537304657930685974}
+  - component: {fileID: 3806612578048807498}
+  - component: {fileID: 1659957143430843763}
+  - component: {fileID: 1011049409071746012}
   m_Layer: 0
-  m_Name: Crab
+  m_Name: PotrolCrab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2346154515961238955
+--- !u!4 &7537304657930685974
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1826812629085395764}
+  m_GameObject: {fileID: 2602914681443425300}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 132.76527, y: 3.29535, z: 58.03202}
+  m_LocalPosition: {x: 200.87964, y: 3.38843, z: 154.41913}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8899053686565991397}
+  - {fileID: 2427893252717673651}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4283605663414011222
+--- !u!114 &3806612578048807498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1826812629085395764}
+  m_GameObject: {fileID: 2602914681443425300}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e3046d6a0ac5f642b4b9ee10a364a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  EnemyConfig: {fileID: 11400000, guid: d803fe4ccd277724a83be75074bd9fef, type: 2}
+  EnemyConfig: {fileID: 11400000, guid: bf041177ee159be4aa420a1b267546c4, type: 2}
   Player: {fileID: 0}
   PatrolPoints: []
   CurrentHealth: 0
---- !u!195 &7652795165339783496
+--- !u!195 &1659957143430843763
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1826812629085395764}
+  m_GameObject: {fileID: 2602914681443425300}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
@@ -73,13 +73,13 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!65 &8265597734151192762
+--- !u!65 &1011049409071746012
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1826812629085395764}
+  m_GameObject: {fileID: 2602914681443425300}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -94,13 +94,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &9004229820625196046
+--- !u!1001 &2754836767523773272
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2346154515961238955}
+    m_TransformParent: {fileID: 7537304657930685974}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d7f029b0f761f684e84cccb35dc5e5a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -361,8 +361,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7f029b0f761f684e84cccb35dc5e5a9, type: 3}
---- !u!4 &8899053686565991397 stripped
+--- !u!4 &2427893252717673651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d7f029b0f761f684e84cccb35dc5e5a9, type: 3}
-  m_PrefabInstance: {fileID: 9004229820625196046}
+  m_PrefabInstance: {fileID: 2754836767523773272}
   m_PrefabAsset: {fileID: 0}

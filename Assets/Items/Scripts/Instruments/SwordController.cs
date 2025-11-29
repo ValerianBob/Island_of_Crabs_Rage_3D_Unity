@@ -14,7 +14,7 @@ public class SwordController : MonoBehaviour
 
     private Coroutine _hitCoroutine;
 
-    private float _rayDistance = 5f;
+    private float _rayDistance = 6f;
 
     private float _attackRait = 0.6f;
 
@@ -27,15 +27,25 @@ public class SwordController : MonoBehaviour
 
         if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, _rayDistance))
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.gameObject.CompareTag("Enemy"))
+
+            var enemy = _hit.collider.GetComponentInParent<EnemyController>();
+
+            if (enemy != null && Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.gameObject.CompareTag("Enemy"))
             {
                 _hitCoroutine = StartCoroutine(Delay(_hit));
             }
         }
+
+        Debug.DrawRay(_ray.origin, _ray.direction * _rayDistance, Color.gray);
     }
 
     private void Hit(RaycastHit hit)
     {
+        if (hit.collider == null)
+        {
+            return;
+        }
+
         EnemyController enemyHealth = hit.collider.gameObject.GetComponent<EnemyController>();
 
         if (enemyHealth != null)
