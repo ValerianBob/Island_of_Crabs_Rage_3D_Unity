@@ -124,4 +124,4 @@ MonoBehaviour:
   _inventoryController: {fileID: 0}
   Capacity: 100
   Item: {fileID: 11400000, guid: 03214ac9584f05646a1594d51d6cadf4, type: 2}
-  _recreateDelay: 3
+  _recreateDelay: 180

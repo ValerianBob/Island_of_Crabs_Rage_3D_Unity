@@ -55828,9 +55828,9 @@ MonoBehaviour:
   CurrentWoodBoardAmount: 0
   CurrentStoneAmount: 0
   CurrentIronAmount: 0
-  WoodBoardNeed: 10000
-  StoneNeed: 10000
-  IronNeed: 5000
+  WoodBoardNeed: 8000
+  StoneNeed: 5000
+  IronNeed: 3000
   isGameOver: 0
 --- !u!114 &1903737724
 MonoBehaviour:

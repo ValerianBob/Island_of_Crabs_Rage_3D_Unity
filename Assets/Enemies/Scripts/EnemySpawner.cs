@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -15,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
 
     private float NextTime;
 
-    private int NextWaveTime = 60;
+    private int NextWaveTime = 180;
 
     private int _spawnPotrolDelay = 10;
 
@@ -38,7 +39,9 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        if (Time.time > NextTime && Builds.Length > 0)
+        int CountOfAliveEnemies = CheckOnAliveEnemies();
+
+        if (Time.time > NextTime && Builds.Length > 0 && CountOfAliveEnemies <= 0)
         {
             CurentTime -= 1;
 
@@ -88,5 +91,14 @@ public class EnemySpawner : MonoBehaviour
     private void OnDisable()
     {
         EnemyController.OnCrabDied -= PotrolCrabDied;
+    }
+
+    private int CheckOnAliveEnemies()
+    {
+        GameObject[] NumberOfAliveEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        var NotPotrol = NumberOfAliveEnemies.Where(x => !x.GetComponent<EnemyController>().EnemyConfig.Potroller);
+
+        return NotPotrol.Count();
     }
 }

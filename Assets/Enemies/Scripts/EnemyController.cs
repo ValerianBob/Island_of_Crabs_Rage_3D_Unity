@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private EnemyConfig EnemyConfig;
+    public EnemyConfig EnemyConfig;
 
     [SerializeField] private GameObject Player;
 

@@ -516,7 +516,7 @@ MonoBehaviour:
   _palmPosition: {fileID: 5125670436071365469}
   Capacity: 100
   Item: {fileID: 11400000, guid: f6e079682ac8f8e4abefaa8befdeb53b, type: 2}
-  _recreateDelay: 10
+  _recreateDelay: 300
 --- !u!1 &8676037648101211029 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1790183945725220954, guid: d2fe16f16391f7d4cbb86a3c11a35921, type: 3}
