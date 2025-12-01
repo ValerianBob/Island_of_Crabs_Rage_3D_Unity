@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField] private InventoryController _inventoryController;
+    [SerializeField] private RigBuilder PlayerRigBuilder;
+    private CharacterController _characterController;
 
     private PlayerMovement playerMovement;
 
@@ -36,6 +38,7 @@ public class PlayerAnimationController : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         _inventoryController = GetComponent<InventoryController>();
+        _characterController = GetComponent<CharacterController>();
 
         SetWeaponType(0);
     }
@@ -73,7 +76,7 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
         animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
 
-        animator.SetLayerWeight(animator.GetLayerIndex("LegsLayer"), 1f);
+        //animator.SetLayerWeight(animator.GetLayerIndex("LegsLayer"), 1f);
     }
 
     private void PlayJumpAnimation()
@@ -116,5 +119,31 @@ public class PlayerAnimationController : MonoBehaviour
         targetForAnimation.transform.position = rayEnd;
 
         //Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.green);
+    }
+
+    private void OnEnable()
+    {
+        PlayerConditionController.Dead += PlayDeadAnimation;
+    }
+
+    private void OnDisable()
+    {
+        PlayerConditionController.Dead -= PlayDeadAnimation;
+    }
+
+    private void PlayDeadAnimation()
+    {
+        PlayerRigBuilder.enabled = false;
+
+        animator.SetLayerWeight(1, 0);
+
+        Invoke("ChangeCharacterContollerHeight", 3);
+
+        animator.SetBool("isDead", true);
+    }
+
+    private void ChangeCharacterContollerHeight()
+    {
+        _characterController.height = 0;
     }
 }

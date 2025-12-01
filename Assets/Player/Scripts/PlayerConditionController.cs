@@ -1,10 +1,18 @@
-using Unity.VisualScripting;
+using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerConditionController : MonoBehaviour
 {
+    public static event Action Dead;
+    public static event Action Respawn;
+
+    [SerializeField] private GameObject DeadWindow;
+    [SerializeField] private TextMeshProUGUI RespawnTime;
+
     [SerializeField] private Slider HelathBar;
     [SerializeField] private Slider HungerBar;
     [SerializeField] private Slider ThirstBar;
@@ -14,6 +22,14 @@ public class PlayerConditionController : MonoBehaviour
 
     private float NextTimeGetSustenance = 0f;
     private float NextTimeDyingFromSustenance = 0f;
+
+    private float _maxConditions = 100f;
+
+    public float Health = 100f;
+    public float Hunger = 100f;
+    public float Thirs = 100f;
+
+    private int _timeToRespawn = 10;
 
     private void Start()
     {
@@ -45,13 +61,15 @@ public class PlayerConditionController : MonoBehaviour
                 }
             }
         }
+
+        if (Health <= 0)
+        {
+            Dead?.Invoke();
+            StartCoroutine("RespawnCount");
+
+            Health = 1;
+        }
     }
-
-    private float _maxConditions = 100f;
-
-    public float Health = 100f;
-    public float Hunger = 100f;
-    public float Thirs = 100f;
 
     public void ChangeHealth(int number, bool isHurting)
     {
@@ -114,5 +132,28 @@ public class PlayerConditionController : MonoBehaviour
         }
 
         ThirstBar.value = Thirs;
+    }
+
+    private IEnumerator RespawnCount()
+    {
+        DeadWindow.SetActive(true);
+
+        int countdown = _timeToRespawn;
+        RespawnTime.text = countdown.ToString();
+
+        while (countdown > 0)
+        {
+            RespawnTime.text = countdown.ToString();
+            yield return new WaitForSeconds(1f);
+            countdown--;
+        }
+
+        DeadWindow.SetActive(false);
+
+        Health = 100;
+        Hunger = 100;
+        Thirs = 100;
+
+        Respawn?.Invoke();
     }
 }

@@ -852,6 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
   _inventoryController: {fileID: 0}
+  PlayerRigBuilder: {fileID: 4665004338727123742}
   animator: {fileID: 5823895293346983031}
   targetForAnimation: {fileID: 2559644495225200765}
   RightHandRig: {fileID: 1741468067370245621}

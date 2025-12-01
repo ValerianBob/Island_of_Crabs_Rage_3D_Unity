@@ -20,6 +20,8 @@ public class InventoryController : MonoBehaviour
 
     public bool isOpened = false;
 
+    private bool _isDead = false;
+
     [System.Serializable]
     public struct InventorySlot
     {
@@ -44,33 +46,36 @@ public class InventoryController : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        if (!_isDead)
         {
-            _selectedItemInHotKeysIndex = 0;
-            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
-        }
-        if (Keyboard.current.digit2Key.wasPressedThisFrame) 
-        { 
-            _selectedItemInHotKeysIndex = 1;
-            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
-        }
-        if (Keyboard.current.digit3Key.wasPressedThisFrame) 
-        {
-            _selectedItemInHotKeysIndex = 2;
-            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
-        }
-        if (Keyboard.current.digit4Key.wasPressedThisFrame) 
-        {
-            _selectedItemInHotKeysIndex = 3;
-            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
-        }
-        if (Keyboard.current.digit5Key.wasPressedThisFrame)
-        {
-            _selectedItemInHotKeysIndex = 4;
-            ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
-        }
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                _selectedItemInHotKeysIndex = 0;
+                ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+            }
+            if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                _selectedItemInHotKeysIndex = 1;
+                ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+            }
+            if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                _selectedItemInHotKeysIndex = 2;
+                ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+            }
+            if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                _selectedItemInHotKeysIndex = 3;
+                ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+            }
+            if (Keyboard.current.digit5Key.wasPressedThisFrame)
+            {
+                _selectedItemInHotKeysIndex = 4;
+                ChangePlayerHotKeyItem(_selectedItemInHotKeysIndex);
+            }
 
-        ToggleInventory();
+            ToggleInventory();
+        }
     }
 
     private void ChangePlayerHotKeyItem(int index)
@@ -1108,5 +1113,20 @@ public class InventoryController : MonoBehaviour
         ShipFixerBenchUI.SetActive(isOpened);
 
         CursorVisabilityController.Instance.SetCursorVisability(isOpened);
+    }
+
+    private void OnEnable()
+    {
+        PlayerConditionController.Dead += SetDead;
+    }
+
+    private void OnDisable()
+    {
+        PlayerConditionController.Dead -= SetDead;
+    }
+
+    private void SetDead()
+    {
+        _isDead = true;
     }
 }

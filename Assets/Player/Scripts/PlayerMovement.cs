@@ -39,6 +39,8 @@ public class PlayerMovement : NetworkBehaviour
 
     private bool _stopMovement = false;
 
+    private bool _isDead = false;
+
     //public override void OnNetworkSpawn()
     //{
     //    base.OnNetworkSpawn();
@@ -68,7 +70,7 @@ public class PlayerMovement : NetworkBehaviour
         //    return;
         //}
 
-        if (!_stopMovement)
+        if (!_stopMovement && !_isDead)
         {
             if (!_inventoryController.isOpened)
             {
@@ -166,7 +168,6 @@ public class PlayerMovement : NetworkBehaviour
     private void CameraMovement()
     {
         _mouseRotation.y = Mathf.Clamp(_mouseRotation.y, -_rotationClamp, _rotationClamp);
-
         PlayerCamera.transform.localRotation = Quaternion.Euler(_mouseRotation.y, 0f, 0f);
         transform.rotation = Quaternion.Euler(0f, _mouseRotation.x, 0f);
     }
@@ -174,16 +175,23 @@ public class PlayerMovement : NetworkBehaviour
     private void OnEnable()
     {
         ShipController.OnGameOver += DisablePlayer;
+        PlayerConditionController.Dead += SetDead;
     }
 
     private void OnDisable()
     {
         ShipController.OnGameOver -= DisablePlayer;
+        PlayerConditionController.Dead -= SetDead;
     }
 
     private void DisablePlayer()
     {
         _stopMovement = true;
         PlayerCamera.gameObject.SetActive(false);
+    }
+
+    private void SetDead()
+    {
+        _isDead = true;
     }
 }
