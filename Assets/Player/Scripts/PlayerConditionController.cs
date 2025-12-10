@@ -62,13 +62,13 @@ public class PlayerConditionController : MonoBehaviour
             }
         }
 
-        if (Health <= 0)
-        {
-            Dead?.Invoke();
-            StartCoroutine("RespawnCount");
+        //if (Health <= 0)
+        //{
+        //    Dead?.Invoke();
+        //    StartCoroutine("RespawnCount");
 
-            Health = 1;
-        }
+        //    Health = 1;
+        //}
     }
 
     public void ChangeHealth(int number, bool isHurting)
