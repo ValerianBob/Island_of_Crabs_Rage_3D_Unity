@@ -41,20 +41,6 @@ public class PlayerMovement : NetworkBehaviour
 
     private bool _isDead = false;
 
-    //public override void OnNetworkSpawn()
-    //{
-    //    base.OnNetworkSpawn();
-
-    //    _characterController = GetComponent<CharacterController>();
-
-    //    CursorVisabilityController.Instance.SetCursorVisability(false);
-
-    //    if (!IsOwner)
-    //    {
-    //        PlayerCamera.enabled = false;
-    //    }
-    //}
-
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -65,21 +51,19 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
-        //if (!IsOwner)
-        //{
-        //    return;
-        //}
-
-        if (!_stopMovement && !_isDead)
+        if (!_stopMovement)
         {
-            if (!_inventoryController.isOpened)
+            if (!_isDead)
             {
-                GetMouseImput();
+                if (!_inventoryController.isOpened)
+                {
+                    GetMouseImput();
 
-                CameraMovement();
+                    CameraMovement();
+                }
+
+                Movement();
             }
-
-            Movement();
 
             _velocity.y += _gravity * Time.deltaTime;
 
@@ -100,7 +84,7 @@ public class PlayerMovement : NetworkBehaviour
                 _isGrounded = false;
             }
 
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            if (Keyboard.current.spaceKey.wasPressedThisFrame && !_isDead)
             {
                 if (_characterController.isGrounded)
                 {
@@ -176,12 +160,14 @@ public class PlayerMovement : NetworkBehaviour
     {
         ShipController.OnGameOver += DisablePlayer;
         PlayerConditionController.Dead += SetDead;
+        PlayerConditionController.Respawn += SetAlive;
     }
 
     private void OnDisable()
     {
         ShipController.OnGameOver -= DisablePlayer;
         PlayerConditionController.Dead -= SetDead;
+        PlayerConditionController.Respawn -= SetAlive;
     }
 
     private void DisablePlayer()
@@ -193,5 +179,10 @@ public class PlayerMovement : NetworkBehaviour
     private void SetDead()
     {
         _isDead = true;
+    }
+
+    private void SetAlive()
+    {
+        _isDead = false;
     }
 }

@@ -31,6 +31,8 @@ public class PlayerConditionController : MonoBehaviour
 
     private int _timeToRespawn = 10;
 
+    private bool _isDead = false;
+
     private void Start()
     {
         HelathBar.value = Health;
@@ -62,13 +64,13 @@ public class PlayerConditionController : MonoBehaviour
             }
         }
 
-        //if (Health <= 0)
-        //{
-        //    Dead?.Invoke();
-        //    StartCoroutine("RespawnCount");
+        if (Health <= 0 && !_isDead)
+        {
+            _isDead = true;
 
-        //    Health = 1;
-        //}
+            Dead?.Invoke();
+            StartCoroutine("RespawnCount");
+        }
     }
 
     public void ChangeHealth(int number, bool isHurting)
@@ -150,9 +152,15 @@ public class PlayerConditionController : MonoBehaviour
 
         DeadWindow.SetActive(false);
 
-        Health = 100;
-        Hunger = 100;
-        Thirs = 100;
+        Health = 50;
+        Hunger = 50;
+        Thirs = 50;
+
+        HelathBar.value = Health;
+        HungerBar.value = Hunger;
+        ThirstBar.value = Thirs;
+
+        _isDead = false;
 
         Respawn?.Invoke();
     }

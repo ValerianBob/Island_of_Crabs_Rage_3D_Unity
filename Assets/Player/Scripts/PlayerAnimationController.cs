@@ -26,6 +26,8 @@ public class PlayerAnimationController : MonoBehaviour
 
     public bool isWalking = false;
 
+    private bool _isDead = false;
+
     public enum WeaponType
     {
         Melee = 0,
@@ -51,9 +53,12 @@ public class PlayerAnimationController : MonoBehaviour
 
         ChangePlayerPoseByWeapon();
 
-        PlayJumpAnimation();
-        PlayeMeleeAttack();
-        AimPartOfBodyToTarget();
+        if (!_isDead)
+        {
+            PlayJumpAnimation();
+            PlayeMeleeAttack();
+            AimPartOfBodyToTarget();
+        }
     }
 
     private void PlayeMeleeAttack()
@@ -75,8 +80,6 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool("isWalkingBack", playerMovement.isMovingBack);
         animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
         animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
-
-        //animator.SetLayerWeight(animator.GetLayerIndex("LegsLayer"), 1f);
     }
 
     private void PlayJumpAnimation()
@@ -117,32 +120,48 @@ public class PlayerAnimationController : MonoBehaviour
         rayEnd = ray.origin + ray.direction * rayDistance;
 
         targetForAnimation.transform.position = rayEnd;
-
-        //Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.green);
     }
 
     private void OnEnable()
     {
         PlayerConditionController.Dead += PlayDeadAnimation;
+        PlayerConditionController.Respawn += SetAlive;        
     }
 
     private void OnDisable()
     {
         PlayerConditionController.Dead -= PlayDeadAnimation;
+        PlayerConditionController.Respawn -= SetAlive;
     }
 
     private void PlayDeadAnimation()
     {
+        _isDead = true;
+
         PlayerRigBuilder.enabled = false;
 
         animator.SetLayerWeight(1, 0);
 
-        Invoke("ChangeCharacterContollerHeight", 3);
+        Invoke("ChangeCharacterControllerHeight", 3);
 
-        animator.SetBool("isDead", true);
+        animator.SetBool("isDead", _isDead);
     }
 
-    private void ChangeCharacterContollerHeight()
+    private void SetAlive()
+    {
+        _isDead = false;
+
+        PlayerRigBuilder.enabled = true;
+        animator.SetLayerWeight(1, 1);
+
+        _characterController.height = 1.8f;
+
+        transform.Translate(Vector3.up * 40f * Time.deltaTime);
+
+        animator.SetBool("isDead", _isDead);        
+    }
+
+    private void ChangeCharacterControllerHeight()
     {
         _characterController.height = 0;
     }

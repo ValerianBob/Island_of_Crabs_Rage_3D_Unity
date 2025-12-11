@@ -188,7 +188,7 @@ public class InventoryController : MonoBehaviour
 
                     Slots[i].Quantity = slot.Quantity;
 
-                    Debug.Log("Added in existing slot");                    
+                    Debug.Log("Added in existing slot");
 
                     if (remaining <= 0)
                     {
@@ -215,7 +215,7 @@ public class InventoryController : MonoBehaviour
                 Slots[i].Quantity = slot.Quantity;
 
                 Debug.Log("Added in empty slot");
-                
+
                 if (remaining <= 0)
                 {
                     Notifications.Instance.CreateNotification($"+ {Quantity} {slot.Item.ItemName}", Color.green);
@@ -261,12 +261,12 @@ public class InventoryController : MonoBehaviour
         {
             Debug.Log("Not enough space in HotKeySlots inventory. Trying to add in Main Inventory :");
 
-            return AddItem(item, Quantity); 
+            return AddItem(item, Quantity);
         }
-        
+
         return false;
     }
-    
+
     public bool DropItem(int index, bool isHotKeySlot, bool FurnaceWoodSlot, bool FurnaceOreSlot, bool CircularSawWoodSlot, bool ShipFixer)
     {
         if (!isHotKeySlot && !FurnaceWoodSlot && !FurnaceOreSlot && !CircularSawWoodSlot && !ShipFixer)
@@ -507,7 +507,7 @@ public class InventoryController : MonoBehaviour
                     Debug.Log("Can't put Resource in HotKey");
                     Notifications.Instance.CreateNotification("Can't put Resource in HotKey", Color.red);
                 }
-                
+
                 break;
 
             case 3:
@@ -817,9 +817,9 @@ public class InventoryController : MonoBehaviour
             case 10:
                 Debug.Log("Main Item swap with ShipFixerBench Recource");
 
-                if (Slots[fromIndex].Item.Type == ItemType.Resource && 
-                    Slots[fromIndex].Item.ItemName == "Wood Board" || 
-                    Slots[fromIndex].Item.ItemName == "Iron" || 
+                if (Slots[fromIndex].Item.Type == ItemType.Resource &&
+                    Slots[fromIndex].Item.ItemName == "Wood Board" ||
+                    Slots[fromIndex].Item.ItemName == "Iron" ||
                     Slots[fromIndex].Item.ItemName == "Stone")
                 {
                     //Swap Images :
@@ -1118,15 +1118,43 @@ public class InventoryController : MonoBehaviour
     private void OnEnable()
     {
         PlayerConditionController.Dead += SetDead;
+        PlayerConditionController.Respawn += SetAlive;
     }
 
     private void OnDisable()
     {
         PlayerConditionController.Dead -= SetDead;
+        PlayerConditionController.Respawn -= SetAlive;
     }
 
     private void SetDead()
     {
         _isDead = true;
+        ClearMainItemsCauseOfDeath();
+
+        isOpened = false;
+        Inventory.SetActive(isOpened);
+        CraftUI.SetActive(isOpened);
+
+        CursorVisabilityController.Instance.SetCursorVisability(isOpened);
+    }
+
+    private void SetAlive()
+    {
+        _isDead = false;
+    }
+
+    private void ClearMainItemsCauseOfDeath()
+    {
+        for (int i = 0; i < Slots.Length; i++)
+        {
+            if (Slots[i].Item != null && Slots[i].Item.Type == ItemType.Resource)
+            {
+                Slots[i].ItemIcon.texture = EmptyIcon;
+                Slots[i].Item = null;
+                Slots[i].Quantity = 0;
+                Slots[i].QuantityText.text = "0";
+            }
+        }
     }
 }

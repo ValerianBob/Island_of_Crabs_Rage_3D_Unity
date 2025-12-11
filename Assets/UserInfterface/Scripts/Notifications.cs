@@ -51,9 +51,9 @@ public class Notifications : MonoBehaviour
         }
 
         Vector3 startPos = rect.anchoredPosition;
-        Vector3 endPos = startPos + new Vector3(0f, 50f, 0f); // move up 50 px
+        Vector3 endPos = startPos + new Vector3(0f, 80f, 0f);
 
-        float duration = 2f;
+        float duration = 4f;
         float elapsed = 0f;
 
         while (elapsed < duration)
