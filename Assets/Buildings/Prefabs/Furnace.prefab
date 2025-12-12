@@ -253,6 +253,7 @@ MonoBehaviour:
   IronPrefab: {fileID: 336745731655225463, guid: 85ac03537532f3a4dae02e9a72c22330, type: 3}
   FireLight: {fileID: 7434070667180898646}
   DropPoint: {fileID: 2532129958820757039}
+  EmptyIcon: {fileID: 2800000, guid: 5fd12480a9310a14aa4dea585241be51, type: 3}
   WoodSlot:
     Item: {fileID: 0}
     Quantity: 0

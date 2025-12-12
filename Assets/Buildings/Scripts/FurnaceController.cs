@@ -4,13 +4,13 @@ using UnityEngine.Rendering;
 
 public class FurnaceController : MonoBehaviour
 {
-    [SerializeField] private InventoryController _inventoryController;
-
     [SerializeField] private GameObject IronPrefab;
 
     [SerializeField] private GameObject FireLight;
 
     [SerializeField] private GameObject DropPoint;
+
+    [SerializeField] private Texture EmptyIcon;
 
     [System.Serializable]
     public struct FurnaceSlot
@@ -27,15 +27,10 @@ public class FurnaceController : MonoBehaviour
 
     private float _meltSpeed = 1.0f;
     private float _nextTime = 0f;
-    private float _currentTime = 5f;
+    private float _currentTime = 10f;
 
     private bool _isLightWork = false;
     public bool isFurnaceSelected = false;
-
-    private void Start()
-    {
-        _inventoryController = GameObject.Find("Player").GetComponent<InventoryController>();
-    }
 
     private void Update()
     {
@@ -63,7 +58,6 @@ public class FurnaceController : MonoBehaviour
                 _nextTime = Time.time + _meltSpeed;
 
                 _currentTime -= 1f;
-                Debug.Log(_currentTime);
             }
             _isLightWork = true;
         }
@@ -72,7 +66,7 @@ public class FurnaceController : MonoBehaviour
             _isLightWork = false;
             FireLight.SetActive(_isLightWork);
 
-            _currentTime = 5f;
+            _currentTime = 10f;
         }
     }
 
@@ -80,14 +74,56 @@ public class FurnaceController : MonoBehaviour
     {
         if (_currentTime <= 0)
         {
-            WoodSlot.Quantity -= 1;
-            OreSlot.Quantity -= 1;
+            int IronToSpawn = 0;
+
+            if (WoodSlot.Quantity >= 10 && OreSlot.Quantity >= 10)
+            {
+                WoodSlot.Quantity -= 10;
+                OreSlot.Quantity -= 10;
+
+                IronToSpawn = 10;
+            }
+            else if (WoodSlot.Quantity >= 10 && OreSlot.Quantity < 10)
+            {
+                IronToSpawn = OreSlot.Quantity;
+
+                WoodSlot.Quantity -= 10;
+                OreSlot.Quantity = 0;
+            }
+            else if (WoodSlot.Quantity < 10 && OreSlot.Quantity >= 10)
+            {
+                IronToSpawn = WoodSlot.Quantity;
+                
+                WoodSlot.Quantity = 0;
+                OreSlot.Quantity -= 10;
+            }
+            else
+            {
+                IronToSpawn = 5;
+
+                WoodSlot.Quantity = 0;
+                OreSlot.Quantity = 0;
+            }
+
+            UIManager.Instance.WoodFurnace.QuantityText.text = WoodSlot.Quantity.ToString();
+            UIManager.Instance.OreFurnace.QuantityText.text = OreSlot.Quantity.ToString();
+
+            if (WoodSlot.Quantity == 0)
+            {
+                UIManager.Instance.WoodFurnace.ItemIcon.texture = EmptyIcon;
+            }
+            if (OreSlot.Quantity == 0)
+            {
+                UIManager.Instance.OreFurnace.ItemIcon.texture = EmptyIcon;
+            }
 
             GameObject IronToDrop = Instantiate(IronPrefab, DropPoint.transform.position, Quaternion.identity);
 
-            IronToDrop.GetComponent<ItemController>().Quantity = 1;
+            IronToDrop.GetComponent<ItemController>().Quantity = IronToSpawn;
 
-            _currentTime = 5;
+            IronToSpawn = 0;
+
+            _currentTime = 10;
         }
     }
 }

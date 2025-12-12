@@ -965,8 +965,16 @@ public class InventoryController : MonoBehaviour
         {
             Debug.Log("Reload Furnace Wood UI");
 
-            UIManager.Instance.WoodFurnace.ItemIcon.texture = currentFurnace.WoodSlot.Item.Icon.texture;
-            UIManager.Instance.WoodFurnace.QuantityText.text = currentFurnace.WoodSlot.Quantity.ToString();
+            if (currentFurnace.WoodSlot.Quantity == 0)
+            {
+                UIManager.Instance.WoodFurnace.ItemIcon.texture = EmptyIcon;
+                UIManager.Instance.WoodFurnace.QuantityText.text = currentFurnace.WoodSlot.Quantity.ToString();
+            }
+            else
+            {
+                UIManager.Instance.WoodFurnace.ItemIcon.texture = currentFurnace.WoodSlot.Item.Icon.texture;
+                UIManager.Instance.WoodFurnace.QuantityText.text = currentFurnace.WoodSlot.Quantity.ToString();
+            }
         }
         else
         {
@@ -979,8 +987,17 @@ public class InventoryController : MonoBehaviour
         {
             Debug.Log("Reload Furnace Ore UI");
 
-            UIManager.Instance.OreFurnace.ItemIcon.texture = currentFurnace.OreSlot.Item.Icon.texture;
-            UIManager.Instance.OreFurnace.QuantityText.text = currentFurnace.OreSlot.Quantity.ToString();
+            if (currentFurnace.OreSlot.Quantity == 0)
+            {
+                UIManager.Instance.OreFurnace.ItemIcon.texture = EmptyIcon;
+                UIManager.Instance.OreFurnace.QuantityText.text = currentFurnace.WoodSlot.Quantity.ToString();
+
+            }
+            else
+            {
+                UIManager.Instance.OreFurnace.ItemIcon.texture = currentFurnace.OreSlot.Item.Icon.texture;
+                UIManager.Instance.OreFurnace.QuantityText.text = currentFurnace.OreSlot.Quantity.ToString();
+            }
         }
         else
         {
