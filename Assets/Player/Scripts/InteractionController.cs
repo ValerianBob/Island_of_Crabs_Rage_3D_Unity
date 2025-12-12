@@ -100,7 +100,10 @@ public class InteractionController : MonoBehaviour
             {
                 Destroy(currentItem.gameObject);
             }
+
+            SoundsController.Instance.PlayLooting(0, currentItem.transform.position);
         }
+
     }
 
     private void UseFurnace()
