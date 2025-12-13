@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public class AxeController : MonoBehaviour
 {
     [SerializeField] private Camera PlayerCamera;
+
+    [SerializeField] private ParticleSystem WoodDebris;
     
     private Ray _ray;
 
@@ -49,6 +51,12 @@ public class AxeController : MonoBehaviour
             {
                 Debug.Log($"Palm found: {parent.name}");
                 palmController.FarmWood(QuntityToEarn);
+
+                ParticleSystem tempWoodDebris = Instantiate(WoodDebris, _hit.point, WoodDebris.transform.rotation);
+                tempWoodDebris.Play();
+
+                SoundsController.Instance.PlayInstruments(0, _hit.point);
+
                 return;
             }
 

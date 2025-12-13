@@ -826,8 +826,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2166960916
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 932804213
+  InScenePlacedSourceGlobalObjectIdHash: 1355081283
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -1818,6 +1818,7 @@ MonoBehaviour:
   LayerMask:
     serializedVersion: 2
     m_Bits: 8
+  StoneDebris: {fileID: 1577046020369520319, guid: 5d5d847761727614aab0f5118d7ec3d2, type: 3}
   RayDistance: 4
   QuntityToEarn: 10
   AttackDelay: 0.6
@@ -2147,6 +2148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AxeController
   PlayerCamera: {fileID: 2944028535577751238}
+  WoodDebris: {fileID: 3968860714874028593, guid: 39d941d191e7f0841a23ea695589898d, type: 3}
   RayDistance: 4
   QuntityToEarn: 10
   AttackDelay: 0.4

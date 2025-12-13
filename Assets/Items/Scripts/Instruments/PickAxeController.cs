@@ -8,6 +8,8 @@ public class PickAxeController : MonoBehaviour
 
     [SerializeField] private LayerMask LayerMask;
 
+    [SerializeField] private ParticleSystem StoneDebris;
+
     private Ray _ray;
 
     private RaycastHit _hit;
@@ -53,6 +55,12 @@ public class PickAxeController : MonoBehaviour
             {
                 Debug.Log($"Ore found: {parent.name}");
                 oreController.FarmOre(QuntityToEarn);
+
+                ParticleSystem tempStoneDebris = Instantiate(StoneDebris, _hit.point, StoneDebris.transform.rotation);
+                tempStoneDebris.Play();
+
+                SoundsController.Instance.PlayInstruments(1, _hit.point);
+
                 return;
             }
 
