@@ -6,6 +6,8 @@ public class SwordController : MonoBehaviour
 {
     [SerializeField] private Camera PlayerCamera;
 
+    [SerializeField] private ParticleSystem Blood;
+
     public int damage;
 
     private Ray _ray;
@@ -51,6 +53,11 @@ public class SwordController : MonoBehaviour
         if (enemyHealth != null)
         {
             enemyHealth.TakeDamage(damage);
+
+            ParticleSystem tempBlood = Instantiate(Blood, _hit.point, Blood.transform.rotation);
+            tempBlood.Play();
+
+            SoundsController.Instance.PlayInstruments(2, hit.point);
         }
     }
 

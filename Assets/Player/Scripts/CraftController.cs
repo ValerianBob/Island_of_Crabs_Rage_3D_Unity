@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 public class CraftController : MonoBehaviour
 {
@@ -15,13 +15,24 @@ public class CraftController : MonoBehaviour
         public Button CraftItemButton;
         public ItemData Item;
 
+        public TextMeshProUGUI WoodQuantityText;
+        public TextMeshProUGUI StoneQuantityText;
+        public TextMeshProUGUI IronQuantityText;
+        public TextMeshProUGUI SulfurQuantityText;
+
         public int Woods;
         public int Stones;
+        public int Irons;
+        public int Sulfur;
 
         public int Quantity;
+
+        public bool NeedWorkBench;
     }
 
     [SerializeField] private ItemBluePrint[] ItemsBluePrints;
+
+    public bool isWorkBenchNear = false;
 
     private void Awake()
     {
@@ -30,6 +41,24 @@ public class CraftController : MonoBehaviour
         for (int i = 0; i < ItemsBluePrints.Length; i++)
         {
             int index = i;
+
+            if (ItemsBluePrints[i].WoodQuantityText != null)
+            {
+                ItemsBluePrints[i].WoodQuantityText.text = ItemsBluePrints[i].Woods.ToString();
+            }
+            if (ItemsBluePrints[i].StoneQuantityText != null)
+            {
+                ItemsBluePrints[i].StoneQuantityText.text = ItemsBluePrints[i].Stones.ToString();
+            }
+            if (ItemsBluePrints[i].IronQuantityText != null)
+            {
+                ItemsBluePrints[i].IronQuantityText.text = ItemsBluePrints[i].Irons.ToString();
+            }
+            if (ItemsBluePrints[i].SulfurQuantityText != null)
+            {
+                ItemsBluePrints[i].SulfurQuantityText.text = ItemsBluePrints[i].Sulfur.ToString();
+            }
+
             ItemsBluePrints[i].CraftItemButton.onClick.AddListener(() => CraftItem(index));
         }
     }
@@ -38,9 +67,11 @@ public class CraftController : MonoBehaviour
     {
         int remainingWoods = ItemsBluePrints[index].Woods;
         int remainingStones = ItemsBluePrints[index].Stones;
+        int remainingIrons = ItemsBluePrints[index].Irons;
 
         int availableWoods = 0;
         int availableStones = 0;
+        int availableIrons = 0;
 
         for (int i = 0; i < _inventoryController.Slots.Length; i++)
         {
@@ -57,15 +88,20 @@ public class CraftController : MonoBehaviour
             {
                 availableStones += _inventoryController.Slots[i].Quantity;
             }
+            else if (_inventoryController.Slots[i].Item.ItemName == "Iron")
+            {
+                availableIrons += _inventoryController.Slots[i].Quantity;
+            }
         }
 
-        if (availableWoods < remainingWoods || availableStones < remainingStones)
+        if (availableWoods < remainingWoods || availableStones < remainingStones || availableIrons < remainingIrons)
         {
             Debug.Log("Not enough resources");
             Notifications.Instance.CreateNotification("Not enough resources", Color.red);
 
             Debug.Log($"Need Woods: {Mathf.Max(0, remainingWoods - availableWoods)}, " +
-                $"Need Stones: {Mathf.Max(0, remainingStones - availableStones)}");
+                $"Need Stones: {Mathf.Max(0, remainingStones - availableStones)}, " +
+                $"Need Irons: {Mathf.Max(0, remainingIrons - availableIrons)}");
 
             return;
         }
@@ -75,6 +111,12 @@ public class CraftController : MonoBehaviour
             Debug.Log("Hot keys and Slots are full");
             Notifications.Instance.CreateNotification("Hot keys and Slots are full", Color.red);
 
+            return;
+        }
+
+        if (ItemsBluePrints[index].NeedWorkBench && !isWorkBenchNear)
+        {
+            Notifications.Instance.CreateNotification("Wrok Bench not near", Color.red);
             return;
         }
 
@@ -103,9 +145,20 @@ public class CraftController : MonoBehaviour
                     }
                 }
             }
+
+            if (ItemsBluePrints[index].Irons > 0 && remainingIrons != 0)
+            {
+                if (_inventoryController.Slots[i].Item != null)
+                {
+                    if (_inventoryController.Slots[i].Item.ItemName == "Iron")
+                    {
+                        remainingIrons = RemoveResourceFromSlot(i, "Iron", remainingIrons, itemsIndexesToDelete);
+                    }
+                }
+            }
         }
 
-        if (remainingWoods == 0 && remainingStones == 0)
+        if (remainingWoods == 0 && remainingStones == 0 && remainingIrons == 0)
         {
             _inventoryController.ClearSlots(itemsIndexesToDelete);
 

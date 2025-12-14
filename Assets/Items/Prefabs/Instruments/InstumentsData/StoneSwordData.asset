@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a80c41b3a0c46143b2b02d0a380c29a, type: 3}
-  m_Name: StoneSword
+  m_Name: StoneSwordData
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ObjectPrefab: {fileID: 4192627140108807173, guid: adfcd3c1139ac0d44a6f0e13b26cb1dd, type: 3}
   ItemName: Stone Sword
