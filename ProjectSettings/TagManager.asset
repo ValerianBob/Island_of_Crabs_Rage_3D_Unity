@@ -10,6 +10,7 @@ TagManager:
   - Build
   - Ore
   - Enemy
+  - Gun
   layers:
   - Default
   - TransparentFX

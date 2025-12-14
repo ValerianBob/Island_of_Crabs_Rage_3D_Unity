@@ -68,10 +68,12 @@ public class CraftController : MonoBehaviour
         int remainingWoods = ItemsBluePrints[index].Woods;
         int remainingStones = ItemsBluePrints[index].Stones;
         int remainingIrons = ItemsBluePrints[index].Irons;
+        int remainingSulfur = ItemsBluePrints[index].Sulfur;
 
         int availableWoods = 0;
         int availableStones = 0;
         int availableIrons = 0;
+        int availableSulfur = 0;
 
         for (int i = 0; i < _inventoryController.Slots.Length; i++)
         {
@@ -92,6 +94,10 @@ public class CraftController : MonoBehaviour
             {
                 availableIrons += _inventoryController.Slots[i].Quantity;
             }
+            else if (_inventoryController.Slots[i].Item.ItemName == "Sulfur")
+            {
+                availableSulfur += _inventoryController.Slots[i].Quantity;
+            }
         }
 
         if (availableWoods < remainingWoods || availableStones < remainingStones || availableIrons < remainingIrons)
@@ -101,7 +107,8 @@ public class CraftController : MonoBehaviour
 
             Debug.Log($"Need Woods: {Mathf.Max(0, remainingWoods - availableWoods)}, " +
                 $"Need Stones: {Mathf.Max(0, remainingStones - availableStones)}, " +
-                $"Need Irons: {Mathf.Max(0, remainingIrons - availableIrons)}");
+                $"Need Irons: {Mathf.Max(0, remainingIrons - availableIrons)}, " +
+                $"Need Irons: {Mathf.Max(0, remainingSulfur - availableSulfur)}");
 
             return;
         }
@@ -156,13 +163,31 @@ public class CraftController : MonoBehaviour
                     }
                 }
             }
+
+            if (ItemsBluePrints[index].Irons > 0 && remainingSulfur != 0)
+            {
+                if (_inventoryController.Slots[i].Item != null)
+                {
+                    if (_inventoryController.Slots[i].Item.ItemName == "Sulfur")
+                    {
+                        remainingSulfur = RemoveResourceFromSlot(i, "Sulfur", remainingSulfur, itemsIndexesToDelete);
+                    }
+                }
+            }
         }
 
-        if (remainingWoods == 0 && remainingStones == 0 && remainingIrons == 0)
+        if (remainingWoods == 0 && remainingStones == 0 && remainingIrons == 0 && remainingSulfur == 0)
         {
             _inventoryController.ClearSlots(itemsIndexesToDelete);
 
-            _inventoryController.AddItemInHotKeys(ItemsBluePrints[index].Item, ItemsBluePrints[index].Quantity);
+            if (ItemsBluePrints[index].Item.Type == ItemType.Resource)
+            {
+                _inventoryController.AddItem(ItemsBluePrints[index].Item, ItemsBluePrints[index].Quantity);
+            }
+            else
+            {
+                _inventoryController.AddItemInHotKeys(ItemsBluePrints[index].Item, ItemsBluePrints[index].Quantity);
+            } 
             Debug.Log($"Item :{ItemsBluePrints[index].Item} crafted");
             //Notifications.Instance.CreateNotification($"Item :{ItemsBluePrints[index].Item} crafted", Color.green);
         }
