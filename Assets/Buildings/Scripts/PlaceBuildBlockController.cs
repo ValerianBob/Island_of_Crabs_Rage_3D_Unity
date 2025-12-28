@@ -15,6 +15,10 @@ public class PlaceBuildBlockController : MonoBehaviour
         {
             canPlaceBuild = false;
         }
+        else if (other.gameObject.CompareTag("Environment"))
+        {
+            canPlaceBuild = false;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -27,6 +31,10 @@ public class PlaceBuildBlockController : MonoBehaviour
         {
             canPlaceBuild = false;
         }
+        else if (other.gameObject.CompareTag("Environment"))
+        {
+            canPlaceBuild = false;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -36,6 +44,10 @@ public class PlaceBuildBlockController : MonoBehaviour
             canPlaceBuild = true;
         }
         else if (other.gameObject.CompareTag("Build"))
+        {
+            canPlaceBuild = true;
+        }
+        else if (other.gameObject.CompareTag("Environment"))
         {
             canPlaceBuild = true;
         }

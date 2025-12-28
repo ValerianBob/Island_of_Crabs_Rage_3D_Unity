@@ -11,6 +11,7 @@ TagManager:
   - Ore
   - Enemy
   - Gun
+  - Environment
   layers:
   - Default
   - TransparentFX

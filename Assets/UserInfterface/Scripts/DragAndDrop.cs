@@ -166,6 +166,8 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
                     inventoryController.SwapItem(draggedItem.SlotIndex, SlotIndex, 11);
                 }
 
+                SoundsController.Instance.PlayInventory(0, inventoryController.transform.position);
+
                 Debug.Log($"Dropped item {draggedItem.SlotIndex} swapped with slot {SlotIndex}");
             }
         }
@@ -184,6 +186,8 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
             Debug.Log("wasn't on Panel when left mouse");
             inventoryController.DropItem(SlotIndex, draggedItem.isHotKeySlot, draggedItem.isFurnaceWoodSlot, draggedItem.isFurnaceOreSlot,
                 draggedItem.isCircularSawWoodSlot, draggedItem.isShipFixerBenchSlot);
+
+            SoundsController.Instance.PlayInventory(0, inventoryController.transform.position);
         }
     }
 }

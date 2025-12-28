@@ -11,6 +11,7 @@ public class SoundsController : MonoBehaviour
     public AudioClip[] Instruments;
     public AudioClip[] Looting;
     public AudioClip[] Environment;
+    public AudioClip[] Inventory;
     public AudioClip[] Player;
     public AudioClip[] Menu;
     public AudioClip[] Musics;
@@ -85,6 +86,11 @@ public class SoundsController : MonoBehaviour
     public void PlayInstruments(int index, Vector3 soundPosition)
     {
         AudioSource.PlayClipAtPoint(Instruments[index], soundPosition, currentVolume);
+    }
+
+    public void PlayInventory(int index, Vector3 soundPosition)
+    {
+        AudioSource.PlayClipAtPoint(Inventory[index], soundPosition, currentVolume);
     }
 
     public void PlayMusic(int index, Vector3 soundPosition)

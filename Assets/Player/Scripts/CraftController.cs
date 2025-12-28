@@ -187,7 +187,10 @@ public class CraftController : MonoBehaviour
             else
             {
                 _inventoryController.AddItemInHotKeys(ItemsBluePrints[index].Item, ItemsBluePrints[index].Quantity);
-            } 
+            }
+
+            SoundsController.Instance.PlayInventory(1, transform.position);
+
             Debug.Log($"Item :{ItemsBluePrints[index].Item} crafted");
             //Notifications.Instance.CreateNotification($"Item :{ItemsBluePrints[index].Item} crafted", Color.green);
         }

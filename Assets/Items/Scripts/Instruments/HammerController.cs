@@ -346,6 +346,8 @@ public class HammerController : MonoBehaviour
 
             _placeBuildBlockController = GetPlcaeBuildBlock();
 
+            SoundsController.Instance.PlayInstruments(3, transform.position);
+
             SetPreviewMaterial(_currentBuildPrefab, Color.green, alpha);
         }
     }
