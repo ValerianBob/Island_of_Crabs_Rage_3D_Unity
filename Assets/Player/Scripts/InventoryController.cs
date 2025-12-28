@@ -42,7 +42,7 @@ public class InventoryController : MonoBehaviour
 
     public bool isMeleeItemInHand = true;
 
-    private int _selectedItemInHotKeysIndex = -1;
+    public int _selectedItemInHotKeysIndex = -1;
 
     private void Update()
     {

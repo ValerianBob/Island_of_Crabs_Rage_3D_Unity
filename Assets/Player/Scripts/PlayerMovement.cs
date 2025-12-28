@@ -9,12 +9,12 @@ public class PlayerMovement : NetworkBehaviour
     public Camera PlayerCamera;
 
     public float MovementSpeed;
-    public float RunningSpeed;
+    //public float RunningSpeed;
 
     public float Sensitivity;
 
     public float JumpHeigh;
-
+    
     public bool isWalking = false;
     public bool isMovingForward = false;
     public bool isMovingRight = false;
@@ -34,8 +34,8 @@ public class PlayerMovement : NetworkBehaviour
     private Vector2 _mouseDelta;
     private Vector2 _mouseRotation;
 
-    public bool _isGrounded = false;
-    private bool _isRunning = false;
+    public bool isGrounded = false;
+    //public bool isRunning = false;
 
     private bool _stopMovement = false;
 
@@ -71,7 +71,7 @@ public class PlayerMovement : NetworkBehaviour
 
             if (_characterController.isGrounded)
             {
-                _isGrounded = true;
+                isGrounded = true;
 
                 if (_velocity.y < 0)
                 {
@@ -81,7 +81,7 @@ public class PlayerMovement : NetworkBehaviour
             }
             else
             {
-                _isGrounded = false;
+                isGrounded = false;
             }
 
             if (Keyboard.current.spaceKey.wasPressedThisFrame && !_isDead)
@@ -92,16 +92,21 @@ public class PlayerMovement : NetworkBehaviour
                 }
             }
 
-            if (Keyboard.current.leftShiftKey.isPressed && _characterController.isGrounded && !_isRunning)
-            {
-                MovementSpeed += RunningSpeed;
-                _isRunning = true;
-            }
-            else if (_characterController.isGrounded && _isRunning)
-            {
-                MovementSpeed -= RunningSpeed;
-                _isRunning = false;
-            }
+            //if (Keyboard.current.leftShiftKey.isPressed && _characterController.isGrounded && !isRunning)
+            //{
+            //    MovementSpeed += RunningSpeed;
+            //    isRunning = true;
+            //}
+            //else if (_characterController.isGrounded && isRunning)
+            //{
+            //    MovementSpeed -= RunningSpeed;
+            //    isRunning = false;
+            //}
+            //else if (!isGrounded && isRunning)
+            //{
+            //    MovementSpeed -= RunningSpeed;
+            //    isRunning = false;
+            //}
         }
     }
 

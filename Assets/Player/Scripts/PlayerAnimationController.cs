@@ -1,5 +1,3 @@
-using System.Collections;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
@@ -55,15 +53,17 @@ public class PlayerAnimationController : MonoBehaviour
 
         if (!_isDead)
         {
-            PlayJumpAnimation();
-            PlayeMeleeAttack();
+            if (_inventoryController._selectedItemInHotKeysIndex >= 0)
+            {
+                PlayeMeleeAttack();
+            }
             AimPartOfBodyToTarget();
         }
     }
 
     private void PlayeMeleeAttack()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && playerMovement._isGrounded && animator.GetInteger("WeaponType") == 0)
+        if (Mouse.current.leftButton.wasPressedThisFrame && playerMovement.isGrounded && animator.GetInteger("WeaponType") == 0)
         {
             animator.SetTrigger("MeleeAttack");
         }
@@ -80,14 +80,6 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool("isWalkingBack", playerMovement.isMovingBack);
         animator.SetBool("isWalkingLeft", playerMovement.isMovingLeft);
         animator.SetBool("isWalkingRight", playerMovement.isMovingRight);
-    }
-
-    private void PlayJumpAnimation()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && playerMovement._isGrounded)
-        {
-            animator.SetTrigger("Jump");
-        }
     }
 
     public void SetWeaponType(WeaponType type)
