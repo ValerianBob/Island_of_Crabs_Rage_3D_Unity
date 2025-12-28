@@ -1035,8 +1035,8 @@ MonoBehaviour:
     StoneQuantityText: {fileID: 0}
     IronQuantityText: {fileID: 0}
     SulfurQuantityText: {fileID: 0}
-    Woods: 150
-    Stones: 150
+    Woods: 100
+    Stones: 100
     Irons: 0
     Sulfur: 0
     Quantity: 1
@@ -1047,8 +1047,8 @@ MonoBehaviour:
     StoneQuantityText: {fileID: 0}
     IronQuantityText: {fileID: 0}
     SulfurQuantityText: {fileID: 0}
-    Woods: 150
-    Stones: 150
+    Woods: 100
+    Stones: 100
     Irons: 0
     Sulfur: 0
     Quantity: 1
@@ -1060,7 +1060,7 @@ MonoBehaviour:
     IronQuantityText: {fileID: 0}
     SulfurQuantityText: {fileID: 0}
     Woods: 50
-    Stones: 200
+    Stones: 150
     Irons: 0
     Sulfur: 0
     Quantity: 1
@@ -1071,9 +1071,9 @@ MonoBehaviour:
     StoneQuantityText: {fileID: 0}
     IronQuantityText: {fileID: 0}
     SulfurQuantityText: {fileID: 0}
-    Woods: 200
+    Woods: 100
     Stones: 0
-    Irons: 250
+    Irons: 100
     Sulfur: 0
     Quantity: 1
     NeedWorkBench: 1
@@ -1083,9 +1083,9 @@ MonoBehaviour:
     StoneQuantityText: {fileID: 0}
     IronQuantityText: {fileID: 0}
     SulfurQuantityText: {fileID: 0}
-    Woods: 200
+    Woods: 100
     Stones: 0
-    Irons: 250
+    Irons: 100
     Sulfur: 0
     Quantity: 1
     NeedWorkBench: 1
@@ -1095,9 +1095,9 @@ MonoBehaviour:
     StoneQuantityText: {fileID: 0}
     IronQuantityText: {fileID: 0}
     SulfurQuantityText: {fileID: 0}
-    Woods: 100
+    Woods: 50
     Stones: 0
-    Irons: 350
+    Irons: 150
     Sulfur: 0
     Quantity: 1
     NeedWorkBench: 1
@@ -1107,23 +1107,23 @@ MonoBehaviour:
     StoneQuantityText: {fileID: 0}
     IronQuantityText: {fileID: 0}
     SulfurQuantityText: {fileID: 0}
-    Woods: 300
+    Woods: 200
     Stones: 0
-    Irons: 450
+    Irons: 200
     Sulfur: 0
     Quantity: 1
     NeedWorkBench: 1
   - CraftItemButton: {fileID: 0}
-    Item: {fileID: 11400000, guid: ad237b2011b6de946a9fc998701f8c6a, type: 2}
+    Item: {fileID: 11400000, guid: bd6146ed442bfbb4b894773e0dafea53, type: 2}
     WoodQuantityText: {fileID: 0}
     StoneQuantityText: {fileID: 0}
     IronQuantityText: {fileID: 0}
     SulfurQuantityText: {fileID: 0}
-    Woods: 300
+    Woods: 0
     Stones: 0
-    Irons: 450
-    Sulfur: 0
-    Quantity: 1
+    Irons: 100
+    Sulfur: 100
+    Quantity: 50
     NeedWorkBench: 1
   isWorkBenchNear: 0
 --- !u!114 &7428191099796781704
@@ -2231,14 +2231,14 @@ MonoBehaviour:
   BuildingsBluePrints:
   - BuildPrefab: {fileID: 2600939621561566063, guid: 10b381ba437bbbb48bc644eef8729723, type: 3}
     WoodQuantity: 200
-    StoneQuantity: 200
+    StoneQuantity: 0
     IronQuantity: 0
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
     IronText: {fileID: 0}
   - BuildPrefab: {fileID: 1516443348489085602, guid: a95c38b778879d9418067983789a5f29, type: 3}
-    WoodQuantity: 50
-    StoneQuantity: 50
+    WoodQuantity: 0
+    StoneQuantity: 100
     IronQuantity: 0
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
@@ -2251,16 +2251,16 @@ MonoBehaviour:
     StoneText: {fileID: 0}
     IronText: {fileID: 0}
   - BuildPrefab: {fileID: 2826366528032921327, guid: b2da98743a3ff8e4e814d55c985c0ea7, type: 3}
-    WoodQuantity: 300
-    StoneQuantity: 300
-    IronQuantity: 100
+    WoodQuantity: 200
+    StoneQuantity: 200
+    IronQuantity: 50
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
     IronText: {fileID: 0}
   - BuildPrefab: {fileID: 5793816150380791720, guid: 99c8970acc75282489fa6bba318c744f, type: 3}
-    WoodQuantity: 350
-    StoneQuantity: 350
-    IronQuantity: 200
+    WoodQuantity: 250
+    StoneQuantity: 250
+    IronQuantity: 100
     WoodText: {fileID: 0}
     StoneText: {fileID: 0}
     IronText: {fileID: 0}

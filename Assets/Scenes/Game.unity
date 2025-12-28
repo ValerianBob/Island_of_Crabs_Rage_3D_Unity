@@ -10753,26 +10753,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1176366219}
     - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
-      propertyPath: ItemsBluePrints.Array.data[8].Item
-      value: 
-      objectReference: {fileID: 11400000, guid: bd6146ed442bfbb4b894773e0dafea53, type: 2}
-    - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
-      propertyPath: ItemsBluePrints.Array.data[8].Irons
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
-      propertyPath: ItemsBluePrints.Array.data[8].Woods
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
-      propertyPath: ItemsBluePrints.Array.data[8].Sulfur
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
-      propertyPath: ItemsBluePrints.Array.data[8].Quantity
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
       propertyPath: ItemsBluePrints.Array.data[0].CraftItemButton
       value: 
       objectReference: {fileID: 1848352865}
@@ -10860,10 +10840,6 @@ PrefabInstance:
       propertyPath: ItemsBluePrints.Array.data[8].IronQuantityText
       value: 
       objectReference: {fileID: 1429337072}
-    - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
-      propertyPath: ItemsBluePrints.Array.data[8].WoodQuantityText
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8204421571749833980, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
       propertyPath: ItemsBluePrints.Array.data[1].StoneQuantityText
       value: 
@@ -16992,7 +16968,7 @@ MonoBehaviour:
   - SpawnPosition: {fileID: 132266477}
     Ore: {fileID: 3412477348428240297, guid: a2ece5ed816548544be702c35b66e928, type: 3}
   - SpawnPosition: {fileID: 1526855490}
-    Ore: {fileID: 269295730797174821, guid: b6b37694cec68de49bdda85e4ae2fe1d, type: 3}
+    Ore: {fileID: 7073906476376546793, guid: 722e2ba9281f8fe49bfc05b382736f4c, type: 3}
   - SpawnPosition: {fileID: 1477228229}
     Ore: {fileID: 7073906476376546793, guid: 722e2ba9281f8fe49bfc05b382736f4c, type: 3}
   - SpawnPosition: {fileID: 1689337112}
@@ -20105,7 +20081,7 @@ MonoBehaviour:
   - SpawnPosition: {fileID: 1714717819}
     Ore: {fileID: 7073906476376546793, guid: 722e2ba9281f8fe49bfc05b382736f4c, type: 3}
   - SpawnPosition: {fileID: 842527476}
-    Ore: {fileID: 269295730797174821, guid: b6b37694cec68de49bdda85e4ae2fe1d, type: 3}
+    Ore: {fileID: 3412477348428240297, guid: a2ece5ed816548544be702c35b66e928, type: 3}
   - SpawnPosition: {fileID: 106028151}
     Ore: {fileID: 3412477348428240297, guid: a2ece5ed816548544be702c35b66e928, type: 3}
   - SpawnPosition: {fileID: 895009286}
@@ -30837,7 +30813,7 @@ MonoBehaviour:
   - SpawnPosition: {fileID: 811979532}
     Ore: {fileID: 7073906476376546793, guid: 722e2ba9281f8fe49bfc05b382736f4c, type: 3}
   - SpawnPosition: {fileID: 969147003}
-    Ore: {fileID: 269295730797174821, guid: b6b37694cec68de49bdda85e4ae2fe1d, type: 3}
+    Ore: {fileID: 7073906476376546793, guid: 722e2ba9281f8fe49bfc05b382736f4c, type: 3}
   - SpawnPosition: {fileID: 2038923653}
     Ore: {fileID: 3412477348428240297, guid: a2ece5ed816548544be702c35b66e928, type: 3}
   - SpawnPosition: {fileID: 357688739}
@@ -36917,7 +36893,7 @@ MonoBehaviour:
   - SpawnPosition: {fileID: 146564393}
     Ore: {fileID: 3412477348428240297, guid: a2ece5ed816548544be702c35b66e928, type: 3}
   - SpawnPosition: {fileID: 1072886265}
-    Ore: {fileID: 269295730797174821, guid: b6b37694cec68de49bdda85e4ae2fe1d, type: 3}
+    Ore: {fileID: 7073906476376546793, guid: 722e2ba9281f8fe49bfc05b382736f4c, type: 3}
   - SpawnPosition: {fileID: 490052538}
     Ore: {fileID: 7073906476376546793, guid: 722e2ba9281f8fe49bfc05b382736f4c, type: 3}
   - SpawnPosition: {fileID: 2145160658}
@@ -45227,7 +45203,7 @@ MonoBehaviour:
   - SpawnPosition: {fileID: 718863656}
     Ore: {fileID: 3412477348428240297, guid: a2ece5ed816548544be702c35b66e928, type: 3}
   - SpawnPosition: {fileID: 143901267}
-    Ore: {fileID: 269295730797174821, guid: b6b37694cec68de49bdda85e4ae2fe1d, type: 3}
+    Ore: {fileID: 3412477348428240297, guid: a2ece5ed816548544be702c35b66e928, type: 3}
   - SpawnPosition: {fileID: 230571796}
     Ore: {fileID: 7073906476376546793, guid: 722e2ba9281f8fe49bfc05b382736f4c, type: 3}
   - SpawnPosition: {fileID: 380327037}
@@ -51800,7 +51776,7 @@ MonoBehaviour:
   - SpawnPosition: {fileID: 1866790048}
     Ore: {fileID: 3412477348428240297, guid: a2ece5ed816548544be702c35b66e928, type: 3}
   - SpawnPosition: {fileID: 1355094173}
-    Ore: {fileID: 269295730797174821, guid: b6b37694cec68de49bdda85e4ae2fe1d, type: 3}
+    Ore: {fileID: 3412477348428240297, guid: a2ece5ed816548544be702c35b66e928, type: 3}
   - SpawnPosition: {fileID: 129975603}
     Ore: {fileID: 7073906476376546793, guid: 722e2ba9281f8fe49bfc05b382736f4c, type: 3}
   - SpawnPosition: {fileID: 261669473}
@@ -64307,9 +64283,9 @@ MonoBehaviour:
   CurrentWoodBoardAmount: 0
   CurrentStoneAmount: 0
   CurrentIronAmount: 0
-  WoodBoardNeed: 8000
-  StoneNeed: 5000
-  IronNeed: 3000
+  WoodBoardNeed: 3000
+  StoneNeed: 2000
+  IronNeed: 1000
   isGameOver: 0
 --- !u!114 &1903737724
 MonoBehaviour:
