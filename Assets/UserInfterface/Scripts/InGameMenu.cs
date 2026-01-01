@@ -6,18 +6,23 @@ using UnityEngine.UI;
 public class InGameMenu : MonoBehaviour
 {
     [SerializeField] private GameObject InGameMenuPanel;
+    [SerializeField] private GameObject SettingsPanel;
 
     [SerializeField] private Button Continue;
     [SerializeField] private Button Settings;
+    [SerializeField] private Button Back;
     [SerializeField] private Button Quit;
 
     private bool isOpen = false;
 
+    private bool isSettingsOpen = false;
     private bool isGameOver = false;
 
     private void Start()
     {
         Continue.onClick.AddListener(ToggleInGameMenu);
+        Settings.onClick.AddListener(ToggleSettings);
+        Back.onClick.AddListener(ToggleSettings);
         Quit.onClick.AddListener(ExitToMenu);
     }
 
@@ -43,6 +48,28 @@ public class InGameMenu : MonoBehaviour
         }
 
         CursorVisabilityController.Instance.SetCursorVisability(isOpen);
+    }
+
+    private void ToggleSettings()
+    {
+        isSettingsOpen = !isSettingsOpen;
+
+        if (isSettingsOpen)
+        {
+            SettingsPanel.SetActive(isSettingsOpen);
+
+            Continue.gameObject.SetActive(!isSettingsOpen);
+            Settings.gameObject.SetActive(!isSettingsOpen);
+            Quit.gameObject.SetActive(!isSettingsOpen);
+        }
+        else
+        {
+            SettingsPanel.SetActive(isSettingsOpen);
+
+            Continue.gameObject.SetActive(!isSettingsOpen);
+            Settings.gameObject.SetActive(!isSettingsOpen);
+            Quit.gameObject.SetActive(!isSettingsOpen);
+        }
     }
 
     private void ExitToMenu()

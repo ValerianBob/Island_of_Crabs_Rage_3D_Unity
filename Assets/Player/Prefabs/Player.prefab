@@ -1075,7 +1075,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   PlayerCamera: {fileID: 2944028535577751238}
   MovementSpeed: 7
-  Sensitivity: 0.2
+  Sensitivity: 0
   JumpHeigh: 3
   isWalking: 0
   isMovingForward: 0

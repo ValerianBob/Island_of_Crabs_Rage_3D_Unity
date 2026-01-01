@@ -49,7 +49,6 @@ public class ShipFixerBenchController : MonoBehaviour
         }
         else
         {
-            Notifications.Instance.CreateNotification("There is no recources to use !", Color.red);
         }
     }
 }

@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class FurnaceController : MonoBehaviour
 {
@@ -105,16 +103,29 @@ public class FurnaceController : MonoBehaviour
                 OreSlot.Quantity = 0;
             }
 
-            UIManager.Instance.WoodFurnace.QuantityText.text = WoodSlot.Quantity.ToString();
-            UIManager.Instance.OreFurnace.QuantityText.text = OreSlot.Quantity.ToString();
+            if (isFurnaceSelected)
+            {
+                UIManager.Instance.WoodFurnace.QuantityText.text = WoodSlot.Quantity.ToString();
+                UIManager.Instance.OreFurnace.QuantityText.text = OreSlot.Quantity.ToString();
+            }
 
             if (WoodSlot.Quantity == 0)
             {
-                UIManager.Instance.WoodFurnace.ItemIcon.texture = EmptyIcon;
+                if(isFurnaceSelected)
+                {
+                    UIManager.Instance.WoodFurnace.ItemIcon.texture = EmptyIcon;
+                }
+
+                WoodSlot.Item = null;
             }
             if (OreSlot.Quantity == 0)
             {
-                UIManager.Instance.OreFurnace.ItemIcon.texture = EmptyIcon;
+                if (isFurnaceSelected)
+                {
+                    UIManager.Instance.OreFurnace.ItemIcon.texture = EmptyIcon;
+                }
+
+                OreSlot.Item = null;
             }
 
             GameObject IronToDrop = Instantiate(IronPrefab, DropPoint.transform.position, Quaternion.identity);

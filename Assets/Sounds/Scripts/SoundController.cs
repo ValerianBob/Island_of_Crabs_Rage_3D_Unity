@@ -63,7 +63,7 @@ public class SoundsController : MonoBehaviour
 
     private void Update()
     {
-        //currentVolume = PlayerSettings.Instance.SoundVolume;
+        currentVolume = Settings.instance.Volume;
 
         playerAudioSource.volume = currentVolume;
     }

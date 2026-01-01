@@ -12,16 +12,23 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Button Quit;
 
     [SerializeField] private GameObject DevelopersPanel;
-    [SerializeField] private Button Back;
+    [SerializeField] private Button BackFromDevelopers;
+
+    [SerializeField] private GameObject SettingsPanel;
+    [SerializeField] private Button BackFromSettings;
 
     private bool isDevelopersOpen = false;
+    private bool isSettingsOpen = false;
 
     private void Start()
     {
         Play.onClick.AddListener(PlayGame);
 
         Developers.onClick.AddListener(ToggleDevelopersPanel);
-        Back.onClick.AddListener(ToggleDevelopersPanel);
+        BackFromDevelopers.onClick.AddListener(ToggleDevelopersPanel);
+
+        Settings.onClick.AddListener(ToggleSettings);
+        BackFromSettings.onClick.AddListener(ToggleSettings);
 
         Quit.onClick.AddListener(QuitGame);
     }
@@ -46,7 +53,23 @@ public class MainMenuController : MonoBehaviour
             DevelopersPanel.SetActive(isDevelopersOpen);
         }
     }
-    
+
+    private void ToggleSettings()
+    {
+        isSettingsOpen = !isSettingsOpen;
+
+        if (isSettingsOpen)
+        {
+            SettingsPanel.SetActive(isSettingsOpen);
+            MainMenuButtons.SetActive(!isSettingsOpen);
+        }
+        else
+        {
+            SettingsPanel.SetActive(isSettingsOpen);
+            MainMenuButtons.SetActive(!isSettingsOpen);
+        }
+    }
+
     private void QuitGame()
     {
         Application.Quit();

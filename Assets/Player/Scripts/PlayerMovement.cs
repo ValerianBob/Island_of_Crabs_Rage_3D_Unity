@@ -51,6 +51,8 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
+        Sensitivity = Settings.instance.Sensitive;
+
         if (!_stopMovement)
         {
             if (!_isDead)

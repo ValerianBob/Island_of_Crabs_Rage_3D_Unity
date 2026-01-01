@@ -1092,6 +1092,8 @@ public class InventoryController : MonoBehaviour
     {
         isOpened = !isOpened;
 
+        _currentFurnace = null;
+
         if (currentFurnace != null)
         {
             ReloadFurnaceUI(currentFurnace);
