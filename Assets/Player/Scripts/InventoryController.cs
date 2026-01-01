@@ -936,6 +936,30 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    public bool TakeBullet()
+    {
+        for (int i = 0; i < Slots.Length; i++)
+        {
+            if (Slots[i].Item != null && Slots[i].Item.ItemName == "Ammo")
+            {
+                Slots[i].Quantity -= 1;
+
+                if (Slots[i].Quantity == 0)
+                {
+                    Slots[i].Item = null;
+                    Slots[i].ItemIcon.texture = EmptyIcon;
+                }
+
+                Slots[i].QuantityText.text = Slots[i].Quantity.ToString();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     public bool IsSlotsFull()
     {
         foreach (var slot in Slots)

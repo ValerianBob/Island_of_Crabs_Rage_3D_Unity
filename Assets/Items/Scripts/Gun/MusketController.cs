@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,14 @@ public class MusketController : MonoBehaviour
     [SerializeField] private Camera PlayerCamera;
 
     [SerializeField] private ParticleSystem Blood;
+
+    [SerializeField] private ParticleSystem MuzzleFlash;
+
+    [SerializeField] private Transform MuzzlePoint;
+
+    [SerializeField] private Light MuzzleLight;
+
+    [SerializeField] private InventoryController _inventoryController;
 
     private Ray _ray;
 
@@ -31,25 +40,79 @@ public class MusketController : MonoBehaviour
                 _NextTime = Time.time + _fireRate;
 
                 EnemyController tempEnemy = _hit.collider.gameObject.GetComponent<EnemyController>();
-                
+
+                bool hasBullets = _inventoryController.TakeBullet();
+
                 if (tempEnemy != null)
                 {
-                    tempEnemy.TakeDamage(Damage);
+                    if (hasBullets)
+                    {
+                        tempEnemy.TakeDamage(Damage);
 
-                    ParticleSystem tempBlood = Instantiate(Blood, _hit.point, Blood.transform.rotation);
-                    tempBlood.Play();
+                        ParticleSystem tempBlood = Instantiate(Blood, _hit.point, Blood.transform.rotation);
+                        tempBlood.Play();
+                        ParticleSystem tempMuzzle = Instantiate(MuzzleFlash, MuzzlePoint.position, MuzzleFlash.transform.rotation);
+                        tempMuzzle.Play();
+                        StartCoroutine("ShowAndHidMuzzleLight");
+
+                        SoundsController.Instance.PlayGun(0, transform.position);
+                    }
+                    else
+                    {
+                        SoundsController.Instance.PlayGun(1, transform.position);
+                        Notifications.Instance.CreateNotification("No Bullets", Color.red);
+                    }
                 }
+                else
+                {
+                    if (hasBullets)
+                    {
+                        ParticleSystem tempMuzzle = Instantiate(MuzzleFlash, MuzzlePoint.position, MuzzleFlash.transform.rotation);
+                        tempMuzzle.Play();
+                        StartCoroutine("ShowAndHidMuzzleLight");
 
-                SoundsController.Instance.PlayGun(0, transform.position);
-                Invoke("PlayeReloadSound", 0.7f);
+                        SoundsController.Instance.PlayGun(0, transform.position);
+                    }
+                    else
+                    {
+                        SoundsController.Instance.PlayGun(1, transform.position);
+                        Notifications.Instance.CreateNotification("No Bullets", Color.red);
+                    }
+                }
+                
+            }
+        }
+        else
+        {
+            if (Mouse.current.leftButton.wasPressedThisFrame && Time.time > _NextTime)
+            {
+                _NextTime = Time.time + _fireRate;
 
-                Debug.DrawRay(_ray.origin, _ray.direction * rayDistance);
+                bool hasBullets = _inventoryController.TakeBullet();
+
+                if (hasBullets)
+                {
+                    ParticleSystem tempMuzzle = Instantiate(MuzzleFlash, MuzzlePoint.position, MuzzleFlash.transform.rotation);
+                    tempMuzzle.Play();
+                    StartCoroutine("ShowAndHidMuzzleLight");
+
+                    SoundsController.Instance.PlayGun(0, transform.position);
+                }
+                else
+                {
+                    SoundsController.Instance.PlayGun(1, transform.position);
+                    Notifications.Instance.CreateNotification("No Bullets", Color.red);
+                }
             }
         }
     }
 
-    private void PlayeReloadSound()
+    private IEnumerator ShowAndHidMuzzleLight()
     {
-        SoundsController.Instance.PlayGun(1, transform.position);
+        MuzzleLight.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.1f);
+
+        MuzzleLight.gameObject.SetActive(false);
     }
 }

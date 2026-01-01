@@ -64392,7 +64392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundController
   Guns:
   - {fileID: 8300000, guid: 0c2cd619ab781494a9c9c90baa6d2cc0, type: 3}
-  - {fileID: 8300000, guid: 59f45836288efaf44b639c8ba37fff1f, type: 3}
+  - {fileID: 8300000, guid: 0355518346d7a594e8c6d0043e1d0ef7, type: 3}
   Instruments:
   - {fileID: 8300000, guid: fb180865e03f0a54aa55aaf2aca7ca5a, type: 3}
   - {fileID: 8300000, guid: 12ed00d067f8fcb4cb58fca37db26163, type: 3}
