@@ -65994,6 +65994,8 @@ MonoBehaviour:
   CrabsPrefabs:
   - {fileID: 4428410211896128397, guid: 7662b3b4784cc3348aed1605559f9aeb, type: 3}
   - {fileID: 3811279908391819451, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+  - {fileID: 9121435848521615426, guid: 6c3d17546759462438987fd4d6e21151, type: 3}
+  - {fileID: 9213784170036252014, guid: d6baf732297e10f48b1808bf46f779ad, type: 3}
   SpawnPoints:
   - {fileID: 1343057165}
   - {fileID: 708435993}
@@ -66039,10 +66041,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 31bc8c1af4faec84794fae8d28a1bd79, type: 3}
   - {fileID: 8300000, guid: 1aec17b6ae8768b4c9d5a9d28a29d0a5, type: 3}
   - {fileID: 8300000, guid: e0b576efb0cdd9d47a4ccab145fb63dc, type: 3}
+  - {fileID: 8300000, guid: baf93f0fb29d0df47bc0c50c3d0cc66b, type: 3}
   Builds:
   - {fileID: 8300000, guid: ac21aef1ff52359419a817f933797ccb, type: 3}
   - {fileID: 8300000, guid: a03ce9cbfa45343458b08ade768a981a, type: 3}
   - {fileID: 8300000, guid: e5eccf53b3d5ae84ab77b801e5ff8cae, type: 3}
+  Enemies:
+  - {fileID: 8300000, guid: 2d3d908ab3d49844faac3dc7b85639ed, type: 3}
+  - {fileID: 8300000, guid: 9699fcb962e90944da52ae350f7d194d, type: 3}
+  - {fileID: 8300000, guid: 0c2cd619ab781494a9c9c90baa6d2cc0, type: 3}
   Menu: []
   Musics: []
   playerPosition: {fileID: 76585617}

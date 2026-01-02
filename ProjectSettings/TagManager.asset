@@ -13,6 +13,7 @@ TagManager:
   - Gun
   - Environment
   - Water
+  - Steak
   layers:
   - Default
   - TransparentFX

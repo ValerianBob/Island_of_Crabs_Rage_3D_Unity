@@ -164,4 +164,10 @@ public class PlayerConditionController : MonoBehaviour
 
         Respawn?.Invoke();
     }
+
+    public void ChangeHunger(int number)
+    {
+        Hunger += number;
+        HungerBar.value = Hunger;
+    }
 }

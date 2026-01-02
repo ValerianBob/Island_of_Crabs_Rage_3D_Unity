@@ -33,8 +33,6 @@ public class EnemySpawner : MonoBehaviour
 
         SpawnEnemies();
         SpawnPotrolEnemies();
-
-        Debug.Log(_PotrolEnemiesCount);
     }
 
     private void SpawnEnemies()
@@ -52,9 +50,44 @@ public class EnemySpawner : MonoBehaviour
         {
             CurentTime = NextWaveTime;
 
-            for (int i = 0; i < Builds.Length; i++)
+            if (Builds.Length <= 2)
             {
-                Instantiate(CrabsPrefabs[1], SpawnPoints[Random.Range(0, SpawnPoints.Length)].position, Quaternion.identity);
+                for (int i = 0; i < Builds.Length; i++)
+                {
+                    Instantiate(CrabsPrefabs[1], SpawnPoints[Random.Range(0, SpawnPoints.Length)].position, Quaternion.identity);
+                }
+                Debug.Log("Spawned Light Crabs");
+            }
+            else if (Builds.Length > 2 && Builds.Length <= 4)
+            {
+                for (int i = 0; i < Builds.Length; i++)
+                {
+                    Instantiate(CrabsPrefabs[1], SpawnPoints[Random.Range(0, SpawnPoints.Length)].position, Quaternion.identity);
+                }
+                for (int i = 0; i < Builds.Length - 2; i++)
+                {
+                    Instantiate(CrabsPrefabs[2], SpawnPoints[Random.Range(0, SpawnPoints.Length)].position, Quaternion.identity);
+                }
+                Debug.Log("Spawned Light Crabs");
+                Debug.Log("Spawned Sword Crabs");
+            }
+            else if (Builds.Length > 4)
+            {
+                for (int i = 0; i < Builds.Length; i++)
+                {
+                    Instantiate(CrabsPrefabs[1], SpawnPoints[Random.Range(0, SpawnPoints.Length)].position, Quaternion.identity);
+                }
+                for (int i = 0; i < Builds.Length - 2; i++)
+                {
+                    Instantiate(CrabsPrefabs[2], SpawnPoints[Random.Range(0, SpawnPoints.Length)].position, Quaternion.identity);
+                }
+                for (int i = 0; i < Builds.Length - 4; i++)
+                {
+                    Instantiate(CrabsPrefabs[3], SpawnPoints[Random.Range(0, SpawnPoints.Length)].position, Quaternion.identity);
+                }
+                Debug.Log("Spawned Light Crabs");
+                Debug.Log("Spawned Sword Crabs");
+                Debug.Log("Spawned Gun Crabs");
             }
 
             Notifications.Instance.CreateNotification("Crabs Raid Base !!!", Color.purple);

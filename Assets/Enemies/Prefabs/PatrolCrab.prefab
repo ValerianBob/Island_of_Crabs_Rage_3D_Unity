@@ -2342,6 +2342,7 @@ MonoBehaviour:
   EnemyConfig: {fileID: 11400000, guid: bf041177ee159be4aa420a1b267546c4, type: 2}
   Player: {fileID: 0}
   _animator: {fileID: 5536425311001724442}
+  Steak: {fileID: 4281790073109074791, guid: 56942b4f40000f04c9757b56984000ba, type: 3}
   PatrolPoints: []
   CurrentHealth: 0
   CrabsParts:

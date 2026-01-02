@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +10,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject Player;
 
     [SerializeField] private Animator _animator;
+
+    [SerializeField] private GameObject Steak;
 
     public Transform[] PatrolPoints;
 
@@ -37,6 +38,8 @@ public class EnemyController : MonoBehaviour
     private float speedToChangeAnimation = 0f;
 
     private bool _isDead = false;
+
+    public int HitSoundIndex = 0;
 
     //Die settings :
     private BoxCollider _boxCollider;
@@ -80,9 +83,12 @@ public class EnemyController : MonoBehaviour
             {
                 OnCrabDied?.Invoke();
 
-                StopCoroutine(Potrol);
-                Potrol = null;
-                isPotroling = false;
+                if (Potrol != null)
+                {
+                    StopCoroutine(Potrol);
+                    Potrol = null;
+                    isPotroling = false;
+                }
             }
 
             _boxCollider.enabled = false;
@@ -109,6 +115,13 @@ public class EnemyController : MonoBehaviour
                 {
                     cc.isTrigger = false;
                 }
+            }
+
+            int spawnSteak = UnityEngine.Random.Range(0, 2);
+
+            if (spawnSteak == 1)
+            {
+                Instantiate(Steak, transform.position + new Vector3(0f, 1f, 0f), Steak.transform.rotation);
             }
 
             Invoke("DeleteCrab", 15);
@@ -203,6 +216,8 @@ public class EnemyController : MonoBehaviour
                 }
 
                 _animator.SetTrigger("Attack");
+
+                SoundsController.Instance.PlayEnemies(HitSoundIndex, transform.position);
 
                 NextTime = Time.time + EnemyConfig.AttackRate;
             }

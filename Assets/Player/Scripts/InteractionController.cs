@@ -11,6 +11,8 @@ public class InteractionController : MonoBehaviour
 
     [SerializeField] private HammerController _hammerController;
 
+    [SerializeField] private PlayerConditionController _playerConditionController;
+
     private InventoryController _inventoryController;
 
     private Ray _ray;
@@ -26,6 +28,7 @@ public class InteractionController : MonoBehaviour
     private void Start()
     {
         _inventoryController = GetComponent<InventoryController>();
+        _playerConditionController = GetComponent<PlayerConditionController>();
     }
 
     private void Update()
@@ -54,6 +57,10 @@ public class InteractionController : MonoBehaviour
             else if (_rayHit.collider.GetComponent<ShipFixerBenchController>() != null && !_hammerController.isBuilding)
             {
                 UseShipFixerBench();
+            }
+            else if (_rayHit.collider.CompareTag("Steak"))
+            {
+                EatSteak();
             }
             else
             {
@@ -162,6 +169,26 @@ public class InteractionController : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             _inventoryController.ToggleFromShipFixer(currentShipFixerBench);
+        }
+    }
+
+    private void EatSteak()
+    {
+        _isVisible = true;
+
+        GameObject currentSteak = _rayHit.collider.gameObject;
+
+        InfoText.text = "Steak";
+        InteractionText.text = "Press E to eat Steak";
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            _playerConditionController.ChangeHealth(5, false);
+            _playerConditionController.ChangeHunger(5);
+
+            Destroy(currentSteak);
+
+            SoundsController.Instance.PlayPlayer(3, transform.position);
         }
     }
 
