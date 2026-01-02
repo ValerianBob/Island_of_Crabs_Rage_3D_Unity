@@ -1118,6 +1118,10 @@ MonoBehaviour:
   InfoText: {fileID: 0}
   InteractionText: {fileID: 0}
   _hammerController: {fileID: 5584685175234667706}
+  _playerConditionController: {fileID: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 47
   RayDistance: 4
   _isVisible: 0
 --- !u!114 &307020497993873410
@@ -1492,6 +1496,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SwordController
   PlayerCamera: {fileID: 2944028535577751238}
   Blood: {fileID: 5933940565088064125, guid: 1481f797e7fd3bb4db84a64be4652eae, type: 3}
+  LayerMaskWater:
+    serializedVersion: 2
+    m_Bits: 47
   damage: 10
 --- !u!1001 &123906440355418598
 PrefabInstance:
@@ -2153,6 +2160,9 @@ MonoBehaviour:
   MuzzlePoint: {fileID: 8981397054787864833}
   MuzzleLight: {fileID: 6551198160343433812}
   _inventoryController: {fileID: 307020497993873410}
+  LayerMaskWater:
+    serializedVersion: 2
+    m_Bits: 47
   _fireRate: 1
   Damage: 40
 --- !u!4 &900204180521845029 stripped
@@ -3039,6 +3049,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SwordController
   PlayerCamera: {fileID: 2944028535577751238}
   Blood: {fileID: 5933940565088064125, guid: 1481f797e7fd3bb4db84a64be4652eae, type: 3}
+  LayerMaskWater:
+    serializedVersion: 2
+    m_Bits: 47
   damage: 30
 --- !u!4 &7511660488264603986 stripped
 Transform:

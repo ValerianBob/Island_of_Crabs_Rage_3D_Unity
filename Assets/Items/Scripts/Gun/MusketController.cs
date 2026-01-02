@@ -16,6 +16,8 @@ public class MusketController : MonoBehaviour
 
     [SerializeField] private InventoryController _inventoryController;
 
+    [SerializeField] private LayerMask LayerMaskWater;
+
     private Ray _ray;
 
     private RaycastHit _hit;
@@ -33,7 +35,7 @@ public class MusketController : MonoBehaviour
         _ray.origin = PlayerCamera.transform.position;
         _ray.direction = PlayerCamera.transform.forward;
 
-        if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, rayDistance))
+        if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, rayDistance, LayerMaskWater))
         {
             if (Mouse.current.leftButton.wasPressedThisFrame && Time.time > _NextTime)
             {

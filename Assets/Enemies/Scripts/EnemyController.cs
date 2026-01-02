@@ -117,12 +117,7 @@ public class EnemyController : MonoBehaviour
                 }
             }
 
-            int spawnSteak = UnityEngine.Random.Range(0, 2);
-
-            if (spawnSteak == 1)
-            {
-                Instantiate(Steak, transform.position + new Vector3(0f, 1f, 0f), Steak.transform.rotation);
-            }
+            Instantiate(Steak, transform.position + new Vector3(0f, 1f, 0f), Steak.transform.rotation);
 
             Invoke("DeleteCrab", 15);
         }

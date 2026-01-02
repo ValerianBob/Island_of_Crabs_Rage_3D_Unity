@@ -11057,10 +11057,6 @@ PrefabInstance:
       propertyPath: InteractionText
       value: 
       objectReference: {fileID: 2079522605}
-    - target: {fileID: 6260012549846132756, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7428191099796781704, guid: fd3b62784ddfece4aaf656bce649f8b7, type: 3}
       propertyPath: HelathBar
       value: 
@@ -65569,6 +65565,10 @@ PrefabInstance:
     - target: {fileID: 6426944746477613288, guid: 3f19ceb0e77ca644bb21e0755d3146b6, type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 6426944746477613288, guid: 3f19ceb0e77ca644bb21e0755d3146b6, type: 3}
+      propertyPath: m_Layer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6426944746477613288, guid: 3f19ceb0e77ca644bb21e0755d3146b6, type: 3}
       propertyPath: m_IsActive

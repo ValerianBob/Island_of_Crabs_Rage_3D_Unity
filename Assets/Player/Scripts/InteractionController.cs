@@ -13,6 +13,8 @@ public class InteractionController : MonoBehaviour
 
     [SerializeField] private PlayerConditionController _playerConditionController;
 
+    [SerializeField] private LayerMask _layerMask; 
+
     private InventoryController _inventoryController;
 
     private Ray _ray;
@@ -36,7 +38,7 @@ public class InteractionController : MonoBehaviour
         _ray.origin = PlayerCamera.transform.position;
         _ray.direction = PlayerCamera.transform.forward;
         
-        if (Physics.Raycast(_ray.origin, _ray.direction, out _rayHit, RayDistance))
+        if (Physics.Raycast(_ray.origin, _ray.direction, out _rayHit, RayDistance, _layerMask))
         {
             if (_rayHit.collider.GetComponent<ItemController>() != null)
             {

@@ -8,6 +8,8 @@ public class SwordController : MonoBehaviour
 
     [SerializeField] private ParticleSystem Blood;
 
+    [SerializeField] private LayerMask LayerMaskWater;
+
     public int damage;
 
     private Ray _ray;
@@ -27,7 +29,7 @@ public class SwordController : MonoBehaviour
         _ray.origin = PlayerCamera.transform.position;
         _ray.direction = PlayerCamera.transform.forward;
 
-        if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, _rayDistance))
+        if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, _rayDistance, LayerMaskWater))
         {
             var enemy = _hit.collider.GetComponentInParent<EnemyController>();
 
