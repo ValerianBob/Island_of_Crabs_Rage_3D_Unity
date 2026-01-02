@@ -57,7 +57,6 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
         if (IsOverPanel(eventData))
         {
-            Debug.Log("On Panel!");
         }
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -73,7 +72,6 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         if (IsOverPanel(eventData))
         {
-            Debug.Log("On Panel!");
         }
 
         Vector2 localPoint;
@@ -167,8 +165,6 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
                 }
 
                 SoundsController.Instance.PlayInventory(0, inventoryController.transform.position);
-
-                Debug.Log($"Dropped item {draggedItem.SlotIndex} swapped with slot {SlotIndex}");
             }
         }
     }
@@ -179,11 +175,9 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
         if (IsOverPanel(eventData))
         {
-            Debug.Log("Was on Panel when left!");
         }
         else
         {
-            Debug.Log("wasn't on Panel when left mouse");
             inventoryController.DropItem(SlotIndex, draggedItem.isHotKeySlot, draggedItem.isFurnaceWoodSlot, draggedItem.isFurnaceOreSlot,
                 draggedItem.isCircularSawWoodSlot, draggedItem.isShipFixerBenchSlot);
 

@@ -107,7 +107,6 @@ public class InventoryController : MonoBehaviour
                     PlayerInstrumentAndGunsPrefabs[i].SetActive(false);
                 }
             }
-            Debug.Log($"Take {HotKeysSlots[index].Item.name} in slot {index}");
         }
         else
         {
@@ -119,8 +118,6 @@ public class InventoryController : MonoBehaviour
             {
                 PlayerInstrumentAndGunsPrefabs[i].SetActive(false);
             }
-
-            Debug.Log("Swap on empty slot");
         }
     }
 
@@ -188,8 +185,6 @@ public class InventoryController : MonoBehaviour
 
                     Slots[i].Quantity = slot.Quantity;
 
-                    Debug.Log("Added in existing slot");
-
                     if (remaining <= 0)
                     {
                         Notifications.Instance.CreateNotification($"+ {Quantity} {slot.Item.ItemName}", Color.green);
@@ -214,8 +209,6 @@ public class InventoryController : MonoBehaviour
                 Slots[i].Item = item;
                 Slots[i].Quantity = slot.Quantity;
 
-                Debug.Log("Added in empty slot");
-
                 if (remaining <= 0)
                 {
                     Notifications.Instance.CreateNotification($"+ {Quantity} {slot.Item.ItemName}", Color.green);
@@ -233,8 +226,6 @@ public class InventoryController : MonoBehaviour
 
         if (item == null)
         {
-            Debug.Log("Item is empty");
-
             return false;
         }
 
@@ -246,7 +237,6 @@ public class InventoryController : MonoBehaviour
                 HotKeysSlots[i].Item = item;
                 HotKeysSlots[i].Quantity = Quantity;
 
-                Debug.Log("Added in empty HotKeySlot");
                 Notifications.Instance.CreateNotification($"+ {HotKeysSlots[i].Quantity} {HotKeysSlots[i].Item.ItemName}", Color.green);
 
                 return true;
@@ -259,8 +249,6 @@ public class InventoryController : MonoBehaviour
 
         if (isHotKeysFull)
         {
-            Debug.Log("Not enough space in HotKeySlots inventory. Trying to add in Main Inventory :");
-
             return AddItem(item, Quantity);
         }
 
@@ -288,14 +276,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Item is empty");
-
                     return false;
                 }
             }
             else
             {
-                Debug.Log("Invalid index");
             }
         }
         else if (FurnaceWoodSlot && !FurnaceOreSlot && !isHotKeySlot)
@@ -310,8 +295,6 @@ public class InventoryController : MonoBehaviour
                 _currentFurnace.WoodSlot.Item = null;
                 _currentFurnace.WoodSlot.Quantity = 0;
                 UIManager.Instance.WoodFurnace.QuantityText.text = "0";
-
-                Debug.Log("Wood dropped from furnace");
 
                 return true;
             }
@@ -331,8 +314,6 @@ public class InventoryController : MonoBehaviour
                 _currentFurnace.OreSlot.Quantity = 0;
                 UIManager.Instance.OreFurnace.QuantityText.text = "0";
 
-                Debug.Log("Ore dropped from furnace");
-
                 return true;
             }
 
@@ -351,8 +332,6 @@ public class InventoryController : MonoBehaviour
                 _currentCircularSaw.WoodSlot.Quantity = 0;
                 UIManager.Instance.WoodCiruclarSaw.QuantityText.text = "0";
 
-                Debug.Log("Wood dropped from CircularSaw");
-
                 return true;
             }
 
@@ -370,8 +349,6 @@ public class InventoryController : MonoBehaviour
                 _currentShipFixerBench.ResourceSlot.Item = null;
                 _currentShipFixerBench.ResourceSlot.Quantity = 0;
                 UIManager.Instance.RecourcesShipFixer.QuantityText.text = "0";
-
-                Debug.Log("Wood dropped from CircularSaw");
 
                 return true;
             }
@@ -410,14 +387,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Item is empty");
-
                     return false;
                 }
             }
             else
             {
-                Debug.Log("Invalid index");
             }
         }
 
@@ -432,8 +406,6 @@ public class InventoryController : MonoBehaviour
         switch (TypeOfSwap)
         {
             case 0:
-                Debug.Log("Main item swap with Main Item");
-
                 //Swap Images :
                 Texture tempRawImage = Slots[fromIndex].ItemIcon.texture;
                 Slots[fromIndex].ItemIcon.texture = Slots[toIndex].ItemIcon.texture;
@@ -455,8 +427,6 @@ public class InventoryController : MonoBehaviour
 
                 break;
             case 1:
-                Debug.Log("HotKey item swap with HotKey Item");
-
                 //Swap Images :
                 Texture tempRawImage1 = HotKeysSlots[fromIndex].ItemIcon.texture;
                 HotKeysSlots[fromIndex].ItemIcon.texture = HotKeysSlots[toIndex].ItemIcon.texture;
@@ -478,8 +448,6 @@ public class InventoryController : MonoBehaviour
                 break;
 
             case 2:
-                Debug.Log("HotKey item swap with Main Item");
-
                 if (Slots[toIndex].Item == null || Slots[toIndex].Item.Type != ItemType.Resource)
                 {
                     //Swap Images :
@@ -504,15 +472,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can't put Resource in HotKey");
                     Notifications.Instance.CreateNotification("Can't put Resource in HotKey", Color.red);
                 }
-
                 break;
 
             case 3:
-                Debug.Log("Main item swap with HotKey Item");
-
                 if (Slots[fromIndex].Item.Type != ItemType.Resource)
                 {
                     //Swap Images :
@@ -535,15 +499,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can't put Resource in HotKey");
                     Notifications.Instance.CreateNotification("Can't put Resource in HotKey", Color.red);
                 }
-
                 break;
 
             case 4:
-                Debug.Log("Main item swap with Wood Furnace Item");
-
                 if (Slots[fromIndex].Item.Type == ItemType.Resource && Slots[fromIndex].Item.ItemName == "Wood")
                 {
                     //Swap Images :
@@ -569,15 +529,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can put only Wood in this slot");
                     Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
                 }
-
                 break;
 
             case 5:
-                Debug.Log("Wood Furnace Item swap with Main Item");
-
                 if (Slots[toIndex].Item == null)
                 {
                     //Swap Images :
@@ -626,15 +582,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can put only Wood in this slot");
                     Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
                 }
-
                 break;
 
             case 6:
-                Debug.Log("Main Item spaw with Furnace Ore Slot");
-
                 if (Slots[fromIndex].Item.Type == ItemType.Resource && Slots[fromIndex].Item.ItemName == "Iron Ore")
                 {
                     //Swap Images :
@@ -660,15 +612,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can put only Iron Ore in this slot");
                     Notifications.Instance.CreateNotification("Can put only Iron Ore in this slot", Color.red);
                 }
-
                 break;
 
             case 7:
-                Debug.Log("Ore Furnace Item swap with Main Item");
-
                 if (Slots[toIndex].Item == null)
                 {
                     //Swap Images :
@@ -717,15 +665,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can put only Iron Ore in this slot");
                     Notifications.Instance.CreateNotification("Can put only Iron Ore in this slot", Color.red);
                 }
-
                 break;
 
             case 8:
-                Debug.Log("Main Item swap with CircularSaw Wood");
-
                 if (Slots[fromIndex].Item.Type == ItemType.Resource && Slots[fromIndex].Item.ItemName == "Wood")
                 {
                     //Swap Images :
@@ -751,15 +695,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can put only Wood in this slot");
                     Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
                 }
-
                 break;
 
             case 9:
-                Debug.Log("CircularSaw Wood Item swap with Main Item");
-
                 if (Slots[toIndex].Item == null)
                 {
                     //Swap Images :
@@ -808,15 +748,11 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Can put only Wood in this slot");
                     Notifications.Instance.CreateNotification("Can put only Wood in this slot", Color.red);
                 }
-
                 break;
 
             case 10:
-                Debug.Log("Main Item swap with ShipFixerBench Recource");
-
                 if (Slots[fromIndex].Item.Type == ItemType.Resource &&
                     Slots[fromIndex].Item.ItemName == "Wood Board" ||
                     Slots[fromIndex].Item.ItemName == "Iron" ||
@@ -847,13 +783,10 @@ public class InventoryController : MonoBehaviour
                 {
                     Notifications.Instance.CreateNotification("Can't put this recource in this slot", Color.red);
                 }
-
                 break;
 
 
             case 11:
-                Debug.Log("ShipFixerSlot Item swap with Main Item");
-
                 if (Slots[toIndex].Item == null)
                 {
                     //Swap Images :
@@ -907,11 +840,9 @@ public class InventoryController : MonoBehaviour
                 {
                     Notifications.Instance.CreateNotification("Can't put this recource in this slot", Color.red);
                 }
-
                 break;
 
             default:
-                Debug.LogWarning("Unknown item type!");
                 break;
         }
     }
@@ -987,8 +918,6 @@ public class InventoryController : MonoBehaviour
     {
         if (currentFurnace.WoodSlot.Item != null)
         {
-            Debug.Log("Reload Furnace Wood UI");
-
             if (currentFurnace.WoodSlot.Quantity == 0)
             {
                 UIManager.Instance.WoodFurnace.ItemIcon.texture = EmptyIcon;
@@ -1002,15 +931,11 @@ public class InventoryController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Reload Furnace Wood UI to zero");
-
             UIManager.Instance.WoodFurnace.ItemIcon.texture = EmptyIcon;
             UIManager.Instance.WoodFurnace.QuantityText.text = "0";
         }
         if (currentFurnace.OreSlot.Item != null)
         {
-            Debug.Log("Reload Furnace Ore UI");
-
             if (currentFurnace.OreSlot.Quantity == 0)
             {
                 UIManager.Instance.OreFurnace.ItemIcon.texture = EmptyIcon;
@@ -1025,8 +950,6 @@ public class InventoryController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Reload Furnace Ore UI to zero");
-
             UIManager.Instance.OreFurnace.ItemIcon.texture = EmptyIcon;
             UIManager.Instance.OreFurnace.QuantityText.text = "0";
         }
@@ -1036,15 +959,11 @@ public class InventoryController : MonoBehaviour
     {
         if (currentCircularSaw.WoodSlot.Item != null)
         {
-            Debug.Log("Reload CircularSaw Wood UI");
-
             UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = currentCircularSaw.WoodSlot.Item.Icon.texture;
             UIManager.Instance.WoodCiruclarSaw.QuantityText.text = currentCircularSaw.WoodSlot.Quantity.ToString();
         }
         else
         {
-            Debug.Log("Reload CircularSaw Wood UI to zero");
-
             UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = EmptyIcon;
             UIManager.Instance.WoodCiruclarSaw.QuantityText.text = "0";
         }
@@ -1054,15 +973,11 @@ public class InventoryController : MonoBehaviour
     {
         if (currentShipFixer.ResourceSlot.Item != null)
         {
-            Debug.Log("Reload ShipFixer Resource UI");
-
             UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = currentShipFixer.ResourceSlot.Item.Icon.texture;
             UIManager.Instance.WoodCiruclarSaw.QuantityText.text = currentShipFixer.ResourceSlot.Quantity.ToString();
         }
         else
         {
-            Debug.Log("Reload ShipFixer Resource UI to zero");
-
             UIManager.Instance.WoodCiruclarSaw.ItemIcon.texture = EmptyIcon;
             UIManager.Instance.WoodCiruclarSaw.QuantityText.text = "0";
         }

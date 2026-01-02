@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class CircularSawController : MonoBehaviour
 {
-    [SerializeField] private InventoryController _inventoryController;
-
     [SerializeField] private GameObject WoodBoardPrefab;
 
     [SerializeField] private GameObject DropPoint;
@@ -32,11 +30,6 @@ public class CircularSawController : MonoBehaviour
 
     public bool isCirculatSawSelected = false;
 
-    private void Start()
-    {
-        _inventoryController = GameObject.Find("Player").GetComponent<InventoryController>();
-    }
-
     private void Update()
     {
         if (isCirculatSawSelected)
@@ -46,7 +39,6 @@ public class CircularSawController : MonoBehaviour
 
         if (WoodSlot.Quantity <= 0 && isCutting)
         {
-            Debug.Log("Zero Wood to cut");
             StopCoroutine(CuttingWoodCoroutine);
 
             _currentTime = 5f;
@@ -56,11 +48,11 @@ public class CircularSawController : MonoBehaviour
 
     public void CutWood()
     {
-        Debug.Log("CircularStarted");
-
-        if (WoodSlot.Quantity >= 0 && !isCutting)
+        if (WoodSlot.Quantity > 0 && !isCutting)
         {
             CuttingWoodCoroutine = StartCoroutine(CuttingWood());
+
+            SoundsController.Instance.PlayBuilds(0, transform.position);
         }
     }
 
@@ -70,7 +62,6 @@ public class CircularSawController : MonoBehaviour
 
         while (_currentTime != 0f)
         {
-            Debug.Log("Cutting");
             yield return new WaitForSeconds(_cutSpeed);
 
             _currentTime -= 1f;

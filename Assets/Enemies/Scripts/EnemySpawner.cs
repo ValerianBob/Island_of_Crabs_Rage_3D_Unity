@@ -20,8 +20,6 @@ public class EnemySpawner : MonoBehaviour
 
     private int _spawnPotrolDelay = 10;
 
-    public int AmoutOfCrabsToSpawn = 10;
-
     public int CurentTime;
 
     private void Start()
@@ -35,6 +33,8 @@ public class EnemySpawner : MonoBehaviour
 
         SpawnEnemies();
         SpawnPotrolEnemies();
+
+        Debug.Log(_PotrolEnemiesCount);
     }
 
     private void SpawnEnemies()

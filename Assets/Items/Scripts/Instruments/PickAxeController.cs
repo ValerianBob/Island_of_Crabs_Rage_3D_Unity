@@ -33,13 +33,9 @@ public class PickAxeController : MonoBehaviour
         {
             if (Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.CompareTag("Ore"))
             {
-                Debug.Log($"Pick Axe hitted : {_hit.collider.gameObject.name}");
-
                 _hitCoroutine = StartCoroutine(Delay(_hit));
             }
         }
-
-        Debug.DrawRay(_ray.origin, _ray.direction * RayDistance, Color.red);
     }
 
     private void Hit(RaycastHit hit)
@@ -53,7 +49,6 @@ public class PickAxeController : MonoBehaviour
             OreController oreController = parent.GetComponent<OreController>();
             if (oreController != null)
             {
-                Debug.Log($"Ore found: {parent.name}");
                 oreController.FarmOre(QuntityToEarn);
 
                 ParticleSystem tempStoneDebris = Instantiate(StoneDebris, _hit.point, StoneDebris.transform.rotation);
@@ -69,12 +64,10 @@ public class PickAxeController : MonoBehaviour
 
         if (parent == null)
         {
-            Debug.LogWarning("Ore parent not found!");
             return;
         }
         else
         {
-            Debug.Log($"This ore : {parent}");
         }
     }
 

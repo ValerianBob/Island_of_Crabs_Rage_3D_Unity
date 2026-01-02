@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - Gun
   - Environment
+  - Water
   layers:
   - Default
   - TransparentFX

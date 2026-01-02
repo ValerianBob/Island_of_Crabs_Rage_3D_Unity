@@ -34,8 +34,6 @@ public class AxeController : MonoBehaviour
                 _hitCoroutine = StartCoroutine(Delay());
             }
         }
-
-        Debug.DrawRay(_ray.origin, _ray.direction * RayDistance, Color.red);
     }
 
     private void Hit()
@@ -49,7 +47,6 @@ public class AxeController : MonoBehaviour
             PalmaController palmController = parent.GetComponent<PalmaController>();
             if (palmController != null)
             {
-                Debug.Log($"Palm found: {parent.name}");
                 palmController.FarmWood(QuntityToEarn);
 
                 ParticleSystem tempWoodDebris = Instantiate(WoodDebris, _hit.point, WoodDebris.transform.rotation);
@@ -65,12 +62,10 @@ public class AxeController : MonoBehaviour
 
         if (parent == null)
         {
-            Debug.LogWarning("Palm parent not found!");
             return;
         }
         else
         {
-            Debug.Log($"This palm : {parent}");
         }
     }
 

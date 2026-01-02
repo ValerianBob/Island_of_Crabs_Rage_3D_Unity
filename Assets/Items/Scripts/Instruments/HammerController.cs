@@ -264,17 +264,14 @@ public class HammerController : MonoBehaviour
 
             if (_inventoryController.Slots[i].Item.ItemName == "Wood")
             {
-                Debug.Log("I am fiding wood");
                 availableWoods += _inventoryController.Slots[i].Quantity;
             }
             else if (_inventoryController.Slots[i].Item.ItemName == "Stone")
             {
-                Debug.Log("I am fiding stone");
                 availableStones += _inventoryController.Slots[i].Quantity;
             }
             else if (_inventoryController.Slots[i].Item.ItemName == "Iron")
             {
-                Debug.Log("I am fiding Iron");
                 availableIrons += _inventoryController.Slots[i].Quantity;
             }
         }
@@ -282,10 +279,6 @@ public class HammerController : MonoBehaviour
         if (availableWoods < remainingWoods || availableStones < remainingStones || availableIrons < remainingIrons)
         {
             Notifications.Instance.CreateNotification("Not enough resources", Color.red);
-            Debug.Log($"Need Woods : {remainingWoods - availableWoods}, " +
-                $"Stones : {remainingStones - availableStones}, " +
-                $"Irons : {remainingIrons - availableIrons}");
-
             return;
         }
 

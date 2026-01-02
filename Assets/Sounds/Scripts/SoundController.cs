@@ -13,6 +13,7 @@ public class SoundsController : MonoBehaviour
     public AudioClip[] Environment;
     public AudioClip[] Inventory;
     public AudioClip[] Player;
+    public AudioClip[] Builds;
     public AudioClip[] Menu;
     public AudioClip[] Musics;
 
@@ -101,6 +102,11 @@ public class SoundsController : MonoBehaviour
     public void PlayPlayer(int index, Vector3 soundPosition)
     {
         AudioSource.PlayClipAtPoint(Player[index], soundPosition, currentVolume);
+    }
+
+    public void PlayBuilds(int index, Vector3 soundPosition)
+    {
+        AudioSource.PlayClipAtPoint(Builds[index], soundPosition, currentVolume);
     }
 
     public void PlayMenu(int index, Vector3 soundPosition)

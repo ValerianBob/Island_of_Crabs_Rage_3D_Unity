@@ -66,8 +66,6 @@ public class InteractionController : MonoBehaviour
         }
 
         ShowOrHideInteractionInfoText();
-
-        //Debug.DrawRay(_ray.origin, _ray.direction * RayDistance, Color.black);
     }
 
     private void TakeItem()
@@ -93,7 +91,6 @@ public class InteractionController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Can't take this item with strange type");
             }
 
             if (TryPickUp)
@@ -133,6 +130,8 @@ public class InteractionController : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             currentWaterCollection.DrinkWater(GetComponent<PlayerConditionController>(), 10);
+
+            SoundsController.Instance.PlayPlayer(1, transform.position);
         }
     }
 

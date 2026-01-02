@@ -29,7 +29,6 @@ public class SwordController : MonoBehaviour
 
         if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, _rayDistance))
         {
-
             var enemy = _hit.collider.GetComponentInParent<EnemyController>();
 
             if (enemy != null && Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.gameObject.CompareTag("Enemy"))
@@ -37,8 +36,6 @@ public class SwordController : MonoBehaviour
                 _hitCoroutine = StartCoroutine(Delay(_hit));
             }
         }
-
-        Debug.DrawRay(_ray.origin, _ray.direction * _rayDistance, Color.gray);
     }
 
     private void Hit(RaycastHit hit)

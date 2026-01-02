@@ -46,6 +46,8 @@ public class ShipFixerBenchController : MonoBehaviour
             UIManager.Instance.RecourcesShipFixer.QuantityText.text = "0";
 
             ShipController.UpdateShipConditionUI();
+
+            SoundsController.Instance.PlayBuilds(1, transform.position);
         }
         else
         {

@@ -9,7 +9,6 @@ public class PlayerMovement : NetworkBehaviour
     public Camera PlayerCamera;
 
     public float MovementSpeed;
-    //public float RunningSpeed;
 
     public float Sensitivity;
 
@@ -35,11 +34,12 @@ public class PlayerMovement : NetworkBehaviour
     private Vector2 _mouseRotation;
 
     public bool isGrounded = false;
-    //public bool isRunning = false;
 
     private bool _stopMovement = false;
 
     private bool _isDead = false;
+
+    private int _footStepsSoundIndex = 0;
 
     private void Start()
     {
@@ -93,22 +93,15 @@ public class PlayerMovement : NetworkBehaviour
                     _velocity.y = Mathf.Sqrt(JumpHeigh * -_gravity);
                 }
             }
+        }
 
-            //if (Keyboard.current.leftShiftKey.isPressed && _characterController.isGrounded && !isRunning)
-            //{
-            //    MovementSpeed += RunningSpeed;
-            //    isRunning = true;
-            //}
-            //else if (_characterController.isGrounded && isRunning)
-            //{
-            //    MovementSpeed -= RunningSpeed;
-            //    isRunning = false;
-            //}
-            //else if (!isGrounded && isRunning)
-            //{
-            //    MovementSpeed -= RunningSpeed;
-            //    isRunning = false;
-            //}
+        if (isWalking && isGrounded)
+        {
+            SoundsController.Instance.PlayFootstep(_footStepsSoundIndex, true, 1);
+        }
+        else
+        {
+            SoundsController.Instance.StopFootstep();
         }
     }
 
@@ -191,5 +184,21 @@ public class PlayerMovement : NetworkBehaviour
     private void SetAlive()
     {
         _isDead = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Water"))
+        {
+            _footStepsSoundIndex = 2;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Water"))
+        {
+            _footStepsSoundIndex = 0;
+        }
     }
 }

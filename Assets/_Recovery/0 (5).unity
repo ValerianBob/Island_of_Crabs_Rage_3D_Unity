@@ -10479,6 +10479,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267035568}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &269723983
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3811279908391819451, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_Name
+      value: CrabLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 127.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 138.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293240025180816114, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
 --- !u!4 &271049181 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e152f39663438b140820393769840f0d, type: 3}
@@ -65992,7 +66049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   CrabsPrefabs:
-  - {fileID: 4428410211896128397, guid: 7662b3b4784cc3348aed1605559f9aeb, type: 3}
+  - {fileID: 3129362853969364653, guid: f68b9fb9cf96a794ab53b9717f2f0be3, type: 3}
   - {fileID: 3811279908391819451, guid: f7825de595e92804cb3f1076922cbe20, type: 3}
   SpawnPoints:
   - {fileID: 1343057165}
@@ -75946,3 +76003,4 @@ SceneRoots:
   - {fileID: 998578470}
   - {fileID: 282621035}
   - {fileID: 855242933}
+  - {fileID: 269723983}

@@ -222,7 +222,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkRight
-  m_Speed: 1.6
+  m_Speed: 1.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4620980672324022867}
@@ -460,7 +460,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkingForward
-  m_Speed: 1.6
+  m_Speed: 1.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3937409202880771903}
@@ -912,7 +912,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkBack
-  m_Speed: 1.6
+  m_Speed: 1.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 8336679789782594496}
@@ -942,7 +942,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkLeft
-  m_Speed: 1.6
+  m_Speed: 1.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2742809497730497774}

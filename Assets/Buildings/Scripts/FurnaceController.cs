@@ -135,6 +135,8 @@ public class FurnaceController : MonoBehaviour
             IronToSpawn = 0;
 
             _currentTime = 10;
+
+            SoundsController.Instance.PlayBuilds(2, DropPoint.transform.position);
         }
     }
 }

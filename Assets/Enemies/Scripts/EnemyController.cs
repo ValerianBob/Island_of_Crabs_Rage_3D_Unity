@@ -1,6 +1,7 @@
 using System;
-using UnityEngine;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
@@ -8,6 +9,8 @@ public class EnemyController : MonoBehaviour
     public EnemyConfig EnemyConfig;
 
     [SerializeField] private GameObject Player;
+
+    [SerializeField] private Animator _animator;
 
     public Transform[] PatrolPoints;
 
@@ -31,6 +34,15 @@ public class EnemyController : MonoBehaviour
 
     private bool isPotroling = false;
 
+    private float speedToChangeAnimation = 0f;
+
+    private bool _isDead = false;
+
+    //Die settings :
+    private BoxCollider _boxCollider;
+    [SerializeField] private GameObject[] CrabsParts;
+    [SerializeField] private GameObject[] Colliders;
+
     private void Start()
     {
         Player = GameObject.Find("Player");
@@ -39,6 +51,8 @@ public class EnemyController : MonoBehaviour
 
         _agent.speed = EnemyConfig.Speed;
         CurrentHealth = EnemyConfig.MaxHealth;
+
+        _boxCollider = GetComponent<BoxCollider>();
 
         if (EnemyConfig.Potroller)
         {
@@ -49,17 +63,61 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        ChooseTarget();
-
-        if (CurrentHealth <= 0)
+        if (!_isDead)
         {
+            speedToChangeAnimation = _agent.velocity.magnitude;
+
+            _animator.SetFloat("Speed", speedToChangeAnimation);
+
+            ChooseTarget();
+        }
+
+        if (CurrentHealth <= 0 && !_isDead)
+        {
+            _isDead = true;
+
             if (EnemyConfig.Potroller)
             {
                 OnCrabDied?.Invoke();
+
+                StopCoroutine(Potrol);
+                Potrol = null;
+                isPotroling = false;
             }
 
-            Destroy(gameObject);
+            _boxCollider.enabled = false;
+            _animator.enabled = false;
+
+            foreach (var part in CrabsParts)
+            {
+                Rigidbody rb = part.GetComponent<Rigidbody>();
+                ClearCrabsParts ccp = part.GetComponent<ClearCrabsParts>();
+                
+                if (rb != null)
+                {
+                    rb.isKinematic = false;
+                }
+                if (ccp != null)
+                {
+                    ccp.enabled = true;
+                }
+            }
+            foreach (var collider in Colliders)
+            {
+                CapsuleCollider cc = collider.GetComponent<CapsuleCollider>();
+                if (cc != null)
+                {
+                    cc.isTrigger = false;
+                }
+            }
+
+            Invoke("DeleteCrab", 15);
         }
+    }
+
+    private void DeleteCrab()
+    {
+        Destroy(gameObject);
     }
 
     private void ChooseTarget()
@@ -143,6 +201,8 @@ public class EnemyController : MonoBehaviour
                 {
                     Player.GetComponent<PlayerConditionController>().ChangeHealth(10, true);
                 }
+
+                _animator.SetTrigger("Attack");
 
                 NextTime = Time.time + EnemyConfig.AttackRate;
             }
