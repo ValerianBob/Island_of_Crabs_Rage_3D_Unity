@@ -1,11 +1,8 @@
 using UnityEngine;
 
-public class ItemController : MonoBehaviour
+public class ClearSteak : MonoBehaviour
 {
-    public ItemData ItemData;
-    public int Quantity;
-
-    private void Update()
+    void Update()
     {
         if (transform.position.y < -10)
         {

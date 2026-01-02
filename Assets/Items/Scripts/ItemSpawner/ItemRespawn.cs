@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class ItemRespawn : MonoBehaviour
@@ -16,7 +15,10 @@ public class ItemRespawn : MonoBehaviour
 
     private void OnDestroy()
     {
-        Spawner.StartCoroutine(Spawner.Respawn(prefab, spawnPoint));
+        if (Spawner != null)
+        {
+            Spawner.StartCoroutine(Spawner.Respawn(prefab, spawnPoint));
+        }
     }
 
     public void SetSpawner(ItemsSpawner itemSpawner)
