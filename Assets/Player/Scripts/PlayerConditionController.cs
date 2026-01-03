@@ -53,11 +53,10 @@ public class PlayerConditionController : MonoBehaviour
             if (Hunger == 0)
             {
                 ChangeHealth(1, true);
-
-                if (Thirs == 0)
-                {
-                    ChangeHealth(1, true);
-                }
+            }
+            if (Thirs == 0)
+            {
+                ChangeHealth(1, true);
             }
         }
 
