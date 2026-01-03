@@ -10,6 +10,8 @@ public class SwordController : MonoBehaviour
 
     [SerializeField] private LayerMask LayerMaskWater;
 
+    [SerializeField] private InventoryController _inventoryController;
+
     public int damage;
 
     private Ray _ray;
@@ -33,7 +35,8 @@ public class SwordController : MonoBehaviour
         {
             var enemy = _hit.collider.GetComponentInParent<EnemyController>();
 
-            if (enemy != null && Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.gameObject.CompareTag("Enemy"))
+            if (enemy != null && Mouse.current.leftButton.wasPressedThisFrame && 
+                _canAttack && _hit.collider.gameObject.CompareTag("Enemy") && !_inventoryController.isOpened)
             {
                 _hitCoroutine = StartCoroutine(Delay(_hit));
             }

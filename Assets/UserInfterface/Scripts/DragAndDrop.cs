@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
@@ -183,5 +181,12 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
             SoundsController.Instance.PlayInventory(0, inventoryController.transform.position);
         }
+    }
+
+    public void CancelDrag()
+    {
+        _canvasGroup.alpha = 1f;
+        _canvasGroup.blocksRaycasts = true;
+        rectTransform.anchoredPosition = startPosioion;
     }
 }

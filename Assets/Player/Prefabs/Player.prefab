@@ -1499,6 +1499,7 @@ MonoBehaviour:
   LayerMaskWater:
     serializedVersion: 2
     m_Bits: 47
+  _inventoryController: {fileID: 307020497993873410}
   damage: 10
 --- !u!1001 &123906440355418598
 PrefabInstance:
@@ -2268,6 +2269,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   StoneDebris: {fileID: 1577046020369520319, guid: 5d5d847761727614aab0f5118d7ec3d2, type: 3}
+  _inventoryController: {fileID: 307020497993873410}
   RayDistance: 4
   QuntityToEarn: 10
   AttackDelay: 0.6
@@ -2522,6 +2524,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   StoneDebris: {fileID: 1577046020369520319, guid: 5d5d847761727614aab0f5118d7ec3d2, type: 3}
+  _inventoryController: {fileID: 307020497993873410}
   RayDistance: 4
   QuntityToEarn: 20
   AttackDelay: 0.6
@@ -2774,6 +2777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AxeController
   PlayerCamera: {fileID: 2944028535577751238}
   WoodDebris: {fileID: 3968860714874028593, guid: 39d941d191e7f0841a23ea695589898d, type: 3}
+  _inventoryController: {fileID: 307020497993873410}
   RayDistance: 4
   QuntityToEarn: 10
   AttackDelay: 0.4
@@ -2951,6 +2955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AxeController
   PlayerCamera: {fileID: 2944028535577751238}
   WoodDebris: {fileID: 3968860714874028593, guid: 39d941d191e7f0841a23ea695589898d, type: 3}
+  _inventoryController: {fileID: 307020497993873410}
   RayDistance: 4
   QuntityToEarn: 20
   AttackDelay: 0.4
@@ -3052,6 +3057,7 @@ MonoBehaviour:
   LayerMaskWater:
     serializedVersion: 2
     m_Bits: 47
+  _inventoryController: {fileID: 307020497993873410}
   damage: 30
 --- !u!4 &7511660488264603986 stripped
 Transform:

@@ -33,15 +33,12 @@ public class PlayerConditionController : MonoBehaviour
 
     private bool _isDead = false;
 
-    private void Start()
+    private void Update()
     {
         HelathBar.value = Health;
         HungerBar.value = Hunger;
         ThirstBar.value = Thirs;
-    }
 
-    private void Update()
-    {
         if (Time.time > NextTimeGetSustenance)
         {
             NextTimeGetSustenance = Time.time + GettingSustenanceSpeed;
@@ -91,8 +88,6 @@ public class PlayerConditionController : MonoBehaviour
                 Health = _maxConditions;
             }
         }
-
-        HelathBar.value = Health;
     }
 
     private void GettingHungerAndThirsty(int number)
@@ -120,9 +115,6 @@ public class PlayerConditionController : MonoBehaviour
         {
             Thirs = _maxConditions;
         }
-
-        HungerBar.value = Hunger;
-        ThirstBar.value = Thirs;
     }
 
     public void AddWater(int number)
@@ -132,8 +124,6 @@ public class PlayerConditionController : MonoBehaviour
         {
             Thirs = _maxConditions;
         }
-
-        ThirstBar.value = Thirs;
     }
 
     private IEnumerator RespawnCount()
@@ -156,10 +146,6 @@ public class PlayerConditionController : MonoBehaviour
         Hunger = 50;
         Thirs = 50;
 
-        HelathBar.value = Health;
-        HungerBar.value = Hunger;
-        ThirstBar.value = Thirs;
-
         _isDead = false;
 
         Respawn?.Invoke();
@@ -168,6 +154,5 @@ public class PlayerConditionController : MonoBehaviour
     public void ChangeHunger(int number)
     {
         Hunger += number;
-        HungerBar.value = Hunger;
     }
 }

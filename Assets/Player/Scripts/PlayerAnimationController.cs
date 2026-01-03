@@ -53,7 +53,7 @@ public class PlayerAnimationController : MonoBehaviour
 
         if (!_isDead)
         {
-            if (_inventoryController._selectedItemInHotKeysIndex >= 0)
+            if (_inventoryController._selectedItemInHotKeysIndex >= 0 && !_inventoryController.isOpened)
             {
                 PlayeMeleeAttack();
             }

@@ -10,6 +10,8 @@ public class PickAxeController : MonoBehaviour
 
     [SerializeField] private ParticleSystem StoneDebris;
 
+    [SerializeField] private InventoryController _inventoryController;
+
     private Ray _ray;
 
     private RaycastHit _hit;
@@ -31,7 +33,7 @@ public class PickAxeController : MonoBehaviour
 
         if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, RayDistance, LayerMask))
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.CompareTag("Ore"))
+            if (Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.CompareTag("Ore") && !_inventoryController.isOpened)
             {
                 _hitCoroutine = StartCoroutine(Delay(_hit));
             }

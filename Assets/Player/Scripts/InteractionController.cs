@@ -185,8 +185,8 @@ public class InteractionController : MonoBehaviour
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            _playerConditionController.ChangeHealth(5, false);
-            _playerConditionController.ChangeHunger(5);
+            _playerConditionController.ChangeHealth(10, false);
+            _playerConditionController.ChangeHunger(10);
 
             Destroy(currentSteak);
 

@@ -37,7 +37,7 @@ public class MusketController : MonoBehaviour
 
         if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, rayDistance, LayerMaskWater))
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && Time.time > _NextTime)
+            if (Mouse.current.leftButton.wasPressedThisFrame && Time.time > _NextTime && !_inventoryController.isOpened)
             {
                 _NextTime = Time.time + _fireRate;
 

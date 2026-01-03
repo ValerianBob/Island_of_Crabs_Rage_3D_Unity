@@ -7,7 +7,9 @@ public class AxeController : MonoBehaviour
     [SerializeField] private Camera PlayerCamera;
 
     [SerializeField] private ParticleSystem WoodDebris;
-    
+
+    [SerializeField] private InventoryController _inventoryController;
+
     private Ray _ray;
 
     private RaycastHit _hit;
@@ -29,7 +31,7 @@ public class AxeController : MonoBehaviour
 
         if (Physics.Raycast(_ray.origin, _ray.direction, out _hit, RayDistance))
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.CompareTag("Palma"))
+            if (Mouse.current.leftButton.wasPressedThisFrame && _canAttack && _hit.collider.CompareTag("Palma") && !_inventoryController.isOpened)
             {
                 _hitCoroutine = StartCoroutine(Delay());
             }

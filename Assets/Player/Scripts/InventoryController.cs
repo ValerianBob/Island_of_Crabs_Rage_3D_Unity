@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -988,6 +988,12 @@ public class InventoryController : MonoBehaviour
         if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
             isOpened = !isOpened;
+
+            if (!isOpened)
+            {
+                CancelAllDrags();
+            }
+
             Inventory.SetActive(isOpened);
             CraftUI.SetActive(isOpened);
             FurnaceUI.SetActive(!isOpened);
@@ -1006,6 +1012,11 @@ public class InventoryController : MonoBehaviour
     public void ToggleFromFurnace(FurnaceController currentFurnace)
     {
         isOpened = !isOpened;
+
+        if (!isOpened)
+        {
+            CancelAllDrags();
+        }
 
         _currentFurnace = null;
 
@@ -1031,6 +1042,11 @@ public class InventoryController : MonoBehaviour
     {
         isOpened = !isOpened;
 
+        if (!isOpened)
+        {
+            CancelAllDrags();
+        }
+
         if (currentCircular != null)
         {
             ReloadCircularSawUI(currentCircular);
@@ -1054,6 +1070,11 @@ public class InventoryController : MonoBehaviour
     public void ToggleFromShipFixer(ShipFixerBenchController currentShipFixer)
     {
         isOpened = !isOpened;
+
+        if (!isOpened)
+        {
+            CancelAllDrags();
+        }
 
         if (currentShipFixer != null)
         {
@@ -1112,6 +1133,29 @@ public class InventoryController : MonoBehaviour
                 Slots[i].Item = null;
                 Slots[i].Quantity = 0;
                 Slots[i].QuantityText.text = "0";
+            }
+        }
+    }
+
+    private void CancelAllDrags()
+    {
+        foreach (var slot in Slots)
+        {
+            var drag = slot.ItemIcon.GetComponent<DragAndDrop>();
+            if (drag != null)
+            {
+                drag.CancelDrag();
+                Debug.Log(drag.gameObject.name);
+            }
+        }
+
+        foreach (var slot in HotKeysSlots)
+        {
+            var drag = slot.ItemIcon.GetComponent<DragAndDrop>();
+            if (drag != null)
+            {
+                //drag.CancelDrag();
+                Debug.Log(drag.gameObject.name);
             }
         }
     }
